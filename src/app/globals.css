@@ -1,26 +1,58 @@
+/* ── Pretendard 폰트 CDN (모든 @import보다 먼저) ── */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
 @import "tailwindcss";
 
+/* ══════════════════════════════════════════
+   Soo Art & Company  —  Design System
+   based on master-design.md
+   ══════════════════════════════════════════ */
+
+/* ── CSS Custom Properties (Light) ── */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --background-subtle: #f8f9fa;
+  --foreground: #1a1a1b;
 }
 
+/* ── Tailwind v4 Theme Tokens ── */
 @theme inline {
+  /* Typography */
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system,
+    BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
+
+  /* ── Primary (Action) ── */
+  --color-primary: #ff6b35;
+  --color-primary-light: #ff8c5e;
+  --color-primary-dark: #e5561f;
+
+  /* ── Secondary (Trust) ── */
+  --color-secondary: #1a1a1b;
+  --color-secondary-light: #2d2d2e;
+
+  /* ── Accent (Elegant) ── */
+  --color-accent: #f4f1ea;
+  --color-accent-dark: #e8e3d8;
+
+  /* ── Background ── */
   --color-background: var(--background);
+  --color-background-subtle: var(--background-subtle);
+
+  /* ── Foreground ── */
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* ── Status ── */
+  --color-success: #059669;
+  --color-error: #dc2626;
+  --color-info: #2563eb;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ── Base Styles ── */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard Variable", "Pretendard", -apple-system,
+    BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
