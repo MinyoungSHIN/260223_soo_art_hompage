@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function HeroSection() {
   return (
     <section className="relative flex h-screen w-full items-center justify-center overflow-hidden">
@@ -16,10 +18,10 @@ export default function HeroSection() {
         */}
       </video>
 
-      {/* ── 영상 로드 전 Placeholder 그라데이션 ── */}
+      {/* ── Placeholder 그라데이션 ── */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-secondary" />
 
-      {/* ── Poster 이미지 (영상 대체) ── */}
+      {/* ── Poster 이미지 ── */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -29,34 +31,37 @@ export default function HeroSection() {
       />
 
       {/* ── 오버레이 ── */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/50" />
 
       {/* ── 콘텐츠 ── */}
-      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
         <p className="mb-4 text-sm font-medium uppercase tracking-widest text-white/80 md:text-base">
           Soo Art &amp; Company
         </p>
+
         <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
-          예술로 세상을
+          목소리로 <span className="text-primary">가치</span>를 만드는
           <br />
-          <span className="text-primary">감동</span>시키다
+          Total Voice Solution 기업
         </h1>
+
         <p className="mx-auto mt-6 max-w-2xl text-base font-medium leading-relaxed text-white/90 md:text-lg">
-          성악, 합창, 공연 기획까지 — 수아트앤컴퍼니가 만드는 압도적인 무대를
-          경험하세요.
+          클래식·뮤지컬 전문 공연단체, 합창단 운영, 프리미엄 성악 레슨까지 —
+          수아트앤컴퍼니의 무대를 경험하세요.
         </p>
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+
+        <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <Link
+            href="/contact"
+            className="rounded-xl bg-primary px-10 py-4 text-lg font-bold text-white shadow-lg transition-all hover:bg-primary-dark hover:shadow-xl"
+          >
+            상담 신청
+          </Link>
           <a
-            href="#services"
-            className="rounded-xl bg-primary px-8 py-4 text-base font-bold text-white shadow-lg transition-all hover:bg-primary-dark hover:shadow-xl"
+            href="#problem"
+            className="rounded-xl border-2 border-white/30 px-10 py-4 text-lg font-bold text-white backdrop-blur-sm transition-all hover:border-white hover:bg-white/10"
           >
             서비스 알아보기
-          </a>
-          <a
-            href="#contact"
-            className="rounded-xl border-2 border-white/30 px-8 py-4 text-base font-bold text-white backdrop-blur-sm transition-all hover:border-white hover:bg-white/10"
-          >
-            문의하기
           </a>
         </div>
       </div>

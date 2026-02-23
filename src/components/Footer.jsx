@@ -1,27 +1,28 @@
 import Image from "next/image";
-import logo from "@/app/FullLogo.png";
+import logo from "@/app/FullLogo_NoBuffer.webp";
 
 const footerLinks = [
   {
     title: "서비스",
     links: [
-      { label: "수아트 콰이어", href: "#services" },
-      { label: "프리미엄 1:1 레슨", href: "#services" },
-      { label: "B2BG 비즈니스", href: "#services" },
+      { label: "수아트 콰이어", href: "/services/choir" },
+      { label: "프리미엄 1:1 레슨", href: "/services/lesson" },
+      { label: "B2BG 비즈니스", href: "/services/b2bg" },
     ],
   },
   {
     title: "회사",
     links: [
-      { label: "포트폴리오", href: "#portfolio" },
-      { label: "문의하기", href: "#contact" },
+      { label: "회사소개", href: "/about" },
+      { label: "포트폴리오", href: "/portfolio" },
+      { label: "문의하기", href: "/contact" },
     ],
   },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-[#111112] pt-16 pb-8">
+    <footer data-header-theme="dark" className="bg-[#111112] pt-16 pb-8">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-3">
           {/* ── 로고 & 설명 ── */}

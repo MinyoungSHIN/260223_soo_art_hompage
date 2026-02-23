@@ -17,7 +17,7 @@ const portfolioItems = [
   },
   {
     id: 3,
-    title: "기업 문화행사 총괄",
+    title: "경기도 합창 안무 컨설팅",
     category: "B2BG",
     image:
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop&q=80",
@@ -58,7 +58,7 @@ export default function PortfolioSection() {
             함께 만든 무대
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-secondary/60">
-            연주회 실적부터 기업 행사까지, 수아트앤컴퍼니의 레퍼런스를
+            클래식·뮤지컬 공연부터 합창 컨설팅까지, 수아트앤컴퍼니의 레퍼런스를
             확인하세요.
           </p>
         </div>
