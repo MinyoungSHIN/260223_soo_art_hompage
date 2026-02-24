@@ -40,14 +40,14 @@ export default function HeroSection() {
         </p>
 
         <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
-          목소리로 <span className="text-primary">가치</span>를 만드는
-          <br />
-          Total Voice Solution 기업
+          <span style={{ fontFamily: "'Cormorant Garamond', serif" }}>Music</span>{" "}
+          <span className="text-primary italic" style={{ fontFamily: "'Playfair Display', serif" }}>Makes</span>{" "}
+          <span style={{ fontFamily: "'Cormorant Garamond', serif" }}>Us</span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-2xl text-base font-medium leading-relaxed text-white/90 md:text-lg">
-          클래식·뮤지컬 전문 공연단체, 합창단 운영, 프리미엄 성악 레슨까지 —
-          수아트앤컴퍼니의 무대를 경험하세요.
+        <p className="mx-auto mt-6 max-w-2xl text-base font-medium leading-relaxed text-white/90 md:text-xl">
+          클래식·뮤지컬 전문 공연, 프리미엄 1:1 Voice 레슨까지 
+          <br /> 수아트앤컴퍼니의 무대를 경험하세요.
         </p>
 
         <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">

@@ -1,5 +1,6 @@
 /* ── Pretendard 폰트 CDN (모든 @import보다 먼저) ── */
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Cormorant+Garamond:wght@600;700&display=swap");
 
 @import "tailwindcss";
 
