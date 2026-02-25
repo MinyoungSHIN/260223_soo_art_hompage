@@ -28,14 +28,25 @@ export default function Header() {
   const [mobileServiceOpen, setMobileServiceOpen] = useState(false);
   const closeTimer = useRef(null);
 
+  // Home / 로고 클릭 시 스크롤을 맨 위로 올려 동영상부터 재생
+  const handleHomeClick = (e) => {
+    // 현재 페이지가 홈(/)이면 기본 라우팅 대신 스크롤만 이동
+    if (window.location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
 
     const darkSections = document.querySelectorAll("[data-header-theme='dark']");
+    const darkMap = new Map();
     const observer = new IntersectionObserver(
       (entries) => {
-        const isAnyDark = entries.some((e) => e.isIntersecting);
+        entries.forEach((e) => darkMap.set(e.target, e.isIntersecting));
+        const isAnyDark = [...darkMap.values()].some(Boolean);
         setOnDarkSection(isAnyDark);
       },
       { rootMargin: "-0px 0px -95% 0px" }
@@ -77,7 +88,7 @@ export default function Header() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
         {/* ── 왼쪽: 로고 + 상호명 ── */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0" onClick={handleHomeClick}>
           <div className="relative h-10 w-10">
             <Image
               src={logo}
@@ -162,6 +173,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={link.href === "/" ? handleHomeClick : undefined}
                 className={`text-base font-medium transition-colors duration-500 hover:text-primary ${textColor}`}
               >
                 {link.label}
@@ -272,7 +284,10 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => {
+                  setMobileOpen(false);
+                  if (link.href === "/") handleHomeClick(e);
+                }}
                 className="rounded-lg px-4 py-3 text-base font-medium text-secondary transition-colors hover:bg-accent"
               >
                 {link.label}
