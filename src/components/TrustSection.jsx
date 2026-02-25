@@ -30,9 +30,10 @@ export default function TrustSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-white shadow-sm backdrop-blur-sm">
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Trusted Partners
-          </p>
+          </span>
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
             공인기관이 선택한
             <br />
@@ -64,7 +65,7 @@ export default function TrustSection() {
             {partners.map((p) => (
               <div
                 key={p.name}
-                className="flex h-24 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:bg-white/10"
+                className="flex h-24 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:bg-white/10"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

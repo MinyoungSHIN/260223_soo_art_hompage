@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -125,7 +127,7 @@ export default function PortfolioPage() {
             {portfolioItems.map((item) => (
               <article
                 key={item.id}
-                className="group overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
+                className="group overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
               >
                 {/* 이미지 */}
                 <div className="relative h-56 overflow-hidden">
@@ -172,7 +174,10 @@ export default function PortfolioPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-xl bg-primary px-8 py-4 text-base font-bold text-white transition-colors hover:bg-primary-dark"
+            className="mt-8 inline-block rounded-xl bg-primary px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1"
+            style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,107,53,0.5)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,107,53,0.3)"; }}
           >
             문의하기
           </Link>

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -78,7 +80,7 @@ export default function ChoirPage() {
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-primary">
             Service 01 · Soo Art Choir
           </p>
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
+          <h1 className="text-4xl font-bold leading-relaxed tracking-tight text-white md:text-6xl lg:text-7xl">
             다시 뜨거워질 당신의 무대,
             <br />
             <span className="text-primary">함께하는 화음</span>으로 완성됩니다.
@@ -90,13 +92,19 @@ export default function ChoirPage() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/contact"
-              className="rounded-xl bg-primary px-8 py-4 text-base font-bold text-white transition-colors hover:bg-primary-dark"
+              className="rounded-xl border-2 border-transparent bg-primary px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1"
+              style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,107,53,0.5)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,107,53,0.3)"; }}
             >
               단원 신청하기
             </Link>
             <a
               href="#curriculum"
-              className="rounded-xl border border-white/30 px-8 py-4 text-base font-bold text-white transition-colors hover:bg-white/10"
+              className="rounded-xl border-2 border-white/30 px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1"
+              style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.2)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.1)"; }}
             >
               커리큘럼 보기
             </a>
@@ -177,7 +185,7 @@ export default function ChoirPage() {
             {curriculum.map((item) => (
               <div
                 key={item.step}
-                className="rounded-xl bg-background-subtle p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
+                className="rounded-xl bg-background-subtle p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
               >
                 <span className="text-4xl font-bold text-primary/20">{item.step}</span>
                 <h3 className="mt-4 mb-3 text-lg font-bold tracking-tight text-secondary">
@@ -311,7 +319,10 @@ export default function ChoirPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-colors hover:bg-white/90"
+            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1"
+            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.45)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.25)"; }}
           >
             단원 신청하기
           </Link>

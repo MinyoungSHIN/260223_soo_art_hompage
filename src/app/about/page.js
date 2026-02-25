@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -182,7 +184,10 @@ export default function AboutPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-colors hover:bg-white/90"
+            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1"
+            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.45)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.25)"; }}
           >
             문의하기
           </Link>

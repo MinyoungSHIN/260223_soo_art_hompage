@@ -51,9 +51,10 @@ export default function PortfolioSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mb-16 text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Portfolio
-          </p>
+          </span>
           <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
             함께 만든 무대
           </h2>
@@ -68,7 +69,7 @@ export default function PortfolioSection() {
           {portfolioItems.map((item) => (
             <article
               key={item.id}
-              className="group relative overflow-hidden rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
+              className="group relative overflow-hidden rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
             >
               <div className="relative h-64">
                 <Image
@@ -78,8 +79,8 @@ export default function PortfolioSection() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* ── 호버 오버레이 ── */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <div className="absolute inset-0 flex flex-col items-start justify-end p-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="absolute inset-0 flex flex-col items-start justify-end p-6 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                   <span className="mb-1 rounded-full bg-primary/90 px-3 py-1 text-xs font-bold text-white">
                     {item.category}
                   </span>

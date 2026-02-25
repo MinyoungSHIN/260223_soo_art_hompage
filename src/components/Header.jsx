@@ -83,7 +83,7 @@ export default function Header() {
               src={logo}
               alt="Soo Art & Company"
               fill
-              className={`object-contain transition-all duration-300 ${
+              className={`object-contain transition-all duration-500 ${
                 onDarkSection
                   ? "brightness-0 invert"
                   : scrolled
@@ -94,7 +94,7 @@ export default function Header() {
             />
           </div>
           <span
-            className={`text-lg font-bold tracking-wider transition-colors duration-300 ${textColor}`}
+            className={`text-lg font-bold tracking-wider transition-colors duration-500 ${textColor}`}
           >
             수아트앤컴퍼니
           </span>
@@ -112,21 +112,21 @@ export default function Header() {
                 onMouseLeave={handleMouseLeave}
               >
                 <button
-                  className={`text-base font-medium transition-colors duration-300 hover:text-primary ${textColor}`}
+                  className={`text-base font-medium transition-colors duration-500 hover:text-primary ${textColor}`}
                 >
                   {link.label}
                 </button>
 
                 {/* ── 드롭다운 패널 (글라스모피즘 + 순차 애니메이션) ── */}
                 <div
-                  className={`absolute -left-4 top-full pt-3 transition-all duration-300 ${
+                  className={`absolute -left-4 top-full pt-3 transition-all duration-500 ${
                     serviceOpen
                       ? "visible opacity-100 translate-y-0"
                       : "invisible opacity-0 -translate-y-2"
                   }`}
                 >
                   <div
-                    className={`w-52 overflow-hidden rounded-xl border py-1.5 backdrop-blur-2xl transition-colors duration-300 ${
+                    className={`w-52 overflow-hidden rounded-xl border py-1.5 backdrop-blur-2xl transition-colors duration-500 ${
                       scrolled && !onDarkSection
                         ? "border-black/8 bg-white/70"
                         : "border-white/15 bg-black/40"
@@ -162,7 +162,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-base font-medium transition-colors duration-300 hover:text-primary ${textColor}`}
+                className={`text-base font-medium transition-colors duration-500 hover:text-primary ${textColor}`}
               >
                 {link.label}
               </Link>
@@ -174,7 +174,10 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <Link
             href="/contact"
-            className="hidden rounded-xl bg-primary px-5 py-1.5 text-base font-bold text-white transition-colors hover:bg-primary-dark md:inline-block"
+            className="hidden rounded-xl bg-primary px-5 py-2 text-base font-bold text-white transition-all duration-500 hover:-translate-y-0.5 md:inline-block"
+            style={{ boxShadow: "0 2px 10px rgba(255,107,53,0.25)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(255,107,53,0.45)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 2px 10px rgba(255,107,53,0.25)"; }}
           >
             상담 신청
           </Link>
@@ -186,7 +189,7 @@ export default function Header() {
             aria-label="메뉴 열기"
           >
             <span
-              className={`block h-0.5 w-6 transition-all duration-300 ${
+              className={`block h-0.5 w-6 transition-all duration-500 ${
                 mobileOpen
                   ? "translate-y-2 rotate-45 bg-secondary"
                   : onDarkSection
@@ -197,7 +200,7 @@ export default function Header() {
               }`}
             />
             <span
-              className={`block h-0.5 w-6 transition-all duration-300 ${
+              className={`block h-0.5 w-6 transition-all duration-500 ${
                 mobileOpen
                   ? "opacity-0"
                   : onDarkSection
@@ -208,7 +211,7 @@ export default function Header() {
               }`}
             />
             <span
-              className={`block h-0.5 w-6 transition-all duration-300 ${
+              className={`block h-0.5 w-6 transition-all duration-500 ${
                 mobileOpen
                   ? "-translate-y-2 -rotate-45 bg-secondary"
                   : onDarkSection
@@ -224,7 +227,7 @@ export default function Header() {
 
       {/* ── Mobile Menu ── */}
       <div
-        className={`overflow-hidden bg-white transition-all duration-300 md:hidden ${
+        className={`overflow-hidden bg-white transition-all duration-500 md:hidden ${
           mobileOpen ? "max-h-[500px] border-t border-gray-100" : "max-h-0"
         }`}
       >
@@ -279,7 +282,7 @@ export default function Header() {
           <Link
             href="/contact"
             onClick={() => setMobileOpen(false)}
-            className="mt-2 rounded-xl bg-primary px-5 py-3 text-center text-base font-bold text-white transition-colors hover:bg-primary-dark"
+            className="mt-2 rounded-xl bg-primary px-5 py-3 text-center text-base font-bold text-white shadow-md transition-all hover:shadow-lg"
           >
             상담 신청
           </Link>

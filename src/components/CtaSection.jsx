@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function CtaSection() {
@@ -24,13 +26,19 @@ export default function CtaSection() {
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/contact"
-            className="rounded-xl bg-white px-10 py-4 text-lg font-bold text-primary shadow-lg transition-all hover:bg-white/90 hover:shadow-xl"
+            className="rounded-xl border-2 border-transparent bg-white px-10 py-4 text-lg font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1"
+            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.45)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.25)"; }}
           >
             무료 상담 신청하기
           </Link>
           <Link
             href="/portfolio"
-            className="rounded-xl border-2 border-white/40 px-10 py-4 text-lg font-bold text-white transition-all hover:border-white hover:bg-white/10"
+            className="rounded-xl border-2 border-white/40 px-10 py-4 text-lg font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1"
+            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.2)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.1)"; }}
           >
             포트폴리오 보기
           </Link>

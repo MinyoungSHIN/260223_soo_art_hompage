@@ -49,9 +49,10 @@ export default function TestimonialsSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Testimonials
-          </p>
+          </span>
           <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
             참여자들의 <span className="text-primary">생생한 후기</span>
           </h2>
@@ -65,7 +66,7 @@ export default function TestimonialsSection() {
           {testimonials.map((t, idx) => (
             <div
               key={idx}
-              className="flex flex-col justify-between rounded-2xl bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+              className="flex flex-col justify-between rounded-2xl bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
             >
               {/* 인용 아이콘 */}
               <div>

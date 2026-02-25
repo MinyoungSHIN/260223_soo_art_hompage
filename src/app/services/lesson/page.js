@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -100,7 +102,7 @@ export default function LessonPage() {
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-primary">
             Service 02 · Premium Lesson
           </p>
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
+          <h1 className="text-4xl font-bold leading-relaxed tracking-tight text-white md:text-6xl lg:text-7xl">
             합격을 넘어
             <br />
             <span className="text-primary">예술가</span>로 성장하는 시간
@@ -112,13 +114,19 @@ export default function LessonPage() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/contact"
-              className="rounded-xl bg-primary px-8 py-4 text-base font-bold text-white transition-colors hover:bg-primary-dark"
+              className="rounded-xl border-2 border-transparent bg-primary px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1"
+              style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,107,53,0.5)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,107,53,0.3)"; }}
             >
               레슨 상담 신청
             </Link>
             <a
               href="#curriculum"
-              className="rounded-xl border border-white/30 px-8 py-4 text-base font-bold text-white transition-colors hover:bg-white/10"
+              className="rounded-xl border-2 border-white/30 px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1"
+              style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.2)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.1)"; }}
             >
               커리큘럼 보기
             </a>
@@ -367,7 +375,10 @@ export default function LessonPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-colors hover:bg-white/90"
+            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1"
+            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.45)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.25)"; }}
           >
             레슨 상담 신청
           </Link>

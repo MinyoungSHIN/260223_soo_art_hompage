@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function HeroSection() {
@@ -35,9 +37,9 @@ export default function HeroSection() {
 
       {/* ── 콘텐츠 ── */}
       <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
-        <p className="mb-4 text-sm font-medium uppercase tracking-widest text-white/80 md:text-base">
+        <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm md:text-base">
           Soo Art &amp; Company
-        </p>
+        </span>
 
         <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
           <span style={{ fontFamily: "'Cormorant Garamond', serif" }}>Music</span>{" "}
@@ -45,21 +47,41 @@ export default function HeroSection() {
           <span style={{ fontFamily: "'Cormorant Garamond', serif" }}>Us</span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-2xl text-base font-medium leading-relaxed text-white/90 md:text-xl">
-          클래식·뮤지컬 전문 공연, 프리미엄 1:1 Voice 레슨까지 
-          <br /> 수아트앤컴퍼니의 무대를 경험하세요.
+        <p className="mx-auto mt-3 max-w-2xl text-base font-medium leading-relaxed tracking-wide text-white/90 md:text-xl">
+          클래식·뮤지컬 전문 공연, 프리미엄 1:1 Voice 레슨까지
+          <br /> 수아트앤컴퍼니와 함께 하세요.
         </p>
 
         <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link
             href="/contact"
-            className="rounded-xl bg-primary px-10 py-4 text-lg font-bold text-white shadow-lg transition-all hover:bg-primary-dark hover:shadow-xl"
+            className="min-w-[150px] text-center rounded-xl border-2 border-transparent bg-primary px-10 py-3 text-lg font-bold text-white transition-all duration-500 hover:-translate-y-1"
+            style={{
+              boxShadow: "0 4px 14px rgba(255,107,53,0.3)",
+              transition: "all 0.5s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,107,53,0.5)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,107,53,0.3)";
+            }}
           >
             상담 신청
           </Link>
           <a
             href="#problem"
-            className="rounded-xl border-2 border-white/30 px-10 py-4 text-lg font-bold text-white backdrop-blur-sm transition-all hover:border-white hover:bg-white/10"
+            className="min-w-[150px] text-center rounded-xl border-2 border-white/30 px-5 py-3 text-lg font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1"
+            style={{
+              boxShadow: "0 4px 14px rgba(255,255,255,0.1)",
+              transition: "all 0.5s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 12px 32px rgba(200,200,200,0.7)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.1)";
+            }}
           >
             서비스 알아보기
           </a>

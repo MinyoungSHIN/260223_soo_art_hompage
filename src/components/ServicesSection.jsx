@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 const services = [
@@ -48,9 +50,10 @@ export default function ServicesSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mb-16 text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Our Services
-          </p>
+          </span>
           <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
             수아트가 제안하는 서비스
           </h2>
@@ -64,7 +67,7 @@ export default function ServicesSection() {
           {services.map((service) => (
             <article
               key={service.id}
-              className="group overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
+              className="group overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
             >
               {/* ── 카드 이미지 ── */}
               <div className="relative h-56 overflow-hidden">
@@ -96,7 +99,10 @@ export default function ServicesSection() {
                 </p>
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-primary-dark"
+                  className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-0.5"
+                  style={{ boxShadow: "0 2px 10px rgba(255,107,53,0.25)" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(255,107,53,0.45)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 2px 10px rgba(255,107,53,0.25)"; }}
                 >
                   {service.cta}
                   <svg

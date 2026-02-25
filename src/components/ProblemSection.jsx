@@ -43,16 +43,17 @@ export default function ProblemSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm tracking-wide text-secondary shadow-sm">
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Pain Points
-          </p>
-          <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
+          </span>
+          <h2 className="text-3xl font-bold tracking-tight leading-tight text-secondary md:text-5xl">
             혹시 이런 고민,
             <br />
             하고 계신가요?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-secondary/60">
-            많은 분들이 같은 문제로 고민합니다. 수아트앤컴퍼니는 이 고민들을 해결하기 위해 존재합니다.
+            많은 분들이 같은 문제로 고민합니다. <br />수아트앤컴퍼니는 이 고민들을 해결하기 위해 존재합니다.
           </p>
         </div>
 
@@ -61,7 +62,7 @@ export default function ProblemSection() {
           {problems.map((p) => (
             <div
               key={p.title}
-              className="flex gap-5 rounded-2xl border border-gray-100 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
+              className="flex gap-5 rounded-2xl border border-gray-100 bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
             >
               <div className="shrink-0 text-secondary/30">{p.icon}</div>
               <div>

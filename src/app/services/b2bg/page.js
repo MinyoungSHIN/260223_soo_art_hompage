@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -120,7 +122,7 @@ export default function B2BGPage() {
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-primary">
             Service 03 · B2BG Business
           </p>
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
+          <h1 className="text-4xl font-bold leading-relaxed tracking-tight text-white md:text-6xl lg:text-7xl">
             기관·기업을 위한
             <br />
             <span className="text-primary">전문 공연단체</span>
@@ -132,13 +134,19 @@ export default function B2BGPage() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/contact"
-              className="rounded-xl bg-primary px-8 py-4 text-base font-bold text-white transition-colors hover:bg-primary-dark"
+              className="rounded-xl border-2 border-transparent bg-primary px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1"
+              style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,107,53,0.5)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,107,53,0.3)"; }}
             >
               공연 문의하기
             </Link>
             <a
               href="#services"
-              className="rounded-xl border border-white/30 px-8 py-4 text-base font-bold text-white transition-colors hover:bg-white/10"
+              className="rounded-xl border-2 border-white/30 px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1"
+              style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.2)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.1)"; }}
             >
               서비스 상세 보기
             </a>
@@ -373,7 +381,10 @@ export default function B2BGPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-colors hover:bg-white/90"
+            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1"
+            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.45)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.25)"; }}
           >
             공연 문의하기
           </Link>

@@ -55,9 +55,10 @@ export default function ContactSection() {
         <div className="grid items-start gap-16 lg:grid-cols-2">
           {/* ── 왼쪽: 안내 텍스트 ── */}
           <div>
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+            <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-white shadow-sm backdrop-blur-sm">
+              <span className="h-2.5 w-2.5 rounded-full bg-primary" />
               Contact Us
-            </p>
+            </span>
             <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
               함께 만들어갈
               <br />
@@ -229,7 +230,10 @@ export default function ContactSection() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="mt-8 w-full rounded-xl bg-primary px-6 py-4 text-base font-bold text-white shadow-lg transition-all hover:bg-primary-dark hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-8 w-full rounded-xl bg-primary px-6 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1 disabled:cursor-not-allowed disabled:opacity-60"
+              style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
+              onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,107,53,0.5)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,107,53,0.3)"; }}
             >
               {status === "loading" ? (
                 <span className="flex items-center justify-center gap-2">

@@ -43,9 +43,10 @@ export default function SolutionSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
+            <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Our Solutions
-          </p>
+          </span>
           <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
             수아트가 제안하는
             <br />
@@ -62,7 +63,7 @@ export default function SolutionSection() {
             <Link
               key={s.number}
               href={s.href}
-              className="group overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]"
+              className="group overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]"
             >
               {/* 이미지 */}
               <div className="relative h-56 overflow-hidden">
