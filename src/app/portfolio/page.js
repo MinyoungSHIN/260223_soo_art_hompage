@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -174,10 +172,7 @@ export default function PortfolioPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-xl bg-primary px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1"
-            style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,107,53,0.5)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,107,53,0.3)"; }}
+            className="mt-8 inline-block rounded-xl bg-primary px-8 py-4 text-base font-bold text-white shadow-[0_4px_14px_rgba(255,107,53,0.3)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(255,107,53,0.5)]"
           >
             문의하기
           </Link>

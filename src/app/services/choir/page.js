@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -92,19 +90,13 @@ export default function ChoirPage() {
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/contact"
-              className="rounded-xl border-2 border-transparent bg-primary px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1"
-              style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,107,53,0.5)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,107,53,0.3)"; }}
+              className="rounded-xl border-2 border-transparent bg-primary px-8 py-4 text-base font-bold text-white shadow-[0_4px_14px_rgba(255,107,53,0.3)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(255,107,53,0.5)]"
             >
               단원 신청하기
             </Link>
             <a
               href="#curriculum"
-              className="rounded-xl border-2 border-white/30 px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1"
-              style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.2)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.1)"; }}
+              className="rounded-xl border-2 border-white/30 px-8 py-4 text-base font-bold text-white shadow-[0_4px_14px_rgba(255,255,255,0.1)] transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(255,255,255,0.2)]"
             >
               커리큘럼 보기
             </a>
@@ -319,10 +311,7 @@ export default function ChoirPage() {
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1"
-            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 12px 32px rgba(255,255,255,0.45)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 4px 14px rgba(255,255,255,0.25)"; }}
+            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary shadow-[0_4px_14px_rgba(255,255,255,0.25)] transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(255,255,255,0.45)]"
           >
             단원 신청하기
           </Link>
