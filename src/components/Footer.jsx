@@ -1,5 +1,5 @@
+
 import Image from "next/image";
-import logo from "@/app/FullLogo_NoBuffer.webp";
 
 const footerLinks = [
   {
@@ -27,12 +27,13 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-3">
           {/* ── 로고 & 설명 ── */}
           <div className="md:col-span-1">
-            <div className="relative mb-4 h-10 w-36">
+            <div className="relative mb-4 h-13 w-40">
               <Image
-                src={logo}
+                src="/image/logo_footer.png?v=1"
                 alt="Soo Art & Company"
                 fill
                 className="object-contain brightness-0 invert"
+                unoptimized
               />
             </div>
             <p className="max-w-xs text-sm font-medium leading-relaxed text-white/40">

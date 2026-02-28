@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/app/FullLogo_NoBuffer.webp";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -34,6 +33,10 @@ export default function Header() {
     if (window.location.pathname === "/") {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "instant" });
+      // 비디오를 처음부터 재생
+      if (typeof window.resetHeroVideo === "function") {
+        window.resetHeroVideo();
+      }
     }
   };
 
@@ -70,15 +73,14 @@ export default function Header() {
     closeTimer.current = setTimeout(() => setServiceOpen(false), 180);
   };
 
-  const textColor = onDarkSection
+  // 배경이 흰색이 아닌 경우 (onDarkSection이거나 스크롤되지 않았을 때) 흰색
+  const textColor = (onDarkSection || !scrolled)
     ? "text-white"
-    : scrolled
-      ? "text-secondary"
-      : "text-white";
+    : "text-secondary";
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-150 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-100 ${
         onDarkSection
           ? "bg-white/5 backdrop-blur-3xl border-b border-white/10"
           : scrolled
@@ -91,21 +93,20 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2.5 shrink-0" onClick={handleHomeClick}>
           <div className="relative h-10 w-10">
             <Image
-              src={logo}
+              src="/image/logo1.png"
               alt="Soo Art & Company"
               fill
-              className={`object-contain transition-all duration-500 ${
-                onDarkSection
+              className={`object-contain transition-all duration-150 ${
+                (onDarkSection || !scrolled)
                   ? "brightness-0 invert"
-                  : scrolled
-                    ? "mix-blend-multiply"
-                    : "brightness-0 invert"
+                  : "mix-blend-multiply"
               }`}
               priority
+              unoptimized
             />
           </div>
           <span
-            className={`text-lg font-bold tracking-wider transition-colors duration-500 ${textColor}`}
+            className={`text-lg font-bold tracking-wider transition-colors duration-150 ${textColor}`}
           >
             수아트앤컴퍼니
           </span>
@@ -123,7 +124,7 @@ export default function Header() {
                 onMouseLeave={handleMouseLeave}
               >
                 <button
-                  className={`text-base font-medium transition-colors duration-500 hover:text-primary ${textColor}`}
+                  className={`text-base font-medium transition-colors duration-150 hover:text-primary ${textColor}`}
                 >
                   {link.label}
                 </button>
@@ -174,7 +175,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={link.href === "/" ? handleHomeClick : undefined}
-                className={`text-base font-medium transition-colors duration-500 hover:text-primary ${textColor}`}
+                className={`text-base font-medium transition-colors duration-150 hover:text-primary ${textColor}`}
               >
                 {link.label}
               </Link>
@@ -204,33 +205,27 @@ export default function Header() {
               className={`block h-0.5 w-6 transition-all duration-500 ${
                 mobileOpen
                   ? "translate-y-2 rotate-45 bg-secondary"
-                  : onDarkSection
+                  : (onDarkSection || !scrolled)
                     ? "bg-white"
-                    : scrolled
-                      ? "bg-secondary"
-                      : "bg-white"
+                    : "bg-secondary"
               }`}
             />
             <span
               className={`block h-0.5 w-6 transition-all duration-500 ${
                 mobileOpen
                   ? "opacity-0"
-                  : onDarkSection
+                  : (onDarkSection || !scrolled)
                     ? "bg-white"
-                    : scrolled
-                      ? "bg-secondary"
-                      : "bg-white"
+                    : "bg-secondary"
               }`}
             />
             <span
               className={`block h-0.5 w-6 transition-all duration-500 ${
                 mobileOpen
                   ? "-translate-y-2 -rotate-45 bg-secondary"
-                  : onDarkSection
+                  : (onDarkSection || !scrolled)
                     ? "bg-white"
-                    : scrolled
-                      ? "bg-secondary"
-                      : "bg-white"
+                    : "bg-secondary"
               }`}
             />
           </button>

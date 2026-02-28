@@ -12,10 +12,39 @@ const heroImages = [
   "/image/hero5.png",
 ];
 
+// 각 이미지의 모바일 object-position 설정
+// 중앙(0)을 기준으로: 왼쪽은 음수(-), 오른쪽은 양수(+)
+// 예: -10 (왼쪽으로 10%), 0 (중앙), +20 (오른쪽으로 20%)
+// 데스크톱에서는 모두 중앙(0)으로 유지됩니다
+const heroImagePositions = [
+  -2,   // image1: 왼쪽으로 2%
+  +20,  // image2: 오른쪽으로 20%
+  0,    // image3: 중앙 (수정 가능)
+  +40,  // image4: 오른쪽으로 40% (수정 가능)
+  +41,  // image5: 오른쪽으로 41% (수정 가능)
+];
+
+// 비디오 씬별 위치 설정
+// 형식: [시작시간(초), 끝시간(초), 가로위치]
+// 가로위치: 중앙(0), 왼쪽은 음수(-), 오른쪽은 양수(+)
+// 예: [0, 5, 0] = 0-5초 동안 중앙, [5, 10, +20] = 5-10초 동안 오른쪽으로 20%
+// 데스크톱에서는 모두 중앙(0)으로 유지됩니다
+const videoScenePositions = [
+  [0, 2, 0],     // 0-5초: 중앙
+  [2.5, 4.6, -10],    // 5-10초: 중앙 (수정 가능)
+  [4.6, 7.6, 10],   // 10-15초: 중앙 (수정 가능)
+  [7.6, 10.2, 10],
+  [10.2, 16, 10],
+  [16, 30.2, -10],
+  [30.2, 35.1, 10],
+  // 비디오 길이에 맞게 추가/수정하세요
+];
+
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(-1); // -1 = 동영상
   const [coverVisible, setCoverVisible] = useState(true); // 로딩 커버
   const [ready, setReady] = useState(false); // 이미지 렌더링 허용
+  const [videoPosition, setVideoPosition] = useState(0); // 비디오 현재 씬의 위치
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const totalSlides = heroImages.length;
@@ -50,7 +79,54 @@ export default function HeroSection() {
     }
   }, []);
 
-  // 2) ready 이후에만 스크롤 리스너 등록
+  // 2) 비디오 시간 추적 및 씬별 위치 업데이트
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    const handleTimeUpdate = () => {
+      const currentTime = vid.currentTime;
+      
+      // 현재 시간에 맞는 씬 찾기
+      const currentScene = videoScenePositions.find(
+        ([start, end]) => currentTime >= start && currentTime < end
+      );
+
+      if (currentScene) {
+        setVideoPosition(currentScene[2]); // 씬의 위치 값
+      } else {
+        // 씬이 없으면 마지막 씬의 위치 사용 또는 중앙
+        const lastScene = videoScenePositions[videoScenePositions.length - 1];
+        setVideoPosition(lastScene ? lastScene[2] : 0);
+      }
+    };
+
+    vid.addEventListener("timeupdate", handleTimeUpdate);
+    return () => vid.removeEventListener("timeupdate", handleTimeUpdate);
+  }, []);
+
+  // 3) 비디오 리셋 함수를 window에 등록 (Header에서 호출 가능하도록)
+  useEffect(() => {
+    const resetVideo = () => {
+      const vid = videoRef.current;
+      if (vid) {
+        vid.currentTime = 0;
+        vid.play().catch(() => {
+          // 자동 재생이 차단된 경우 무시
+        });
+      }
+    };
+
+    // window에 함수 등록
+    window.resetHeroVideo = resetVideo;
+
+    return () => {
+      // cleanup
+      delete window.resetHeroVideo;
+    };
+  }, []);
+
+  // 4) ready 이후에만 스크롤 리스너 등록
   useEffect(() => {
     if (!ready) return;
 
@@ -98,7 +174,13 @@ export default function HeroSection() {
         >
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover sm:object-center"
+            style={{
+              objectPosition:
+                videoPosition === 0
+                  ? "center"
+                  : `${50 + videoPosition}% center`,
+            }}
             autoPlay
             loop
             muted
@@ -134,6 +216,12 @@ export default function HeroSection() {
                   alt={`Hero ${idx + 1}`}
                   fill
                   className="object-cover"
+                  style={{
+                    objectPosition:
+                      heroImagePositions[idx] === 0
+                        ? "center"
+                        : `${50 + heroImagePositions[idx]}% center`,
+                  }}
                   priority={idx === 0}
                   sizes="100vw"
                 />

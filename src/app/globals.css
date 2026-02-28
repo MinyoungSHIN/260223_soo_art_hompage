@@ -57,3 +57,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Hero Section 이미지 위치 및 크기 조정 ── */
+/* 데스크톱에서는 모든 히어로 이미지가 중앙에 위치하고 기본 크기로 유지 */
+@media (min-width: 640px) {
+  section[data-header-theme="dark"] img[alt^="Hero"] {
+    object-position: center !important;
+    transform: scale(1) !important;
+  }
+}
