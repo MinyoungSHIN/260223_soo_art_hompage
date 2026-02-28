@@ -55,7 +55,7 @@ export default function HeroSection() {
   const isScrolling = useRef(false); // 프로그래밍 스크롤 중인지 여부
   const swipeCooldownRef = useRef(false); // 스와이프 쿨다운 (한 번에 하나씩만)
   const exitAttemptRef = useRef(0); // 마지막 슬라이드에서 다음 섹션 탈출 시도 횟수
-  const topEntryBlockedRef = useRef(false); // 상단 경계에서 한 번 멈춘 적 있는지
+  const topEntryBlockRef = useRef(false); // 상단 경계에서 한 번 멈춘 적 있는지
   const totalSlides = heroImages.length;
   const totalPages = totalSlides + 1;
 
@@ -66,20 +66,19 @@ export default function HeroSection() {
     const revealVideo = () => {
       // 커버를 페이드아웃하고, 이미지 렌더링 허용
       setCoverVisible(false);
-      setTimeout(() => setReady(true), 300); // 커버가 사라진 후 이미지 활성화
+      setTimeout(() => setReady(true), 400); // 커버가 사라진 후 이미지 활성화
     };
 
     const vid = videoRef.current;
-    if (vid && vid.readyState >= 1) {
-      // 이미 메타데이터 이상 로드된 경우 (캐시)
+    if (vid && vid.readyState >= 2) {
+      // 이미 로드된 경우 (캐시)
       revealVideo();
     } else if (vid) {
-      // canplay: 재생 가능한 상태가 되면 즉시 reveal (playing보다 빠름)
-      vid.addEventListener("canplay", revealVideo, { once: true });
-      // 비디오 로드 실패 시 fallback (1.5초 — poster 이미지가 보이도록)
-      const fallback = setTimeout(revealVideo, 1500);
+      vid.addEventListener("playing", revealVideo, { once: true });
+      // 비디오 로드 실패 시 fallback (3초)
+      const fallback = setTimeout(revealVideo, 3000);
       return () => {
-        vid.removeEventListener("canplay", revealVideo);
+        vid.removeEventListener("playing", revealVideo);
         clearTimeout(fallback);
       };
     } else {
@@ -370,15 +369,16 @@ export default function HeroSection() {
         const isScrollingUp = currentScrollY < lastScrollY;
         const isScrollingDown = currentScrollY > lastScrollY;
 
-        // 아래로 스크롤하면 경계 차단 상태 리셋 (다시 올라올 때 한 번 멈추게)
+        // 아래로 스크롤하면 차단 상태 리셋 (다시 올라올 때 한 번 멈추게)
         if (isScrollingDown && currentScrollY >= sectionBottom) {
-          topEntryBlockedRef.current = false;
+          topEntryBlockRef.current = false;
         }
 
+        // 위로 스크롤 시 히어로 하단 경계 도달
         if (isScrollingUp && currentScrollY < sectionBottom && lastScrollY >= sectionBottom) {
-          if (!topEntryBlockedRef.current) {
+          if (!topEntryBlockRef.current) {
             // 첫 번째: ProblemSection 상단에서 멈춤
-            topEntryBlockedRef.current = true;
+            topEntryBlockRef.current = true;
             window.scrollTo({ top: sectionBottom, behavior: "instant" });
             lastScrollY = sectionBottom;
             return;
@@ -617,24 +617,14 @@ export default function HeroSection() {
           </svg>
         </div>
 
-        {/* ── 로딩 커버 (poster 이미지 + 오버레이, 비디오 준비 후 페이드아웃) ── */}
+        {/* ── 로딩 커버 (모든 레이어 위에 검정 화면, 비디오 재생 후 페이드아웃) ── */}
         <div
-          className="pointer-events-none absolute inset-0 z-[999]"
+          className="pointer-events-none absolute inset-0 z-[999] bg-black"
           style={{
             opacity: coverVisible ? 1 : 0,
-            transition: "opacity 0.6s ease",
+            transition: "opacity 0.4s ease",
           }}
-        >
-          <Image
-            src="/image/hero1.jpg"
-            alt="Loading"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
+        />
       </div>
     </section>
   );
