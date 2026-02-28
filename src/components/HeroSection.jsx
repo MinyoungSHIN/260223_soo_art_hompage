@@ -149,7 +149,7 @@ export default function HeroSection() {
     let touchStartX = 0;
 
     // ── 사용자 정의 부드러운 스크롤 (duration ms 동안 easeInOutCubic) ──
-    const smoothScrollTo = (targetY, duration = 700) => {
+    const smoothScrollTo = (targetY, duration = 800) => {
       const startY = window.scrollY;
       const diff = targetY - startY;
       if (Math.abs(diff) < 1) return; // 거의 같은 위치면 스킵
@@ -172,7 +172,8 @@ export default function HeroSection() {
     };
 
     // ── 슬라이드 이동 (항상 ±1만) ──
-    const SCROLL_DURATION = 700; // 슬라이드 전환 애니메이션 시간(ms)
+    const SCROLL_DURATION = 800; // 슬라이드 전환 애니메이션 시간(ms) — 묵직하고 우아하게
+    const COOLDOWN = SCROLL_DURATION + 100; // 쿨다운: 애니메이션 + 100ms 여유 = 900ms
 
     const moveToSlide = (direction) => {
       // direction: +1(다음) 또는 -1(이전)
@@ -182,7 +183,7 @@ export default function HeroSection() {
       const currentIndex = lastSlideRef.current;
       const finalTargetIndex = currentIndex + direction;
 
-      // ── 상단 탈출 방지: 비디오(-1)에서 위로 스와이프 시 -1에 강제 고정 ──
+      // ── 상단 탈출 방지: 비디오(-1)에서 위로 스와이프 시 절대 탈출 불가 ──
       if (finalTargetIndex < -1) {
         // -1 이하로 절대 못 감 → 쿨다운 걸고 히어로 섹션 상단으로 스냅
         swipeCooldownRef.current = true;
@@ -193,7 +194,7 @@ export default function HeroSection() {
         setTimeout(() => {
           isScrolling.current = false;
           swipeCooldownRef.current = false;
-        }, SCROLL_DURATION + 100);
+        }, COOLDOWN);
         return;
       }
 
@@ -208,11 +209,11 @@ export default function HeroSection() {
         isScrolling.current = true;
         const sectionBottom =
           sectionRef.current.offsetTop + sectionRef.current.offsetHeight;
-        smoothScrollTo(sectionBottom, 800);
+        smoothScrollTo(sectionBottom, SCROLL_DURATION);
         setTimeout(() => {
           isScrolling.current = false;
           swipeCooldownRef.current = false;
-        }, 900); // 애니메이션(800) + 100ms 여유
+        }, COOLDOWN);
         return;
       }
 
@@ -231,9 +232,6 @@ export default function HeroSection() {
       const pageHeight = sectionHeight / totalPages;
 
       // ★ handleScroll의 인덱스 계산식과 정확히 일치하는 스크롤 목표 계산
-      //    handleScroll: scrolled <= 0.2*pH → video(-1)
-      //                  imageScroll = scrolled - 0.2*pH → floor(imageScroll/pH) = index
-      //    따라서: video → scrolled=0, image[i] → scrolled = 0.2*pH + i*pH + 0.5*pH (중앙)
       let targetScroll;
       if (finalTargetIndex === -1) {
         targetScroll = sectionRef.current.offsetTop; // scrolled = 0 → video
@@ -246,14 +244,14 @@ export default function HeroSection() {
           pageHeight * 0.5;
       }
 
-      // 부드러운 스크롤 이동 (700ms easeInOutCubic)
+      // 부드러운 스크롤 이동 (800ms easeInOutCubic — 묵직하고 우아하게)
       smoothScrollTo(targetScroll, SCROLL_DURATION);
 
-      // 쿨다운: 애니메이션 시간 + 100ms 여유
+      // 쿨다운: 900ms (애니메이션 800ms + 100ms 여유)
       setTimeout(() => {
         isScrolling.current = false;
         swipeCooldownRef.current = false;
-      }, SCROLL_DURATION + 100);
+      }, COOLDOWN);
     };
 
     // ── touchstart ──
@@ -352,6 +350,26 @@ export default function HeroSection() {
     const isMobile = window.innerWidth < 640;
     let lastScrollY = window.scrollY; // 스크롤 방향 감지용
 
+    // ── 부드러운 스크롤 (handleScroll 내에서도 사용) ──
+    const SCROLL_DUR = 800;
+    const COOL = SCROLL_DUR + 100; // 900ms
+
+    const smoothScroll = (targetY, duration = SCROLL_DUR) => {
+      const startY = window.scrollY;
+      const diff = targetY - startY;
+      if (Math.abs(diff) < 1) return;
+      const startTime = performance.now();
+      const ease = (t) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      const step = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo({ top: startY + diff * ease(progress), behavior: "instant" });
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
     const handleScroll = () => {
       // ★ isScrolling 또는 쿨다운 중이면 인덱스 업데이트 완전 건너뛰기
       if (isScrolling.current) return;
@@ -377,13 +395,42 @@ export default function HeroSection() {
         // 위로 스크롤 시 히어로 하단 경계 도달
         if (isScrollingUp && currentScrollY < sectionBottom && lastScrollY >= sectionBottom) {
           if (!topEntryBlockRef.current) {
-            // 첫 번째: ProblemSection 상단에서 멈춤
+            // 첫 번째: ProblemSection 상단에서 멈춤 (히어로 섹션 경계에서 정지)
             topEntryBlockRef.current = true;
             window.scrollTo({ top: sectionBottom, behavior: "instant" });
             lastScrollY = sectionBottom;
             return;
           }
-          // 두 번째: 히어로 섹션으로 진입 허용 (차단 안 함)
+          // 두 번째: 히어로 섹션으로 진입 허용 — 마지막 슬라이드(image5)로 스냅
+          const lastImageIndex = totalSlides - 1;
+          lastSlideRef.current = lastImageIndex;
+          setCurrentSlide(lastImageIndex);
+
+          const pageHeight = sectionHeight / totalPages;
+          const targetScroll =
+            sectionTop +
+            pageHeight * 0.2 +
+            lastImageIndex * pageHeight +
+            pageHeight * 0.5;
+
+          swipeCooldownRef.current = true;
+          isScrolling.current = true;
+          smoothScroll(targetScroll, SCROLL_DUR);
+          setTimeout(() => {
+            isScrolling.current = false;
+            swipeCooldownRef.current = false;
+          }, COOL);
+          lastScrollY = targetScroll;
+          return;
+        }
+
+        // 히어로 섹션 내부에서 위쪽으로 벗어나는 관성 스크롤 방지
+        if (isScrollingUp && currentScrollY < sectionTop) {
+          window.scrollTo({ top: sectionTop, behavior: "instant" });
+          lastScrollY = sectionTop;
+          lastSlideRef.current = -1;
+          setCurrentSlide(-1);
+          return;
         }
       }
 
