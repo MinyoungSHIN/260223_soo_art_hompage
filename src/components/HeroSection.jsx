@@ -64,26 +64,26 @@ export default function HeroSection() {
     window.scrollTo(0, 0);
 
     const revealVideo = () => {
-      // 커버를 페이드아웃하고, 이미지 렌더링 허용
+      // 커버 즉시 페이드아웃 + 이미지 슬라이드 활성화 (검정 화면 최소화)
       setCoverVisible(false);
-      setTimeout(() => setReady(true), 0); // 커버가 사라진 후 이미지 활성화
+      setReady(true);
     };
 
     const vid = videoRef.current;
     if (vid && vid.readyState >= 1) {
-      // 이미 메타데이터 로드된 경우 (캐시) → 즉시 reveal
+      // 이미 재생 가능 상태 (캐시) → 즉시 reveal
       revealVideo();
     } else if (vid) {
       vid.addEventListener("canplay", revealVideo, { once: true });
-      // 비디오 로드 실패 시 fallback (1초)
-      const fallback = setTimeout(revealVideo, 1000);
+      // 비디오 로드 실패 시 fallback (800ms — 검정 화면 짧게)
+      const fallback = setTimeout(revealVideo, 800);
       return () => {
         vid.removeEventListener("canplay", revealVideo);
         clearTimeout(fallback);
       };
     } else {
       // 비디오 ref 없을 경우 fallback
-      const fallback = setTimeout(revealVideo, 300);
+      const fallback = setTimeout(revealVideo, 200);
       return () => clearTimeout(fallback);
     }
   }, []);
@@ -192,10 +192,9 @@ export default function HeroSection() {
         return;
       }
 
-      // ── 하단 탈출: 마지막 슬라이드에서 1회 스와이프 → 다음 섹션 ──
+      // ── 하단 탈출: 마지막 슬라이드에서 즉시 다음 섹션으로 ──
       if (finalTargetIndex > totalSlides - 1) {
-        exitAttemptRef.current = 0;
-        topEntryBlockRef.current = false;
+        topEntryBlockRef.current = false; // 재진입 시 2단계 경계 다시 적용
         swipeCooldownRef.current = true;
         isScrolling.current = true;
         const sectionBottom =
@@ -361,15 +360,16 @@ export default function HeroSection() {
         // ★ 하단 경계: 위로 스크롤 시
         if (scrollingUp && currentScrollY < sectionBottom && lastScrollY >= sectionBottom) {
           if (!topEntryBlockRef.current) {
-            // 1차: ProblemSection 상단에서 멈춤
+            // 1차: ProblemSection 상단에서 멈춤 (한 박자 쉬어가게)
             topEntryBlockRef.current = true;
             isScrolling.current = true;
             window.scrollTo({ top: sectionBottom, behavior: "instant" });
             lastScrollY = sectionBottom;
-            setTimeout(() => { isScrolling.current = false; }, 800);
+            setTimeout(() => { isScrolling.current = false; }, 600);
             return;
           }
-          // 2차: 히어로 마지막 이미지(image5)로 부드럽게 진입
+          // 2차: 히어로 마지막 이미지(image5)로 부드럽게 진입 후 topEntryBlockRef 리셋
+          topEntryBlockRef.current = false;
           const lastImageIndex = totalSlides - 1;
           lastSlideRef.current = lastImageIndex;
           setCurrentSlide(lastImageIndex);
@@ -388,7 +388,7 @@ export default function HeroSection() {
           setTimeout(() => {
             isScrolling.current = false;
             swipeCooldownRef.current = false;
-          }, 810);
+          }, 900);
           return;
         }
 
@@ -471,6 +471,7 @@ export default function HeroSection() {
             loop
             muted
             playsInline
+            preload="auto"
             poster="/image/hero1.jpg"
           >
             <source src="/video/RAM.mp4" type="video/mp4" />
@@ -547,19 +548,15 @@ export default function HeroSection() {
           <div className="mt-8 flex flex-row items-center justify-center gap-3 sm:mt-12 sm:gap-4">
             <Link
               href="/contact"
-              className="min-w-[120px] text-center rounded-xl border-2 border-transparent bg-primary px-5 py-3 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:min-w-[150px] sm:px-10 sm:text-lg"
-              style={{
-                boxShadow: "0 4px 14px rgba(255,107,53,0.3)",
-              }}
+              className="whitespace-nowrap rounded-xl border-2 border-transparent bg-primary px-5 py-3 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:px-10 sm:text-lg"
+              style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
             >
               상담 신청
             </Link>
             <a
               href="#problem"
-              className="min-w-[120px] text-center rounded-xl border-2 border-white/30 px-4 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:min-w-[150px] sm:text-lg"
-              style={{
-                boxShadow: "0 4px 14px rgba(255,255,255,0.1)",
-              }}
+              className="whitespace-nowrap rounded-xl border-2 border-white/30 px-4 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:text-lg"
+              style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
             >
               서비스 알아보기
             </a>
