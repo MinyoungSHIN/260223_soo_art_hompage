@@ -66,24 +66,24 @@ export default function HeroSection() {
     const revealVideo = () => {
       // 커버를 페이드아웃하고, 이미지 렌더링 허용
       setCoverVisible(false);
-      setTimeout(() => setReady(true), 200); // 커버가 사라진 후 이미지 활성화 (빠르게)
+      setTimeout(() => setReady(true), 100); // 커버가 사라진 후 이미지 활성화
     };
 
     const vid = videoRef.current;
-    if (vid && vid.readyState >= 1) {
-      // 이미 메타데이터 로드된 경우 (캐시) → 즉시 reveal
+    if (vid && vid.readyState >= 2) {
+      // 이미 로드된 경우 (캐시)
       revealVideo();
     } else if (vid) {
-      vid.addEventListener("canplay", revealVideo, { once: true });
-      // 비디오 로드 실패 시 fallback (1초 — 검정 화면 짧게)
-      const fallback = setTimeout(revealVideo, 1000);
+      vid.addEventListener("playing", revealVideo, { once: true });
+      // 비디오 로드 실패 시 fallback (3초)
+      const fallback = setTimeout(revealVideo, 3000);
       return () => {
-        vid.removeEventListener("canplay", revealVideo);
+        vid.removeEventListener("playing", revealVideo);
         clearTimeout(fallback);
       };
     } else {
       // 비디오 ref 없을 경우 fallback
-      const fallback = setTimeout(revealVideo, 300);
+      const fallback = setTimeout(revealVideo, 500);
       return () => clearTimeout(fallback);
     }
   }, []);
@@ -168,8 +168,8 @@ export default function HeroSection() {
       requestAnimationFrame(step);
     };
 
-    const SCROLL_DURATION = 1600; // 슬라이드 전환 속도 (기존 800ms의 50%)
-    const COOLDOWN = SCROLL_DURATION + 100; // 1700ms
+    const SCROLL_DURATION = 800;
+    const COOLDOWN = SCROLL_DURATION + 50; // 900ms
 
     const moveToSlide = (direction) => {
       if (!sectionRef.current) return;
@@ -192,8 +192,10 @@ export default function HeroSection() {
         return;
       }
 
-      // ── 하단 탈출: 마지막 슬라이드에서 1회 스와이프 → 다음 섹션 ──
+      // ── 하단 탈출: 마지막 슬라이드에서 2회 스와이프 → 다음 섹션 ──
       if (finalTargetIndex > totalSlides - 1) {
+        exitAttemptRef.current += 1;
+        if (exitAttemptRef.current < 2) return;
         exitAttemptRef.current = 0;
         topEntryBlockRef.current = false;
         swipeCooldownRef.current = true;
@@ -383,12 +385,12 @@ export default function HeroSection() {
             lastImageIndex * pageHeight +
             pageHeight * 0.5;
 
-          smoothScroll(targetScroll, 1600);
+          smoothScroll(targetScroll, 800);
           lastScrollY = targetScroll;
           setTimeout(() => {
             isScrolling.current = false;
             swipeCooldownRef.current = false;
-          }, 1700);
+          }, 850);
           return;
         }
 
@@ -639,7 +641,7 @@ export default function HeroSection() {
           className="pointer-events-none absolute inset-0 z-[999] bg-black"
           style={{
             opacity: coverVisible ? 1 : 0,
-            transition: "opacity 0.25s ease",
+            transition: "opacity 0.4s ease",
           }}
         />
       </div>
