@@ -397,6 +397,13 @@ export default function HeroSection() {
       if (isTap) {
         moveToSlide(+1);
       } else if (isSwipe) {
+        // UX 보정: 마지막 이미지(image5)에서는 아래로 내리는 제스처도
+        // "다음 섹션(Problem)으로 내려가기" 의도로 해석한다.
+        if (absY >= absX && lastSlideRef.current === totalSlides - 1 && deltaY < 0) {
+          moveToSlide(+1);
+          return;
+        }
+
         if (absX >= absY) {
           moveToSlide(deltaX > 0 ? +1 : -1);
         } else {
