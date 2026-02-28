@@ -132,65 +132,85 @@ export default function HeroSection() {
   useEffect(() => {
     if (!ready) return;
 
+    let isScrolling = false;
+    let scrollEndTimer = null;
+
     const handleScroll = () => {
       if (!sectionRef.current) return;
       
-      // 디바운싱: 빠른 스크롤 시 마지막 위치만 처리
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
+      const rect = sectionRef.current.getBoundingClientRect();
+      const sectionHeight = sectionRef.current.offsetHeight;
+      const scrolled = -rect.top;
+      const pageHeight = sectionHeight / totalPages;
+      const isMobile = window.innerWidth < 640;
 
-      scrollTimeoutRef.current = setTimeout(() => {
-        if (!sectionRef.current) return;
-        const rect = sectionRef.current.getBoundingClientRect();
-        const sectionHeight = sectionRef.current.offsetHeight;
-        const scrolled = -rect.top;
-
-        if (scrolled <= 0) {
-          const newSlide = -1;
-          if (newSlide !== lastSlideRef.current) {
-            setCurrentSlide(newSlide);
-            lastSlideRef.current = newSlide;
-          }
-        } else {
-          const pageHeight = sectionHeight / totalPages;
-          const calculatedIndex = Math.min(
-            Math.floor(scrolled / pageHeight),
-            totalSlides - 1
-          );
+      if (scrolled <= 0) {
+        const newSlide = -1;
+        if (newSlide !== lastSlideRef.current) {
+          setCurrentSlide(newSlide);
+          lastSlideRef.current = newSlide;
+        }
+      } else {
+        let calculatedIndex = Math.min(
+          Math.floor(scrolled / pageHeight),
+          totalSlides - 1
+        );
+        
+        // 모바일에서 한 장씩만 넘어가도록 강제
+        if (isMobile && lastSlideRef.current !== -1) {
+          const diff = calculatedIndex - lastSlideRef.current;
           
-          // 모바일에서 한 장씩만 넘어가도록 제한
-          const isMobile = window.innerWidth < 640;
-          let newSlide = calculatedIndex;
-          
-          if (isMobile && lastSlideRef.current !== -1) {
-            // 이전 슬라이드와의 차이가 1 이상이면 한 장씩만 이동
-            const diff = calculatedIndex - lastSlideRef.current;
-            if (Math.abs(diff) > 1) {
-              // 방향에 따라 한 장씩만 이동
-              newSlide = diff > 0 
-                ? lastSlideRef.current + 1 
-                : lastSlideRef.current - 1;
-              newSlide = Math.max(0, Math.min(newSlide, totalSlides - 1));
-              
-              // 스크롤 위치도 조정하여 한 장씩만 보이도록
-              const targetScroll = sectionRef.current.offsetTop + (newSlide + 0.5) * pageHeight;
-              window.scrollTo({ top: targetScroll, behavior: "smooth" });
-            }
-          }
-          
-          if (newSlide !== lastSlideRef.current) {
-            setCurrentSlide(newSlide);
-            lastSlideRef.current = newSlide;
+          // 차이가 1 이상이면 한 장씩만 이동
+          if (Math.abs(diff) > 1) {
+            calculatedIndex = diff > 0 
+              ? lastSlideRef.current + 1 
+              : lastSlideRef.current - 1;
+            calculatedIndex = Math.max(0, Math.min(calculatedIndex, totalSlides - 1));
+            
+            // 스크롤을 정확한 위치로 스냅
+            const targetScroll = sectionRef.current.offsetTop + calculatedIndex * pageHeight;
+            isScrolling = true;
+            window.scrollTo({ top: targetScroll, behavior: "smooth" });
           }
         }
-      }, 50); // 50ms 디바운싱
+        
+        if (calculatedIndex !== lastSlideRef.current) {
+          setCurrentSlide(calculatedIndex);
+          lastSlideRef.current = calculatedIndex;
+        }
+      }
+
+      // 스크롤이 끝났는지 확인
+      if (scrollEndTimer) {
+        clearTimeout(scrollEndTimer);
+      }
+      
+      scrollEndTimer = setTimeout(() => {
+        if (isMobile && sectionRef.current && !isScrolling) {
+          const rect = sectionRef.current.getBoundingClientRect();
+          const sectionHeight = sectionRef.current.offsetHeight;
+          const scrolled = -rect.top;
+          const pageHeight = sectionHeight / totalPages;
+          
+          if (scrolled > 0) {
+            // 가장 가까운 슬라이드로 스냅
+            const currentIndex = Math.round(scrolled / pageHeight);
+            const targetScroll = sectionRef.current.offsetTop + currentIndex * pageHeight;
+            window.scrollTo({ top: targetScroll, behavior: "smooth" });
+          }
+        }
+        isScrolling = false;
+      }, 150);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
+    
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      if (scrollEndTimer) {
+        clearTimeout(scrollEndTimer);
+      }
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
@@ -207,7 +227,10 @@ export default function HeroSection() {
       data-header-theme="dark"
     >
       {/* ── 고정 뷰포트 ── */}
-      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
+      <div 
+        className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden"
+        style={{ scrollSnapAlign: "start" }}
+      >
         {/* ── 배경 동영상 ── */}
         <div
           className="absolute inset-0 z-[1]"
