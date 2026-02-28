@@ -47,6 +47,8 @@ export default function HeroSection() {
   const [videoPosition, setVideoPosition] = useState(0); // 비디오 현재 씬의 위치
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
+  const lastSlideRef = useRef(-1); // 이전 슬라이드 추적 (한 장씩만 넘어가도록)
+  const scrollTimeoutRef = useRef(null); // 스크롤 디바운싱
   const totalSlides = heroImages.length;
   const totalPages = totalSlides + 1;
 
@@ -126,31 +128,73 @@ export default function HeroSection() {
     };
   }, []);
 
-  // 4) ready 이후에만 스크롤 리스너 등록
+  // 4) ready 이후에만 스크롤 리스너 등록 (모바일에서 한 장씩만 넘어가도록)
   useEffect(() => {
     if (!ready) return;
 
     const handleScroll = () => {
       if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const sectionHeight = sectionRef.current.offsetHeight;
-      const scrolled = -rect.top;
-
-      if (scrolled <= 0) {
-        setCurrentSlide(-1);
-      } else {
-        const pageHeight = sectionHeight / totalPages;
-        const slideIndex = Math.min(
-          Math.floor(scrolled / pageHeight),
-          totalSlides - 1
-        );
-        setCurrentSlide(slideIndex);
+      
+      // 디바운싱: 빠른 스크롤 시 마지막 위치만 처리
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (!sectionRef.current) return;
+        const rect = sectionRef.current.getBoundingClientRect();
+        const sectionHeight = sectionRef.current.offsetHeight;
+        const scrolled = -rect.top;
+
+        if (scrolled <= 0) {
+          const newSlide = -1;
+          if (newSlide !== lastSlideRef.current) {
+            setCurrentSlide(newSlide);
+            lastSlideRef.current = newSlide;
+          }
+        } else {
+          const pageHeight = sectionHeight / totalPages;
+          const calculatedIndex = Math.min(
+            Math.floor(scrolled / pageHeight),
+            totalSlides - 1
+          );
+          
+          // 모바일에서 한 장씩만 넘어가도록 제한
+          const isMobile = window.innerWidth < 640;
+          let newSlide = calculatedIndex;
+          
+          if (isMobile && lastSlideRef.current !== -1) {
+            // 이전 슬라이드와의 차이가 1 이상이면 한 장씩만 이동
+            const diff = calculatedIndex - lastSlideRef.current;
+            if (Math.abs(diff) > 1) {
+              // 방향에 따라 한 장씩만 이동
+              newSlide = diff > 0 
+                ? lastSlideRef.current + 1 
+                : lastSlideRef.current - 1;
+              newSlide = Math.max(0, Math.min(newSlide, totalSlides - 1));
+              
+              // 스크롤 위치도 조정하여 한 장씩만 보이도록
+              const targetScroll = sectionRef.current.offsetTop + (newSlide + 0.5) * pageHeight;
+              window.scrollTo({ top: targetScroll, behavior: "smooth" });
+            }
+          }
+          
+          if (newSlide !== lastSlideRef.current) {
+            setCurrentSlide(newSlide);
+            lastSlideRef.current = newSlide;
+          }
+        }
+      }, 50); // 50ms 디바운싱
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, [ready, totalPages, totalSlides]);
 
   const isVideo = currentSlide === -1;
