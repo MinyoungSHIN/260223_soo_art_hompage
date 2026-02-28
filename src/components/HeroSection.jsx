@@ -149,28 +149,48 @@ export default function HeroSection() {
       // 스와이프 쿨다운 중이면 무시
       if (swipeCooldownRef.current) return;
       
+      // 현재 인덱스와 목표 인덱스가 같으면 무시
+      if (targetIndex === lastSlideRef.current) return;
+      
+      // 무조건 한 장씩만 이동 (속도와 상관없이)
+      const currentIndex = lastSlideRef.current;
+      let finalTargetIndex = targetIndex;
+      
+      // 한 장씩만 이동하도록 제한
+      if (targetIndex > currentIndex) {
+        finalTargetIndex = currentIndex + 1;
+      } else if (targetIndex < currentIndex) {
+        finalTargetIndex = currentIndex - 1;
+      } else {
+        return; // 같은 인덱스면 무시
+      }
+      
+      // 범위 체크
+      if (finalTargetIndex < -1) finalTargetIndex = -1;
+      if (finalTargetIndex >= totalSlides) finalTargetIndex = totalSlides - 1;
+      
       // 쿨다운 시작
       swipeCooldownRef.current = true;
       isScrolling.current = true;
       
       const sectionHeight = sectionRef.current.offsetHeight;
       const pageHeight = sectionHeight / totalPages;
-      const targetScroll = targetIndex === -1 
+      const targetScroll = finalTargetIndex === -1 
         ? sectionRef.current.offsetTop 
-        : sectionRef.current.offsetTop + targetIndex * pageHeight;
+        : sectionRef.current.offsetTop + finalTargetIndex * pageHeight;
       
       // 빠른 전환을 위해 instant 사용
       window.scrollTo({ top: targetScroll, behavior: "auto" });
-      setCurrentSlide(targetIndex === -1 ? -1 : targetIndex);
-      lastSlideRef.current = targetIndex === -1 ? -1 : targetIndex;
+      setCurrentSlide(finalTargetIndex === -1 ? -1 : finalTargetIndex);
+      lastSlideRef.current = finalTargetIndex === -1 ? -1 : finalTargetIndex;
       
       // 스크롤 완료 후 플래그 해제 (충분한 시간 확보)
       setTimeout(() => {
         isScrolling.current = false;
-        // 쿨다운 해제 (스와이프 애니메이션 시간 고려)
+        // 쿨다운 해제 (스와이프 애니메이션 시간 고려) - 더 긴 쿨다운
         setTimeout(() => {
           swipeCooldownRef.current = false;
-        }, 200); // 추가 쿨다운 시간
+        }, 400); // 추가 쿨다운 시간 증가 (200 -> 400)
       }, 300); // 스크롤 완료 대기 시간
     };
 
@@ -253,35 +273,30 @@ export default function HeroSection() {
       // 탭 감지 (거의 움직이지 않고 빠르게 터치)
       const isTap = Math.abs(deltaY) < 10 && Math.abs(deltaX) < 10 && deltaTime < 300;
       
-      // 가로 스와이프 감지 (거리 임계값 증가)
-      const minSwipeDistance = 50; // 30 -> 50으로 증가하여 의도적인 스와이프만 인식
-      const maxSwipeTime = 500;
-      const isHorizontalSwipeDetected = isHorizontalSwipe && Math.abs(deltaX) > minSwipeDistance && deltaTime < maxSwipeTime;
+      // 가로 스와이프 감지 (속도와 상관없이 방향만 확인)
+      const minSwipeDistance = 30; // 최소 거리만 확인 (속도 무관)
+      const isHorizontalSwipeDetected = isHorizontalSwipe && Math.abs(deltaX) > minSwipeDistance;
 
       if (isTap) {
-        // 탭: 다음 슬라이드로 이동
+        // 탭: 다음 슬라이드로 이동 (한 장씩만)
         e.preventDefault();
         const targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : totalSlides - 1;
-        if (targetIndex !== currentIndex) {
-          moveToSlide(targetIndex);
-        }
+        moveToSlide(targetIndex);
       } else if (isHorizontalSwipeDetected) {
-        // 가로 스와이프: 방향에 따라 이동 (한 장씩만)
+        // 가로 스와이프: 방향에 따라 이동 (속도와 상관없이 무조건 한 장씩만)
         e.preventDefault();
-        let targetIndex = currentIndex;
+        let targetIndex;
         
         if (deltaX > 0) {
-          // 왼쪽으로 스와이프 (다음 슬라이드) - 한 장씩만
+          // 왼쪽으로 스와이프 (다음 슬라이드) - 무조건 한 장씩만
           targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : totalSlides - 1;
         } else {
-          // 오른쪽으로 스와이프 (이전 슬라이드) - 한 장씩만
+          // 오른쪽으로 스와이프 (이전 슬라이드) - 무조건 한 장씩만
           targetIndex = currentIndex > -1 ? currentIndex - 1 : -1;
         }
         
-        // 현재 인덱스와 다를 때만 이동 (한 장씩만 보장)
-        if (targetIndex !== currentIndex) {
-          moveToSlide(targetIndex);
-        }
+        // moveToSlide 함수 내부에서 이미 한 장씩만 이동하도록 보장됨
+        moveToSlide(targetIndex);
       }
     };
 
