@@ -145,54 +145,48 @@ export default function HeroSection() {
 
     const moveToSlide = (targetIndex) => {
       if (!sectionRef.current) return;
-      
-      // 스와이프 쿨다운 중이면 무시
+
+      // ① 쿨다운 중이면 어떤 이동도 차단 (관성 연속 이벤트 원천 차단)
       if (swipeCooldownRef.current) return;
-      
-      // 현재 인덱스 기준으로 무조건 한 장씩만 이동하도록 보장
+
+      // ② 현재 상태 값(lastSlideRef)을 기준으로 무조건 한 칸씩만 이동
       const currentIndex = lastSlideRef.current;
       let finalTargetIndex;
-      
-      // 무조건 +1 또는 -1만 이동 (handleTouchEnd에서 이미 계산했지만 이중 보호)
+
       if (targetIndex > currentIndex) {
         finalTargetIndex = currentIndex + 1;
       } else if (targetIndex < currentIndex) {
         finalTargetIndex = currentIndex - 1;
       } else {
-        // 같은 인덱스면 무시
-        return;
+        return; // 같은 인덱스면 무시
       }
-      
-      // 범위 체크
+
+      // ③ 범위 체크
       if (finalTargetIndex < -1) finalTargetIndex = -1;
       if (finalTargetIndex >= totalSlides) finalTargetIndex = totalSlides - 1;
-      
-      // 현재 인덱스와 같으면 무시
       if (finalTargetIndex === currentIndex) return;
-      
-      // 쿨다운 시작 (확실하게 한 장씩만 스냅되도록 보장)
+
+      // ④ 쿨다운 즉시 시작 — 600ms 동안 추가 스와이프 완전 차단
       swipeCooldownRef.current = true;
       isScrolling.current = true;
-      
+
       const sectionHeight = sectionRef.current.offsetHeight;
       const pageHeight = sectionHeight / totalPages;
-      const targetScroll = finalTargetIndex === -1 
-        ? sectionRef.current.offsetTop 
-        : sectionRef.current.offsetTop + finalTargetIndex * pageHeight;
-      
-      // 빠른 전환을 위해 instant 사용
+      const targetScroll =
+        finalTargetIndex === -1
+          ? sectionRef.current.offsetTop
+          : sectionRef.current.offsetTop + finalTargetIndex * pageHeight;
+
+      // ⑤ 즉시 스냅 이동 (behavior: "auto")
       window.scrollTo({ top: targetScroll, behavior: "auto" });
-      setCurrentSlide(finalTargetIndex === -1 ? -1 : finalTargetIndex);
-      lastSlideRef.current = finalTargetIndex === -1 ? -1 : finalTargetIndex;
-      
-      // 스크롤 완료 후 플래그 해제 (충분한 시간 확보)
+      lastSlideRef.current = finalTargetIndex;
+      setCurrentSlide(finalTargetIndex);
+
+      // ⑥ 600ms 단일 쿨다운 타이머 (중첩 setTimeout 제거)
       setTimeout(() => {
         isScrolling.current = false;
-        // 쿨다운 해제 (스와이프 애니메이션 시간 고려) - 더 긴 쿨다운
-        setTimeout(() => {
-          swipeCooldownRef.current = false;
-        }, 400); // 추가 쿨다운 시간 증가 (200 -> 400)
-      }, 300); // 스크롤 완료 대기 시간
+        swipeCooldownRef.current = false;
+      }, 600);
     };
 
     const handleTouchStart = (e) => {
@@ -206,16 +200,15 @@ export default function HeroSection() {
 
     const handleTouchMove = (e) => {
       if (!isTouching.current || !sectionRef.current) return;
-      
-      // touchMoveX, touchMoveY를 먼저 업데이트 (중요!)
+
+      // 좌표 먼저 업데이트
       touchMoveX = e.touches[0].clientX;
       touchMoveY = e.touches[0].clientY;
       const deltaX = touchStartX - touchMoveX;
       const deltaY = touchStartY.current - touchMoveY;
-      
-      // 가로 스와이프가 세로 스와이프보다 크면 가로 스와이프로 인식
-      if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // 가로 스와이프인 경우 세로 스크롤 방지
+
+      // 쿨다운 중이거나 가로 스와이프 방향이면 브라우저 스크롤 완전 차단
+      if (swipeCooldownRef.current || Math.abs(deltaX) > Math.abs(deltaY)) {
         e.preventDefault();
       }
     };
@@ -225,63 +218,48 @@ export default function HeroSection() {
         isTouching.current = false;
         return;
       }
-      
-      // 스와이프 쿨다운 중이면 무시
+
+      // 쿨다운 중이면 터치 종료만 처리하고 이동 차단
       if (swipeCooldownRef.current) {
         isTouching.current = false;
+        e.preventDefault();
         return;
       }
-      
+
       isTouching.current = false;
 
       const touchEndX = touchMoveX;
       const touchEndY = touchMoveY;
-      const touchEndTime = Date.now();
       const deltaX = touchStartX - touchEndX;
       const deltaY = touchStartY.current - touchEndY;
-      const deltaTime = touchEndTime - touchStartTime.current;
-      
-      // 스크롤 위치 기반 계산 제거 - lastSlideRef.current를 직접 사용
+      const deltaTime = Date.now() - touchStartTime.current;
+
+      // ★ 스크롤 위치 계산 완전 제거 — lastSlideRef.current만 사용
       const currentIndex = lastSlideRef.current;
 
-      // 가로 스와이프 우선 판단
+      // 탭 감지 (움직임 10px 미만 + 300ms 미만)
+      const isTap =
+        Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10 && deltaTime < 300;
+
+      // 가로 스와이프 감지 (방향 우선, 최소 30px)
       const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);
-      
-      // 탭 감지 (거의 움직이지 않고 빠르게 터치)
-      const isTap = Math.abs(deltaY) < 10 && Math.abs(deltaX) < 10 && deltaTime < 300;
-      
-      // 가로 스와이프 감지 (속도와 상관없이 방향만 확인)
-      const minSwipeDistance = 30; // 최소 거리만 확인 (속도 무관)
-      const isHorizontalSwipeDetected = isHorizontalSwipe && Math.abs(deltaX) > minSwipeDistance;
+      const isHorizontalSwipeDetected =
+        isHorizontalSwipe && Math.abs(deltaX) >= 30;
 
       if (isTap) {
-        // 탭: 다음 슬라이드로 이동 (한 장씩만) - lastSlideRef 기준
+        // 탭 → 다음 슬라이드로 +1
         e.preventDefault();
-        const targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : totalSlides - 1;
-        moveToSlide(targetIndex);
+        moveToSlide(currentIndex + 1);
       } else if (isHorizontalSwipeDetected) {
-        // 가로 스와이프: lastSlideRef 기준으로 무조건 +1 또는 -1만 이동
+        // 가로 스와이프 → lastSlideRef 기준 +1 / -1 고정
         e.preventDefault();
-        let targetIndex;
-        
         if (deltaX > 0) {
-          // 왼쪽으로 스와이프 (다음 슬라이드) - 무조건 +1만
-          targetIndex = currentIndex + 1;
-          // 범위 체크
-          if (targetIndex >= totalSlides) {
-            targetIndex = totalSlides - 1;
-          }
+          // 왼쪽으로 밀기 → 다음 (+1)
+          moveToSlide(currentIndex + 1);
         } else {
-          // 오른쪽으로 스와이프 (이전 슬라이드) - 무조건 -1만
-          targetIndex = currentIndex - 1;
-          // 범위 체크
-          if (targetIndex < -1) {
-            targetIndex = -1;
-          }
+          // 오른쪽으로 밀기 → 이전 (-1)
+          moveToSlide(currentIndex - 1);
         }
-        
-        // moveToSlide가 확실하게 호출되어 한 장씩만 스냅되도록 보장
-        moveToSlide(targetIndex);
       }
     };
 
