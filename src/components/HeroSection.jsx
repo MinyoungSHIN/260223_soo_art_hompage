@@ -149,27 +149,28 @@ export default function HeroSection() {
       // 스와이프 쿨다운 중이면 무시
       if (swipeCooldownRef.current) return;
       
-      // 현재 인덱스와 목표 인덱스가 같으면 무시
-      if (targetIndex === lastSlideRef.current) return;
-      
-      // 무조건 한 장씩만 이동 (속도와 상관없이)
+      // 현재 인덱스 기준으로 무조건 한 장씩만 이동하도록 보장
       const currentIndex = lastSlideRef.current;
-      let finalTargetIndex = targetIndex;
+      let finalTargetIndex;
       
-      // 한 장씩만 이동하도록 제한
+      // 무조건 +1 또는 -1만 이동 (handleTouchEnd에서 이미 계산했지만 이중 보호)
       if (targetIndex > currentIndex) {
         finalTargetIndex = currentIndex + 1;
       } else if (targetIndex < currentIndex) {
         finalTargetIndex = currentIndex - 1;
       } else {
-        return; // 같은 인덱스면 무시
+        // 같은 인덱스면 무시
+        return;
       }
       
       // 범위 체크
       if (finalTargetIndex < -1) finalTargetIndex = -1;
       if (finalTargetIndex >= totalSlides) finalTargetIndex = totalSlides - 1;
       
-      // 쿨다운 시작
+      // 현재 인덱스와 같으면 무시
+      if (finalTargetIndex === currentIndex) return;
+      
+      // 쿨다운 시작 (확실하게 한 장씩만 스냅되도록 보장)
       swipeCooldownRef.current = true;
       isScrolling.current = true;
       
@@ -240,32 +241,8 @@ export default function HeroSection() {
       const deltaY = touchStartY.current - touchEndY;
       const deltaTime = touchEndTime - touchStartTime.current;
       
-      // 현재 인덱스 계산 - 스크롤 위치를 기반으로 정확하게 계산
-      const sectionHeight = sectionRef.current.offsetHeight;
-      const pageHeight = sectionHeight / totalPages;
-      const currentTop = sectionRef.current.getBoundingClientRect().top;
-      const currentScroll = -currentTop;
-      
-      // 스크롤 위치를 기반으로 현재 인덱스 계산
-      let currentIndex;
-      if (currentScroll <= pageHeight * 0.2) {
-        // 비디오 영역 (상단 20% 이내)
-        currentIndex = -1;
-      } else {
-        // 이미지 영역: 비디오 영역을 제외하고 계산
-        const imageScroll = currentScroll - pageHeight * 0.2;
-        const calculatedIndex = Math.min(
-          Math.floor(imageScroll / pageHeight),
-          totalSlides - 1
-        );
-        currentIndex = Math.max(0, calculatedIndex); // 최소 0 (image1)
-      }
-      
-      // lastSlideRef 업데이트
-      if (currentIndex !== lastSlideRef.current) {
-        lastSlideRef.current = currentIndex;
-        setCurrentSlide(currentIndex);
-      }
+      // 스크롤 위치 기반 계산 제거 - lastSlideRef.current를 직접 사용
+      const currentIndex = lastSlideRef.current;
 
       // 가로 스와이프 우선 판단
       const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);
@@ -278,24 +255,32 @@ export default function HeroSection() {
       const isHorizontalSwipeDetected = isHorizontalSwipe && Math.abs(deltaX) > minSwipeDistance;
 
       if (isTap) {
-        // 탭: 다음 슬라이드로 이동 (한 장씩만)
+        // 탭: 다음 슬라이드로 이동 (한 장씩만) - lastSlideRef 기준
         e.preventDefault();
         const targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : totalSlides - 1;
         moveToSlide(targetIndex);
       } else if (isHorizontalSwipeDetected) {
-        // 가로 스와이프: 방향에 따라 이동 (속도와 상관없이 무조건 한 장씩만)
+        // 가로 스와이프: lastSlideRef 기준으로 무조건 +1 또는 -1만 이동
         e.preventDefault();
         let targetIndex;
         
         if (deltaX > 0) {
-          // 왼쪽으로 스와이프 (다음 슬라이드) - 무조건 한 장씩만
-          targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : totalSlides - 1;
+          // 왼쪽으로 스와이프 (다음 슬라이드) - 무조건 +1만
+          targetIndex = currentIndex + 1;
+          // 범위 체크
+          if (targetIndex >= totalSlides) {
+            targetIndex = totalSlides - 1;
+          }
         } else {
-          // 오른쪽으로 스와이프 (이전 슬라이드) - 무조건 한 장씩만
-          targetIndex = currentIndex > -1 ? currentIndex - 1 : -1;
+          // 오른쪽으로 스와이프 (이전 슬라이드) - 무조건 -1만
+          targetIndex = currentIndex - 1;
+          // 범위 체크
+          if (targetIndex < -1) {
+            targetIndex = -1;
+          }
         }
         
-        // moveToSlide 함수 내부에서 이미 한 장씩만 이동하도록 보장됨
+        // moveToSlide가 확실하게 호출되어 한 장씩만 스냅되도록 보장
         moveToSlide(targetIndex);
       }
     };
