@@ -66,7 +66,7 @@ export default function HeroSection() {
     const revealVideo = () => {
       // 커버를 페이드아웃하고, 이미지 렌더링 허용
       setCoverVisible(false);
-      setTimeout(() => setReady(true), 50); // 커버가 사라진 후 이미지 활성화
+      setTimeout(() => setReady(true), 0); // 커버가 사라진 후 이미지 활성화
     };
 
     const vid = videoRef.current;
@@ -169,7 +169,7 @@ export default function HeroSection() {
     };
 
     const SCROLL_DURATION = 800;
-    const COOLDOWN = SCROLL_DURATION + 50; // 900ms
+    const COOLDOWN = SCROLL_DURATION + 10; // 900ms
 
     const moveToSlide = (direction) => {
       if (!sectionRef.current) return;
@@ -194,7 +194,8 @@ export default function HeroSection() {
 
       // ── 하단 탈출: 마지막 슬라이드에서 2회 스와이프 → 다음 섹션 ──
       if (finalTargetIndex > totalSlides - 1) {
-        exitAttemptRef.current += 1;
+        exitAttemptRef.current = 0;
+        topEntryBlockRef.current = false;
         if (exitAttemptRef.current < 1) return;
         exitAttemptRef.current = 0;
         topEntryBlockRef.current = false;
@@ -390,7 +391,7 @@ export default function HeroSection() {
           setTimeout(() => {
             isScrolling.current = false;
             swipeCooldownRef.current = false;
-          }, 850);
+          }, 810);
           return;
         }
 
