@@ -147,7 +147,28 @@ export default function HeroSection() {
     let touchMoveY = 0;
     let touchStartX = 0;
 
+    // ── 사용자 정의 부드러운 스크롤 (duration ms 동안 easeInOutCubic) ──
+    const smoothScrollTo = (targetY, duration = 700) => {
+      const startY = window.scrollY;
+      const diff = targetY - startY;
+      if (diff === 0) return;
+      const startTime = performance.now();
+
+      const easeInOutCubic = (t) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+      const step = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, startY + diff * easeInOutCubic(progress));
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
     // ── 슬라이드 이동 (항상 ±1만) ──
+    const SCROLL_DURATION = 700; // 슬라이드 전환 애니메이션 시간(ms)
+
     const moveToSlide = (direction) => {
       // direction: +1(다음) 또는 -1(이전)
       if (!sectionRef.current) return;
@@ -156,26 +177,30 @@ export default function HeroSection() {
       const currentIndex = lastSlideRef.current;
       const finalTargetIndex = currentIndex + direction;
 
-      // 범위 초과 — 마지막 슬라이드 탈출 로직
+      // ── 상단 탈출 방지: 비디오(-1)에서 위로 스와이프 시 -1에 고정 ──
+      if (finalTargetIndex < -1) {
+        // -1 이하로 절대 못 감 — 고정 후 즉시 종료
+        return;
+      }
+
+      // ── 하단 탈출 로직: 마지막 슬라이드에서 2회 스와이프 후 넘어감 ──
       if (finalTargetIndex > totalSlides - 1) {
-        // 마지막 슬라이드에서 아래로 스와이프 → 탈출 카운터 증가
         exitAttemptRef.current += 1;
         if (exitAttemptRef.current < 2) {
           return; // 2회 미만이면 꿈쩍도 안 함
         }
-        // 2회 이상 → 쿨다운 시작 후 다음 섹션으로 부드럽게 넘어감
+        // 2회 이상 → 다음 섹션으로 부드럽게 넘어감
         swipeCooldownRef.current = true;
         isScrolling.current = true;
         const sectionBottom =
           sectionRef.current.offsetTop + sectionRef.current.offsetHeight;
-        window.scrollTo({ top: sectionBottom, behavior: "smooth" });
+        smoothScrollTo(sectionBottom, 800);
         setTimeout(() => {
           isScrolling.current = false;
           swipeCooldownRef.current = false;
-        }, 1000);
+        }, 900); // 애니메이션(800) + 100ms 여유
         return;
       }
-      if (finalTargetIndex < -1) return; // 첫 슬라이드 이전으로는 불가
 
       // 마지막 슬라이드가 아닌 곳에서는 탈출 카운터 리셋
       exitAttemptRef.current = 0;
@@ -195,14 +220,14 @@ export default function HeroSection() {
           ? sectionRef.current.offsetTop
           : sectionRef.current.offsetTop + finalTargetIndex * pageHeight;
 
-      // 즉시 스냅 이동
-      window.scrollTo({ top: targetScroll, behavior: "instant" });
+      // 부드러운 스크롤 이동 (700ms easeInOutCubic)
+      smoothScrollTo(targetScroll, SCROLL_DURATION);
 
-      // 800ms 쿨다운 (이 기간 동안 추가 터치/스크롤 이벤트 완전 무시)
+      // 쿨다운: 애니메이션 시간 + 100ms 여유
       setTimeout(() => {
         isScrolling.current = false;
         swipeCooldownRef.current = false;
-      }, 800);
+      }, SCROLL_DURATION + 100);
     };
 
     // ── touchstart ──
@@ -215,30 +240,47 @@ export default function HeroSection() {
       touchMoveY = touchStartY.current;
     };
 
-    // ── touchmove — HeroSection 내 브라우저 기본 스크롤 전면 차단 ──
+    // ── touchmove — 가로 스와이프만 차단, 세로는 브라우저 기본 스크롤 허용 ──
+    let gestureDirection = null; // "horizontal" | "vertical" | null
+
     const handleTouchMove = (e) => {
       if (!isTouching.current || !sectionRef.current) return;
 
       touchMoveX = e.touches[0].clientX;
       touchMoveY = e.touches[0].clientY;
 
-      // ★ 히어로 섹션 내에서는 무조건 브라우저 스크롤 차단
-      //    (세로든 가로든 관계없이, 이미지가 다 넘어갈 때까지 화면이 안 굴러감)
-      e.preventDefault();
+      const absX = Math.abs(touchStartX - touchMoveX);
+      const absY = Math.abs(touchStartY.current - touchMoveY);
+
+      // 제스처 방향을 한 번만 결정 (10px 이상 이동 후)
+      if (!gestureDirection && (absX > 10 || absY > 10)) {
+        gestureDirection = absX >= absY ? "horizontal" : "vertical";
+      }
+
+      // 가로 스와이프로 확정된 경우에만 브라우저 스크롤 차단
+      if (gestureDirection === "horizontal") {
+        e.preventDefault();
+      }
+      // 세로 스와이프: preventDefault 안 함 → 브라우저 기본 스크롤 작동
     };
 
-    // ── touchend — 방향 감지 후 ±1 이동 ──
+    // ── touchend — 가로 스와이프만 슬라이드 변경, 세로는 무시 ──
     const handleTouchEnd = (e) => {
+      const currentGesture = gestureDirection;
+      gestureDirection = null; // 제스처 방향 리셋
+
       if (!isTouching.current || !sectionRef.current) {
         isTouching.current = false;
         return;
       }
 
-      // 쿨다운 중 → 모든 입력 무시
+      // 쿨다운 중 → 가로 입력만 무시
       if (swipeCooldownRef.current) {
         isTouching.current = false;
-        e.preventDefault();
-        e.stopPropagation();
+        if (currentGesture === "horizontal") {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         return;
       }
 
@@ -248,34 +290,28 @@ export default function HeroSection() {
       const deltaY = touchStartY.current - touchMoveY;
       const deltaTime = Date.now() - touchStartTime.current;
 
-      // lastSlideRef.current만 사용 (스크롤 위치 계산 없음)
-      const THRESHOLD = 30; // 최소 이동 거리(px)
+      const THRESHOLD = 30;
 
       // 탭 감지 (움직임 10px 미만 + 300ms 미만)
       const isTap =
         Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10 && deltaTime < 300;
 
-      // 스와이프 감지 — 가로 또는 세로 중 큰 쪽으로 판단
-      const absX = Math.abs(deltaX);
-      const absY = Math.abs(deltaY);
-      const isSwipe = absX >= THRESHOLD || absY >= THRESHOLD;
-
-      e.preventDefault();
-      e.stopPropagation();
+      // 가로 스와이프 감지
+      const isHorizontalSwipe =
+        currentGesture === "horizontal" && Math.abs(deltaX) >= THRESHOLD;
 
       if (isTap) {
         // 탭 → 다음 슬라이드
+        e.preventDefault();
+        e.stopPropagation();
         moveToSlide(+1);
-      } else if (isSwipe) {
-        // 주 방향 결정 (가로 vs 세로)
-        if (absX >= absY) {
-          // 가로 스와이프
-          moveToSlide(deltaX > 0 ? +1 : -1);
-        } else {
-          // 세로 스와이프 — 위로 밀기(deltaY > 0) = 다음, 아래로 밀기 = 이전
-          moveToSlide(deltaY > 0 ? +1 : -1);
-        }
+      } else if (isHorizontalSwipe) {
+        // 가로 스와이프만 슬라이드 변경
+        e.preventDefault();
+        e.stopPropagation();
+        moveToSlide(deltaX > 0 ? +1 : -1);
       }
+      // 세로 스와이프 → 아무것도 안 함 (브라우저가 자연스럽게 스크롤)
     };
 
     const element = sectionRef.current;
@@ -294,7 +330,7 @@ export default function HeroSection() {
     };
   }, [ready, totalPages, totalSlides]);
 
-  // 5) ready 이후에만 스크롤 리스너 등록 (데스크톱 전용 — 모바일은 터치로 제어)
+  // 5) ready 이후에만 스크롤 리스너 등록 (세로 스크롤로 슬라이드 인덱스 업데이트)
   useEffect(() => {
     if (!ready) return;
 
