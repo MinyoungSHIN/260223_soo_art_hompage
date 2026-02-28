@@ -151,7 +151,7 @@ export default function HeroSection() {
     const smoothScrollTo = (targetY, duration = 700) => {
       const startY = window.scrollY;
       const diff = targetY - startY;
-      if (diff === 0) return;
+      if (Math.abs(diff) < 1) return; // 거의 같은 위치면 스킵
       const startTime = performance.now();
 
       const easeInOutCubic = (t) =>
@@ -160,7 +160,11 @@ export default function HeroSection() {
       const step = (now) => {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, startY + diff * easeInOutCubic(progress));
+        // behavior: "instant"로 CSS scroll-behavior: smooth 충돌 방지
+        window.scrollTo({
+          top: startY + diff * easeInOutCubic(progress),
+          behavior: "instant",
+        });
         if (progress < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
@@ -224,10 +228,22 @@ export default function HeroSection() {
 
       const sectionHeight = sectionRef.current.offsetHeight;
       const pageHeight = sectionHeight / totalPages;
-      const targetScroll =
-        finalTargetIndex === -1
-          ? sectionRef.current.offsetTop
-          : sectionRef.current.offsetTop + finalTargetIndex * pageHeight;
+
+      // ★ handleScroll의 인덱스 계산식과 정확히 일치하는 스크롤 목표 계산
+      //    handleScroll: scrolled <= 0.2*pH → video(-1)
+      //                  imageScroll = scrolled - 0.2*pH → floor(imageScroll/pH) = index
+      //    따라서: video → scrolled=0, image[i] → scrolled = 0.2*pH + i*pH + 0.5*pH (중앙)
+      let targetScroll;
+      if (finalTargetIndex === -1) {
+        targetScroll = sectionRef.current.offsetTop; // scrolled = 0 → video
+      } else {
+        // 이미지 i의 중앙: 0.2*pH + i*pH + 0.5*pH
+        targetScroll =
+          sectionRef.current.offsetTop +
+          pageHeight * 0.2 +
+          finalTargetIndex * pageHeight +
+          pageHeight * 0.5;
+      }
 
       // 부드러운 스크롤 이동 (700ms easeInOutCubic)
       smoothScrollTo(targetScroll, SCROLL_DURATION);
