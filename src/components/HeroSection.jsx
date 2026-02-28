@@ -203,29 +203,31 @@ export default function HeroSection() {
       const deltaY = touchStartY.current - touchEndY;
       const deltaTime = touchEndTime - touchStartTime.current;
       
-      // 현재 인덱스 계산 - lastSlideRef를 우선 사용하여 더 정확하게
+      // 현재 인덱스 계산 - 스크롤 위치를 기반으로 정확하게 계산
       const sectionHeight = sectionRef.current.offsetHeight;
       const pageHeight = sectionHeight / totalPages;
       const currentTop = sectionRef.current.getBoundingClientRect().top;
       const currentScroll = -currentTop;
       
-      // lastSlideRef를 기본값으로 사용 (더 정확함)
-      let currentIndex = lastSlideRef.current;
-      
-      // 스크롤 위치로도 계산하여 검증
-      if (currentScroll <= 0) {
+      // 스크롤 위치를 기반으로 현재 인덱스 계산
+      let currentIndex;
+      if (currentScroll <= pageHeight * 0.2) {
+        // 비디오 영역 (상단 20% 이내)
         currentIndex = -1;
       } else {
+        // 이미지 영역: 비디오 영역을 제외하고 계산
+        const imageScroll = currentScroll - pageHeight * 0.2;
         const calculatedIndex = Math.min(
-          Math.floor(currentScroll / pageHeight),
+          Math.floor(imageScroll / pageHeight),
           totalSlides - 1
         );
-        // lastSlideRef와 차이가 크지 않으면 lastSlideRef 사용
-        if (Math.abs(calculatedIndex - lastSlideRef.current) <= 1) {
-          currentIndex = lastSlideRef.current;
-        } else {
-          currentIndex = calculatedIndex;
-        }
+        currentIndex = Math.max(0, calculatedIndex); // 최소 0 (image1)
+      }
+      
+      // lastSlideRef 업데이트
+      if (currentIndex !== lastSlideRef.current) {
+        lastSlideRef.current = currentIndex;
+        setCurrentSlide(currentIndex);
       }
 
       // 가로 스와이프 우선 판단
@@ -292,25 +294,25 @@ export default function HeroSection() {
       const sectionHeight = sectionRef.current.offsetHeight;
       const scrolled = -rect.top;
       const pageHeight = sectionHeight / totalPages;
-      const isMobile = window.innerWidth < 640;
 
-      if (scrolled <= 0) {
-        const newSlide = -1;
-        if (newSlide !== lastSlideRef.current) {
-          setCurrentSlide(newSlide);
-          lastSlideRef.current = newSlide;
-        }
+      let newSlide;
+      if (scrolled <= pageHeight * 0.2) {
+        // 비디오 영역 (상단 20% 이내)
+        newSlide = -1;
       } else {
-        let calculatedIndex = Math.min(
-          Math.floor(scrolled / pageHeight),
+        // 이미지 영역: 비디오 영역을 제외하고 계산
+        const imageScroll = scrolled - pageHeight * 0.2;
+        const calculatedIndex = Math.min(
+          Math.floor(imageScroll / pageHeight),
           totalSlides - 1
         );
-        
-        // 데스크톱에서는 정상 작동
-        if (!isMobile && calculatedIndex !== lastSlideRef.current) {
-          setCurrentSlide(calculatedIndex);
-          lastSlideRef.current = calculatedIndex;
-        }
+        newSlide = Math.max(0, calculatedIndex); // 최소 0 (image1)
+      }
+      
+      // 현재 슬라이드와 다를 때만 업데이트
+      if (newSlide !== lastSlideRef.current) {
+        setCurrentSlide(newSlide);
+        lastSlideRef.current = newSlide;
       }
     };
 
