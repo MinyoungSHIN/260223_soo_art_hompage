@@ -545,17 +545,17 @@ export default function HeroSection() {
             <br className="hidden sm:block" /> 수아트앤컴퍼니와 함께 하세요.
           </p>
 
-          <div className="mt-8 flex flex-row items-center justify-center gap-3 sm:mt-12 sm:gap-4">
+          <div className="mt-8 flex flex-row flex-nowrap items-center justify-center gap-3 sm:mt-12 sm:gap-4">
             <Link
               href="/contact"
-              className="whitespace-nowrap rounded-xl border-2 border-transparent bg-primary px-5 py-3 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:px-10 sm:text-lg"
+              className="whitespace-nowrap rounded-xl border-2 border-transparent bg-primary px-4 py-2.5 text-xs font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:px-8 sm:py-3 sm:text-base md:px-10 md:text-lg"
               style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
             >
               상담 신청
             </Link>
             <a
               href="#problem"
-              className="whitespace-nowrap rounded-xl border-2 border-white/30 px-4 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:text-lg"
+              className="whitespace-nowrap rounded-xl border-2 border-white/30 px-4 py-2.5 text-xs font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:py-3 sm:text-base md:text-lg"
               style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
             >
               서비스 알아보기
