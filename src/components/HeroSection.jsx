@@ -135,11 +135,10 @@ export default function HeroSection() {
     };
   }, []);
 
-  // 4) 모바일 터치 이벤트 처리 — 완전 재설계
-  //    · document에 이벤트 등록 (히어로 경계에서도 터치 감지 가능)
-  //    · 경계 진입 로직: handleTouchEnd에서 통합 관리
-  //    · HeroSection 내 touchmove preventDefault → 브라우저 세로 스크롤 원천 차단
-  //    · 방향 기반 ±1 이동만 허용 (스와이프 거리 무관)
+  // 4) 모바일 터치 이벤트 처리
+  //    · HeroSection 요소에만 이벤트 등록 (다른 섹션 스크롤 간섭 없음)
+  //    · HeroSection 내 touchmove preventDefault → 브라우저 스크롤 차단
+  //    · 방향 기반 ±1 이동만 허용, 800ms 부드러운 전환
   useEffect(() => {
     if (!ready) return;
     const isMobile = window.innerWidth < 640;
@@ -148,9 +147,6 @@ export default function HeroSection() {
     let touchMoveX = 0;
     let touchMoveY = 0;
     let touchStartX = 0;
-    let managingTouch = false; // 이 터치 제스처를 관리하는지 여부
-    let gestureDecided = false; // 제스처 방향이 결정되었는지
-    let blockScroll = false; // 이 제스처에서 스크롤을 차단하는지
 
     // ── 사용자 정의 부드러운 스크롤 (800ms easeInOutCubic) ──
     const smoothScrollTo = (targetY, duration = 800) => {
@@ -158,10 +154,8 @@ export default function HeroSection() {
       const diff = targetY - startY;
       if (Math.abs(diff) < 1) return;
       const startTime = performance.now();
-
       const easeInOutCubic = (t) =>
         t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
       const step = (now) => {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
@@ -174,37 +168,8 @@ export default function HeroSection() {
       requestAnimationFrame(step);
     };
 
-    // ── 슬라이드 이동 (항상 ±1만) ──
     const SCROLL_DURATION = 800;
     const COOLDOWN = SCROLL_DURATION + 100; // 900ms
-
-    // ── 특정 인덱스로 직접 이동 (경계 진입용) ──
-    const moveToIndex = (targetIndex) => {
-      if (!sectionRef.current) return;
-      swipeCooldownRef.current = true;
-      isScrolling.current = true;
-      lastSlideRef.current = targetIndex;
-      setCurrentSlide(targetIndex);
-
-      const sectionHeight = sectionRef.current.offsetHeight;
-      const pageHeight = sectionHeight / totalPages;
-      let targetScroll;
-      if (targetIndex === -1) {
-        targetScroll = sectionRef.current.offsetTop;
-      } else {
-        targetScroll =
-          sectionRef.current.offsetTop +
-          pageHeight * 0.2 +
-          targetIndex * pageHeight +
-          pageHeight * 0.5;
-      }
-
-      smoothScrollTo(targetScroll, SCROLL_DURATION);
-      setTimeout(() => {
-        isScrolling.current = false;
-        swipeCooldownRef.current = false;
-      }, COOLDOWN);
-    };
 
     const moveToSlide = (direction) => {
       if (!sectionRef.current) return;
@@ -213,7 +178,7 @@ export default function HeroSection() {
       const currentIndex = lastSlideRef.current;
       const finalTargetIndex = currentIndex + direction;
 
-      // ── 상단 탈출 방지: 비디오(-1)에서 위로 스와이프 시 절대 탈출 불가 ──
+      // ── 상단 탈출 방지: 비디오(-1)에서 위로 → 절대 탈출 불가 ──
       if (finalTargetIndex < -1) {
         swipeCooldownRef.current = true;
         isScrolling.current = true;
@@ -227,13 +192,12 @@ export default function HeroSection() {
         return;
       }
 
-      // ── 하단 탈출 로직: 마지막 슬라이드에서 2회 스와이프 후 넘어감 ──
+      // ── 하단 탈출: 마지막 슬라이드에서 2회 스와이프 → 다음 섹션 ──
       if (finalTargetIndex > totalSlides - 1) {
         exitAttemptRef.current += 1;
         if (exitAttemptRef.current < 2) return;
-        // 2회 이상 → 다음 섹션으로 부드럽게 넘어감
         exitAttemptRef.current = 0;
-        topEntryBlockRef.current = false; // 재진입 시 2단계 다시 적용
+        topEntryBlockRef.current = false;
         swipeCooldownRef.current = true;
         isScrolling.current = true;
         const sectionBottom =
@@ -274,17 +238,6 @@ export default function HeroSection() {
 
     // ── touchstart ──
     const handleTouchStart = (e) => {
-      if (!sectionRef.current) return;
-      const scrollY = window.scrollY;
-      const sectionTop = sectionRef.current.offsetTop;
-      const sectionBottom = sectionTop + sectionRef.current.offsetHeight;
-
-      // HeroSection 내부 또는 하단 경계(+30px)에서만 터치 관리
-      managingTouch = scrollY >= sectionTop - 10 && scrollY <= sectionBottom + 30;
-      gestureDecided = false;
-      blockScroll = false;
-      if (!managingTouch) return;
-
       touchStartX = e.touches[0].clientX;
       touchStartY.current = e.touches[0].clientY;
       touchStartTime.current = Date.now();
@@ -293,68 +246,31 @@ export default function HeroSection() {
       touchMoveY = touchStartY.current;
     };
 
-    // ── touchmove — 조건부 브라우저 스크롤 차단 ──
+    // ── touchmove — HeroSection 내 브라우저 스크롤 차단 ──
     const handleTouchMove = (e) => {
-      if (!managingTouch || !isTouching.current || !sectionRef.current) return;
-
+      if (!isTouching.current) return;
       touchMoveX = e.touches[0].clientX;
       touchMoveY = e.touches[0].clientY;
-
-      const scrollY = window.scrollY;
-      const sectionTop = sectionRef.current.offsetTop;
-      const sectionBottom = sectionTop + sectionRef.current.offsetHeight;
-
-      // ★ HeroSection 내부: 무조건 브라우저 스크롤 차단
-      if (scrollY >= sectionTop && scrollY < sectionBottom) {
-        e.preventDefault();
-        return;
-      }
-
-      // ★ 하단 경계 근처: 제스처 방향에 따라 선택적 차단
-      if (!gestureDecided) {
-        const curDeltaY = touchStartY.current - touchMoveY; // + = 위로 밀기
-        const curAbsX = Math.abs(touchStartX - touchMoveX);
-        const curAbsY = Math.abs(curDeltaY);
-        // 10px 이상 움직이면 방향 결정
-        if (curAbsY > 10 || curAbsX > 10) {
-          gestureDecided = true;
-          blockScroll = curDeltaY > 0; // 위로 밀기(히어로 방향) → 차단
-        }
-      }
-
-      if (blockScroll) {
-        e.preventDefault();
-      }
-      // blockScroll이 false면 → 브라우저 기본 스크롤 허용 (아래로 내려감)
+      e.preventDefault();
     };
 
-    // ── touchend — 경계 진입 + 내부 네비게이션 통합 ──
+    // ── touchend — 방향 감지 후 ±1 이동 ──
     const handleTouchEnd = (e) => {
-      if (!managingTouch || !isTouching.current || !sectionRef.current) {
+      if (!isTouching.current || !sectionRef.current) {
         isTouching.current = false;
-        managingTouch = false;
         return;
       }
-
       if (swipeCooldownRef.current) {
         isTouching.current = false;
-        managingTouch = false;
         e.preventDefault();
         e.stopPropagation();
         return;
       }
-
       isTouching.current = false;
-      managingTouch = false;
 
       const deltaX = touchStartX - touchMoveX;
       const deltaY = touchStartY.current - touchMoveY;
       const deltaTime = Date.now() - touchStartTime.current;
-
-      const scrollY = window.scrollY;
-      const sectionTop = sectionRef.current.offsetTop;
-      const sectionHeight = sectionRef.current.offsetHeight;
-      const sectionBottom = sectionTop + sectionHeight;
 
       const THRESHOLD = 30;
       const isTap =
@@ -363,47 +279,12 @@ export default function HeroSection() {
       const absY = Math.abs(deltaY);
       const isSwipe = absX >= THRESHOLD || absY >= THRESHOLD;
 
-      // ═══ 경계 진입 처리: 히어로 하단 경계에서 위로 스와이프 ═══
-      const atBottomBoundary = scrollY >= sectionBottom - 20;
-      if (atBottomBoundary && isSwipe && absY >= absX && deltaY > 0) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (!topEntryBlockRef.current) {
-          // ── 첫 번째: 경계에서 멈춤 확인 ──
-          topEntryBlockRef.current = true;
-          swipeCooldownRef.current = true;
-          isScrolling.current = true;
-          // 정확히 sectionBottom에 고정 (빠른 스냅)
-          smoothScrollTo(sectionBottom, 300);
-          setTimeout(() => {
-            isScrolling.current = false;
-            swipeCooldownRef.current = false;
-          }, 400);
-        } else {
-          // ── 두 번째: 히어로 마지막 이미지(image5)로 부드럽게 진입 ──
-          isScrolling.current = true;
-          moveToIndex(totalSlides - 1);
-        }
-        return;
-      }
-
-      // ═══ 히어로 섹션 내부 네비게이션 ═══
-      if (scrollY < sectionTop || scrollY >= sectionBottom) return;
-
       e.preventDefault();
       e.stopPropagation();
 
       if (isTap) {
         moveToSlide(+1);
       } else if (isSwipe) {
-        // UX 보정: 마지막 이미지(image5)에서는 아래로 내리는 제스처도
-        // "다음 섹션(Problem)으로 내려가기" 의도로 해석한다.
-        if (absY >= absX && lastSlideRef.current === totalSlides - 1 && deltaY < 0) {
-          moveToSlide(+1);
-          return;
-        }
-
         if (absX >= absY) {
           moveToSlide(deltaX > 0 ? +1 : -1);
         } else {
@@ -412,29 +293,53 @@ export default function HeroSection() {
       }
     };
 
-    // ★ document에 이벤트 등록 (히어로 경계에서도 터치 감지 가능)
-    document.addEventListener("touchstart", handleTouchStart, { passive: false });
-    document.addEventListener("touchmove", handleTouchMove, { passive: false });
-    document.addEventListener("touchend", handleTouchEnd, { passive: false });
+    // ★ HeroSection 요소에만 이벤트 등록 (다른 섹션 방해 없음)
+    const element = sectionRef.current;
+    if (element) {
+      element.addEventListener("touchstart", handleTouchStart, { passive: false });
+      element.addEventListener("touchmove", handleTouchMove, { passive: false });
+      element.addEventListener("touchend", handleTouchEnd, { passive: false });
+    }
 
     return () => {
-      document.removeEventListener("touchstart", handleTouchStart);
-      document.removeEventListener("touchmove", handleTouchMove);
-      document.removeEventListener("touchend", handleTouchEnd);
+      if (element) {
+        element.removeEventListener("touchstart", handleTouchStart);
+        element.removeEventListener("touchmove", handleTouchMove);
+        element.removeEventListener("touchend", handleTouchEnd);
+      }
     };
   }, [ready, totalPages, totalSlides]);
 
-  // 5) 스크롤 리스너 — 슬라이드 인덱스 업데이트 + 최소한의 모바일 안전망
-  //    · 진입/탈출 로직은 handleTouchEnd가 담당
-  //    · handleScroll은 관성 스크롤 대비 안전망 + 데스크톱 인덱스 업데이트만 수행
+  // 5) 스크롤 리스너 — 슬라이드 인덱스 업데이트 + 모바일 경계 처리
+  //    · 하단 경계: 위로 스크롤 시 1차 멈춤 → 2차 진입 (isScrolling 잠금으로 무한 루프 방지)
+  //    · 상단 경계: HeroSection 위로 벗어나지 못하게 차단
   useEffect(() => {
     if (!ready) return;
 
     const isMobile = window.innerWidth < 640;
     let lastScrollY = window.scrollY;
 
+    // ── 부드러운 스크롤 (handleScroll에서 2차 진입용) ──
+    const smoothScroll = (targetY, duration = 800) => {
+      const startY = window.scrollY;
+      const diff = targetY - startY;
+      if (Math.abs(diff) < 1) return;
+      const startTime = performance.now();
+      const ease = (t) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      const step = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo({
+          top: startY + diff * ease(progress),
+          behavior: "instant",
+        });
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
     const handleScroll = () => {
-      // ★ isScrolling 또는 쿨다운 중이면 완전 건너뛰기
       if (isScrolling.current) return;
       if (swipeCooldownRef.current) return;
       if (isTouching.current) return;
@@ -445,30 +350,51 @@ export default function HeroSection() {
       const sectionHeight = sectionRef.current.offsetHeight;
       const sectionBottom = sectionTop + sectionHeight;
 
-      // ── 모바일: 최소한의 안전망 (관성 스크롤 대응) ──
+      // ── 모바일 경계 처리 ──
       if (isMobile) {
         const scrollingUp = currentScrollY < lastScrollY;
         const scrollingDown = currentScrollY > lastScrollY;
 
-        // 아래로 스크롤 → 진입 차단 상태 리셋 (다시 올라올 때 2단계 적용)
+        // 아래로 스크롤 → 진입 차단 리셋
         if (scrollingDown && currentScrollY >= sectionBottom) {
           topEntryBlockRef.current = false;
         }
 
-        // ★ 안전망: 관성 스크롤이 히어로 하단 경계를 넘어가면 강제 정지
-        //   (진입 로직은 handleTouchEnd가 담당 — 여기서는 멈추기만 함)
+        // ★ 하단 경계: 위로 스크롤 시
         if (scrollingUp && currentScrollY < sectionBottom && lastScrollY >= sectionBottom) {
-          // 경계를 넘었다 → 첫 번째 멈춤으로 카운트
-          topEntryBlockRef.current = true;
+          if (!topEntryBlockRef.current) {
+            // 1차: ProblemSection 상단에서 멈춤
+            topEntryBlockRef.current = true;
+            isScrolling.current = true;
+            window.scrollTo({ top: sectionBottom, behavior: "instant" });
+            lastScrollY = sectionBottom;
+            setTimeout(() => { isScrolling.current = false; }, 800);
+            return;
+          }
+          // 2차: 히어로 마지막 이미지(image5)로 부드럽게 진입
+          const lastImageIndex = totalSlides - 1;
+          lastSlideRef.current = lastImageIndex;
+          setCurrentSlide(lastImageIndex);
+          swipeCooldownRef.current = true;
           isScrolling.current = true;
-          window.scrollTo({ top: sectionBottom, behavior: "instant" });
-          lastScrollY = sectionBottom;
-          // 관성 스크롤 소멸 대기 (800ms 동안 handleScroll 진입 차단)
-          setTimeout(() => { isScrolling.current = false; }, 800);
+
+          const pageHeight = sectionHeight / totalPages;
+          const targetScroll =
+            sectionTop +
+            pageHeight * 0.2 +
+            lastImageIndex * pageHeight +
+            pageHeight * 0.5;
+
+          smoothScroll(targetScroll, 800);
+          lastScrollY = targetScroll;
+          setTimeout(() => {
+            isScrolling.current = false;
+            swipeCooldownRef.current = false;
+          }, 900);
           return;
         }
 
-        // ★ 상단 탈출 방지: 관성 스크롤이 HeroSection 위로 벗어나면 강제 정지
+        // ★ 상단 경계: HeroSection 위로 탈출 방지
         if (scrollingUp && currentScrollY < sectionTop) {
           isScrolling.current = true;
           window.scrollTo({ top: sectionTop, behavior: "instant" });
@@ -482,7 +408,7 @@ export default function HeroSection() {
 
       lastScrollY = currentScrollY;
 
-      // ── 슬라이드 인덱스 업데이트 (데스크톱 + 모바일 공용) ──
+      // ── 슬라이드 인덱스 업데이트 ──
       const rect = sectionRef.current.getBoundingClientRect();
       const scrolled = -rect.top;
       const pageHeight = sectionHeight / totalPages;
