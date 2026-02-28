@@ -161,14 +161,18 @@ export default function HeroSection() {
         return; // 같은 인덱스면 무시
       }
 
-      // ③ 범위 체크
+      // ③ 범위 체크 — 엄격하게 제한 (마지막 슬라이드에서 다음 섹션 이동 방지)
       if (finalTargetIndex < -1) finalTargetIndex = -1;
-      if (finalTargetIndex >= totalSlides) finalTargetIndex = totalSlides - 1;
+      if (finalTargetIndex > totalSlides - 1) finalTargetIndex = totalSlides - 1;
       if (finalTargetIndex === currentIndex) return;
 
-      // ④ 쿨다운 즉시 시작 — 600ms 동안 추가 스와이프 완전 차단
+      // ④ 쿨다운 즉시 시작 — 이동 전에 설정해서 관성 이벤트 원천 차단
       swipeCooldownRef.current = true;
       isScrolling.current = true;
+
+      // ⑤ 상태 즉시 업데이트 (scrollTo 전에 먼저 설정 — 스크롤 리스너 오염 방지)
+      lastSlideRef.current = finalTargetIndex;
+      setCurrentSlide(finalTargetIndex);
 
       const sectionHeight = sectionRef.current.offsetHeight;
       const pageHeight = sectionHeight / totalPages;
@@ -177,12 +181,10 @@ export default function HeroSection() {
           ? sectionRef.current.offsetTop
           : sectionRef.current.offsetTop + finalTargetIndex * pageHeight;
 
-      // ⑤ 즉시 스냅 이동 (behavior: "auto")
-      window.scrollTo({ top: targetScroll, behavior: "auto" });
-      lastSlideRef.current = finalTargetIndex;
-      setCurrentSlide(finalTargetIndex);
+      // ⑥ behavior: "instant" 으로 즉시 스냅 이동
+      window.scrollTo({ top: targetScroll, behavior: "instant" });
 
-      // ⑥ 600ms 단일 쿨다운 타이머 (중첩 setTimeout 제거)
+      // ⑦ 1000ms 단일 쿨다운 타이머
       setTimeout(() => {
         isScrolling.current = false;
         swipeCooldownRef.current = false;
@@ -249,10 +251,12 @@ export default function HeroSection() {
       if (isTap) {
         // 탭 → 다음 슬라이드로 +1
         e.preventDefault();
+        e.stopPropagation();
         moveToSlide(currentIndex + 1);
       } else if (isHorizontalSwipeDetected) {
         // 가로 스와이프 → lastSlideRef 기준 +1 / -1 고정
         e.preventDefault();
+        e.stopPropagation();
         if (deltaX > 0) {
           // 왼쪽으로 밀기 → 다음 (+1)
           moveToSlide(currentIndex + 1);
@@ -284,6 +288,8 @@ export default function HeroSection() {
     if (!ready) return;
 
     const handleScroll = () => {
+      // 스와이프 쿨다운 중에는 스크롤 리스너로 인한 인덱스 업데이트 완전 차단
+      if (swipeCooldownRef.current) return;
       if (!sectionRef.current || isTouching.current || isScrolling.current) return;
       
       const rect = sectionRef.current.getBoundingClientRect();
