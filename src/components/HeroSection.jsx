@@ -149,7 +149,7 @@ export default function HeroSection() {
     let touchStartX = 0;
 
     // ── 사용자 정의 부드러운 스크롤 (800ms easeInOutCubic) ──
-    const smoothScrollTo = (targetY, duration = 800) => {
+    const smoothScrollTo = (targetY, duration = 500) => {
       const startY = window.scrollY;
       const diff = targetY - startY;
       if (Math.abs(diff) < 1) return;
@@ -168,7 +168,7 @@ export default function HeroSection() {
       requestAnimationFrame(step);
     };
 
-    const SCROLL_DURATION = 800;
+    const SCROLL_DURATION = 500;
     const COOLDOWN = SCROLL_DURATION + 10; // 900ms
 
     const moveToSlide = (direction) => {
@@ -317,7 +317,7 @@ export default function HeroSection() {
     let lastScrollY = window.scrollY;
 
     // ── 부드러운 스크롤 (handleScroll에서 2차 진입용) ──
-    const smoothScroll = (targetY, duration = 800) => {
+    const smoothScroll = (targetY, duration = 500) => {
       const startY = window.scrollY;
       const diff = targetY - startY;
       if (Math.abs(diff) < 1) return;
@@ -383,12 +383,12 @@ export default function HeroSection() {
             lastImageIndex * pageHeight +
             pageHeight * 0.5;
 
-          smoothScroll(targetScroll, 800);
+          smoothScroll(targetScroll, 500);
           lastScrollY = targetScroll;
           setTimeout(() => {
             isScrolling.current = false;
             swipeCooldownRef.current = false;
-          }, 900);
+          }, 510);
           return;
         }
 
