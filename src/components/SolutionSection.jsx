@@ -47,18 +47,18 @@ export default function SolutionSection() {
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Our Solutions
           </span>
-          <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             수아트가 제안하는
             <br />
             <span className="text-primary">3가지 해답</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-secondary/60">
+          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
             15년 이상의 무대 경험을 바탕으로, 고객의 고민을 해결하는 최적의 솔루션을 제공합니다.
           </p>
         </div>
 
         {/* ── 솔루션 카드 ── */}
-        <div className="mt-16 grid gap-8 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:mt-16 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {solutions.map((s) => (
             <Link
               key={s.number}
@@ -66,33 +66,34 @@ export default function SolutionSection() {
               className="group overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]"
             >
               {/* 이미지 */}
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-48 overflow-hidden sm:h-56">
                 <Image
                   src={s.image}
                   alt={s.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-4 left-5 right-5">
+                <div className="absolute bottom-3 left-4 right-4 sm:bottom-4 sm:left-5 sm:right-5">
                   <span className="text-xs font-bold uppercase tracking-widest text-primary">
                     {s.subtitle}
                   </span>
-                  <h3 className="mt-1 text-2xl font-bold tracking-tight text-white">
+                  <h3 className="mt-1 text-xl font-bold tracking-tight text-white sm:text-2xl">
                     {s.title}
                   </h3>
                 </div>
-                <span className="absolute top-4 right-5 text-5xl font-bold text-white/15">
+                <span className="absolute top-3 right-4 text-4xl font-bold text-white/15 sm:top-4 sm:right-5 sm:text-5xl">
                   {s.number}
                 </span>
               </div>
 
               {/* 텍스트 */}
-              <div className="p-6">
-                <p className="mb-2 text-base font-bold text-primary/90">
+              <div className="p-5 sm:p-6">
+                <p className="mb-2 text-sm font-bold text-primary/90 sm:text-base">
                   {s.tagline}
                 </p>
-                <p className="mb-4 text-sm font-medium leading-relaxed text-secondary/60">
+                <p className="mb-4 text-xs font-medium leading-relaxed text-secondary/60 sm:text-sm">
                   {s.desc}
                 </p>
                 <span className="inline-flex items-center gap-1.5 text-sm font-bold text-primary transition-all group-hover:gap-3">

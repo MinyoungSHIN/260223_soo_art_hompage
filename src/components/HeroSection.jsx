@@ -138,12 +138,14 @@ export default function HeroSection() {
     const isMobile = window.innerWidth < 640;
     if (!isMobile) return;
 
+    let touchMoveX = 0;
     let touchMoveY = 0;
     let touchStartX = 0;
 
     const moveToSlide = (targetIndex) => {
-      if (!sectionRef.current || isScrolling.current) return;
+      if (!sectionRef.current) return;
       
+      // isScrolling 체크를 제거하여 연속 스와이프 허용
       isScrolling.current = true;
       const sectionHeight = sectionRef.current.offsetHeight;
       const pageHeight = sectionHeight / totalPages;
@@ -156,46 +158,33 @@ export default function HeroSection() {
       setCurrentSlide(targetIndex === -1 ? -1 : targetIndex);
       lastSlideRef.current = targetIndex === -1 ? -1 : targetIndex;
       
-      // 스크롤 완료 후 플래그 해제
+      // 스크롤 완료 후 플래그 해제 (시간 단축)
       setTimeout(() => {
         isScrolling.current = false;
-      }, 100);
+      }, 50); // 100ms -> 50ms로 단축
     };
 
     const handleTouchStart = (e) => {
-      touchStartY.current = e.touches[0].clientY;
       touchStartX = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
       touchStartTime.current = Date.now();
       isTouching.current = true;
+      touchMoveX = touchStartX;
       touchMoveY = touchStartY.current;
     };
 
     const handleTouchMove = (e) => {
       if (!isTouching.current || !sectionRef.current) return;
       
+      // touchMoveX, touchMoveY를 먼저 업데이트 (중요!)
+      touchMoveX = e.touches[0].clientX;
       touchMoveY = e.touches[0].clientY;
+      const deltaX = touchStartX - touchMoveX;
       const deltaY = touchStartY.current - touchMoveY;
       
-      // 히어로 섹션 내에서만 스크롤 허용 (섹션을 넘어가지 않도록)
-      const rect = sectionRef.current.getBoundingClientRect();
-      const sectionTop = sectionRef.current.offsetTop;
-      const sectionBottom = sectionTop + sectionRef.current.offsetHeight;
-      const currentScroll = window.scrollY;
-      
-      // 위로 스와이프 (다음 슬라이드) - 섹션 하단을 넘어가지 않도록
-      if (deltaY > 0 && currentScroll >= sectionBottom - 10) {
-        e.preventDefault();
-        return;
-      }
-      
-      // 아래로 스와이프 (이전 슬라이드) - 섹션 상단을 넘어가지 않도록
-      if (deltaY < 0 && currentScroll <= sectionTop + 10) {
-        e.preventDefault();
-        return;
-      }
-      
-      // 히어로 섹션 내에서만 preventDefault
-      if (currentScroll >= sectionTop && currentScroll < sectionBottom) {
+      // 가로 스와이프가 세로 스와이프보다 크면 가로 스와이프로 인식
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // 가로 스와이프인 경우 세로 스크롤 방지
         e.preventDefault();
       }
     };
@@ -207,35 +196,48 @@ export default function HeroSection() {
       }
       isTouching.current = false;
 
+      const touchEndX = touchMoveX;
       const touchEndY = touchMoveY;
-      const touchEndX = e.changedTouches[0].clientX;
       const touchEndTime = Date.now();
-      const deltaY = touchStartY.current - touchEndY;
       const deltaX = touchStartX - touchEndX;
+      const deltaY = touchStartY.current - touchEndY;
       const deltaTime = touchEndTime - touchStartTime.current;
       
-      // 현재 인덱스 계산
+      // 현재 인덱스 계산 - lastSlideRef를 우선 사용하여 더 정확하게
       const sectionHeight = sectionRef.current.offsetHeight;
       const pageHeight = sectionHeight / totalPages;
       const currentTop = sectionRef.current.getBoundingClientRect().top;
       const currentScroll = -currentTop;
-      let currentIndex;
+      
+      // lastSlideRef를 기본값으로 사용 (더 정확함)
+      let currentIndex = lastSlideRef.current;
+      
+      // 스크롤 위치로도 계산하여 검증
       if (currentScroll <= 0) {
         currentIndex = -1;
       } else {
-        currentIndex = Math.min(
+        const calculatedIndex = Math.min(
           Math.floor(currentScroll / pageHeight),
           totalSlides - 1
         );
+        // lastSlideRef와 차이가 크지 않으면 lastSlideRef 사용
+        if (Math.abs(calculatedIndex - lastSlideRef.current) <= 1) {
+          currentIndex = lastSlideRef.current;
+        } else {
+          currentIndex = calculatedIndex;
+        }
       }
 
+      // 가로 스와이프 우선 판단
+      const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY);
+      
       // 탭 감지 (거의 움직이지 않고 빠르게 터치)
       const isTap = Math.abs(deltaY) < 10 && Math.abs(deltaX) < 10 && deltaTime < 300;
       
-      // 스와이프 감지
+      // 가로 스와이프 감지
       const minSwipeDistance = 30;
       const maxSwipeTime = 500;
-      const isSwipe = Math.abs(deltaY) > minSwipeDistance && deltaTime < maxSwipeTime;
+      const isHorizontalSwipeDetected = isHorizontalSwipe && Math.abs(deltaX) > minSwipeDistance && deltaTime < maxSwipeTime;
 
       if (isTap) {
         // 탭: 다음 슬라이드로 이동
@@ -244,16 +246,16 @@ export default function HeroSection() {
         if (targetIndex !== currentIndex) {
           moveToSlide(targetIndex);
         }
-      } else if (isSwipe) {
-        // 스와이프: 방향에 따라 이동
+      } else if (isHorizontalSwipeDetected) {
+        // 가로 스와이프: 방향에 따라 이동
         e.preventDefault();
         let targetIndex = currentIndex;
         
-        if (deltaY > 0) {
-          // 위로 스와이프 (다음 슬라이드)
+        if (deltaX > 0) {
+          // 왼쪽으로 스와이프 (다음 슬라이드)
           targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : totalSlides - 1;
         } else {
-          // 아래로 스와이프 (이전 슬라이드)
+          // 오른쪽으로 스와이프 (이전 슬라이드)
           targetIndex = currentIndex > -1 ? currentIndex - 1 : -1;
         }
         
@@ -384,7 +386,7 @@ export default function HeroSection() {
                   src={src}
                   alt={`Hero ${idx + 1}`}
                   fill
-                  className="object-cover"
+                  className="object-cover sm:object-center"
                   style={{
                     objectPosition:
                       heroImagePositions[idx] === 0
@@ -402,12 +404,12 @@ export default function HeroSection() {
         <div className="absolute inset-0 z-[2] bg-black/50" />
 
         {/* ── 콘텐츠 ── */}
-        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
-          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm md:text-base">
+        <div className="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6">
+          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
             Soo Art &amp; Company
           </span>
 
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl lg:text-7xl">
+          <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
             <span style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               Music
             </span>{" "}
@@ -422,44 +424,26 @@ export default function HeroSection() {
             </span>
           </h1>
 
-          <p className="mx-auto mt-3 max-w-2xl text-base font-medium leading-relaxed tracking-wide text-white/90 md:text-xl">
+          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
             클래식·뮤지컬 전문 공연, 프리미엄 1:1 Voice 레슨까지
-            <br /> 수아트앤컴퍼니와 함께 하세요.
+            <br className="hidden sm:block" /> 수아트앤컴퍼니와 함께 하세요.
           </p>
 
-          <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <div className="mt-8 flex flex-col items-center gap-4 sm:mt-12 sm:flex-row sm:justify-center">
             <Link
               href="/contact"
-              className="min-w-[150px] text-center rounded-xl border-2 border-transparent bg-primary px-10 py-3 text-lg font-bold text-white transition-all duration-500 hover:-translate-y-1"
+              className="w-full min-w-[150px] text-center rounded-xl border-2 border-transparent bg-primary px-6 py-3 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:px-10 sm:text-lg"
               style={{
                 boxShadow: "0 4px 14px rgba(255,107,53,0.3)",
-                transition: "all 0.5s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow =
-                  "0 12px 32px rgba(255,107,53,0.5)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow =
-                  "0 4px 14px rgba(255,107,53,0.3)";
               }}
             >
               상담 신청
             </Link>
             <a
               href="#problem"
-              className="min-w-[150px] text-center rounded-xl border-2 border-white/30 px-5 py-3 text-lg font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1"
+              className="w-full min-w-[150px] text-center rounded-xl border-2 border-white/30 px-5 py-3 text-base font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:text-lg"
               style={{
                 boxShadow: "0 4px 14px rgba(255,255,255,0.1)",
-                transition: "all 0.5s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow =
-                  "0 12px 32px rgba(200,200,200,0.7)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow =
-                  "0 4px 14px rgba(255,255,255,0.1)";
               }}
             >
               서비스 알아보기
@@ -468,7 +452,7 @@ export default function HeroSection() {
         </div>
 
         {/* ── 슬라이드 인디케이터 (클릭으로 이동 가능) ── */}
-        <div className="absolute right-6 top-1/2 z-20 flex -translate-y-1/2 flex-col gap-2">
+        <div className="absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 flex-col gap-2 sm:right-6 md:flex">
           {[...Array(totalPages)].map((_, idx) => {
             const slideIdx = idx - 1; // -1 = video, 0~4 = images
             const isActive = currentSlide === slideIdx;
@@ -501,7 +485,7 @@ export default function HeroSection() {
         </div>
 
         {/* ── 스크롤 인디케이터 ── */}
-        <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 animate-bounce sm:bottom-8">
           <svg
             className="h-6 w-6 text-white/60"
             fill="none"

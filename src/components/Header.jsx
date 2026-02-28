@@ -187,10 +187,8 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <Link
             href="/contact"
-            className="hidden rounded-xl bg-primary px-5 py-2 text-base font-bold text-white transition-all duration-500 hover:-translate-y-0.5 md:inline-block"
+            className="hidden rounded-xl bg-primary px-5 py-2 text-base font-bold text-white transition-all duration-500 hover:-translate-y-0.5 hover:[box-shadow:0_8px_24px_rgba(255,107,53,0.45)] md:inline-block"
             style={{ boxShadow: "0 2px 10px rgba(255,107,53,0.25)" }}
-            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(255,107,53,0.45)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 2px 10px rgba(255,107,53,0.25)"; }}
           >
             상담 신청
           </Link>
@@ -234,8 +232,10 @@ export default function Header() {
 
       {/* ── Mobile Menu ── */}
       <div
-        className={`overflow-hidden bg-white transition-all duration-500 md:hidden ${
-          mobileOpen ? "max-h-[500px] border-t border-gray-100" : "max-h-0"
+        className={`overflow-hidden transition-all duration-500 md:hidden ${
+          mobileOpen 
+            ? `max-h-[500px] ${(onDarkSection || !scrolled) ? "bg-black/80 backdrop-blur-3xl border-t border-white/10" : "bg-white border-t border-gray-100"}`
+            : "max-h-0"
         }`}
       >
         <nav className="flex flex-col gap-1 px-6 py-4">
@@ -245,7 +245,11 @@ export default function Header() {
               <div key={link.label}>
                 <button
                   onClick={() => setMobileServiceOpen((prev) => !prev)}
-                  className="flex w-full items-center justify-between rounded-lg px-4 py-3 text-base font-medium text-secondary transition-colors hover:bg-accent"
+                  className={`flex w-full items-center justify-between rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                    (onDarkSection || !scrolled)
+                      ? "text-white hover:bg-white/10"
+                      : "text-secondary hover:bg-accent"
+                  }`}
                 >
                   {link.label}
                   <svg
@@ -258,7 +262,9 @@ export default function Header() {
                   </svg>
                 </button>
                 {mobileServiceOpen && (
-                  <div className="ml-4 border-l border-gray-200 py-1">
+                  <div className={`ml-4 border-l py-1 ${
+                    (onDarkSection || !scrolled) ? "border-white/20" : "border-gray-200"
+                  }`}>
                     {link.subLinks.map((sub) => (
                       <Link
                         key={sub.href}
@@ -267,7 +273,11 @@ export default function Header() {
                           setMobileOpen(false);
                           setMobileServiceOpen(false);
                         }}
-                        className="block rounded-lg px-4 py-2.5 text-sm font-medium text-secondary transition-colors hover:bg-accent hover:text-primary"
+                        className={`block rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                          (onDarkSection || !scrolled)
+                            ? "text-white/90 hover:bg-white/10 hover:text-white"
+                            : "text-secondary hover:bg-accent hover:text-primary"
+                        }`}
                       >
                         {sub.label}
                       </Link>
@@ -283,7 +293,11 @@ export default function Header() {
                   setMobileOpen(false);
                   if (link.href === "/") handleHomeClick(e);
                 }}
-                className="rounded-lg px-4 py-3 text-base font-medium text-secondary transition-colors hover:bg-accent"
+                className={`rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                  (onDarkSection || !scrolled)
+                    ? "text-white hover:bg-white/10"
+                    : "text-secondary hover:bg-accent"
+                }`}
               >
                 {link.label}
               </Link>

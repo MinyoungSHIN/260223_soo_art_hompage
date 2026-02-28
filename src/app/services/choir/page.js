@@ -65,7 +65,7 @@ export default function ChoirPage() {
       {/* ═══════════════════════════════════════
           HERO — Full-width 비주얼 + 카피
       ═══════════════════════════════════════ */}
-      <section className="relative flex h-[70vh] min-h-[520px] items-center justify-center overflow-hidden">
+      <section className="relative flex h-[50vh] min-h-[400px] items-center justify-center overflow-hidden sm:h-[60vh] sm:min-h-[480px] md:h-[70vh] md:min-h-[520px]">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -74,30 +74,30 @@ export default function ChoirPage() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-primary">
+        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-4 sm:text-sm">
             Service 01 · Soo Art Choir
           </p>
-          <h1 className="text-4xl font-bold leading-relaxed tracking-tight text-white md:text-6xl lg:text-7xl">
+          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
             다시 뜨거워질 당신의 무대,
             <br />
             <span className="text-primary">함께하는 화음</span>으로 완성됩니다.
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/70">
+          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-white/70 sm:mt-6 sm:text-base md:text-lg">
             음악을 사랑하는 당신을 위한 프리미엄 합창단.
             발성·합창·안무를 아우르는 체계적인 교육으로 진짜 무대에 서보세요.
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
             <Link
               href="/contact"
-              className="rounded-xl border-2 border-transparent bg-primary px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)]"
+              className="w-full rounded-xl border-2 border-transparent bg-primary px-6 py-3 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:w-auto sm:px-8 sm:py-4 sm:text-base"
               style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
             >
               단원 신청하기
             </Link>
             <a
               href="#curriculum"
-              className="rounded-xl border-2 border-white/30 px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)]"
+              className="w-full rounded-xl border-2 border-white/30 px-6 py-3 text-sm font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:w-auto sm:px-8 sm:py-4 sm:text-base"
               style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
             >
               커리큘럼 보기
@@ -109,8 +109,8 @@ export default function ChoirPage() {
       {/* ═══════════════════════════════════════
           STATS — 핵심 수치
       ═══════════════════════════════════════ */}
-      <section className="bg-background py-16">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-6 md:grid-cols-4 lg:px-8">
+      <section className="bg-background py-12 sm:py-16">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 px-4 sm:gap-6 sm:px-6 md:grid-cols-4 lg:px-8">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <p className="text-4xl font-bold tracking-tight text-primary">{s.value}</p>

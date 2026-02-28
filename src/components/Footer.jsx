@@ -24,10 +24,10 @@ export default function Footer() {
   return (
     <footer data-header-theme="dark" className="bg-[#111112] pt-16 pb-8">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-12 md:grid-cols-3">
+        <div className="grid gap-8 sm:gap-12 md:grid-cols-3">
           {/* ── 로고 & 설명 ── */}
           <div className="md:col-span-1">
-            <div className="relative mb-4 h-13 w-40">
+            <div className="relative mb-4 h-10 w-32 sm:h-13 sm:w-40">
               <Image
                 src="/image/logo_footer.png?v=1"
                 alt="Soo Art & Company"
@@ -36,7 +36,7 @@ export default function Footer() {
                 unoptimized
               />
             </div>
-            <p className="max-w-xs text-sm font-medium leading-relaxed text-white/40">
+            <p className="max-w-xs text-xs font-medium leading-relaxed text-white/40 sm:text-sm">
               성악, 합창, 공연 기획 전문 기업
               <br />
               예술로 세상을 감동시킵니다.

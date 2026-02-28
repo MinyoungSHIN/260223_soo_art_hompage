@@ -10,7 +10,7 @@ export default function AboutPage() {
   return (
     <>
       {/* ── 페이지 히어로 ── */}
-      <section className="relative flex h-[50vh] min-h-[400px] items-center justify-center overflow-hidden">
+      <section className="relative flex h-[40vh] min-h-[300px] items-center justify-center overflow-hidden sm:h-[50vh] sm:min-h-[400px]">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -19,23 +19,23 @@ export default function AboutPage() {
           }}
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+        <div className="relative z-10 px-4 text-center sm:px-6">
+          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
             About Us
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">
+          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
             수아트앤컴퍼니
           </h1>
-          <p className="mt-4 text-lg font-medium text-white/70">
+          <p className="mt-4 text-base font-medium text-white/70 sm:text-lg">
             예술로 세상을 감동시키는 이야기
           </p>
         </div>
       </section>
 
       {/* ── 대표 프로필 ── */}
-      <section className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
+      <section className="bg-background py-16 sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 sm:gap-16 lg:grid-cols-2">
             {/* 프로필 이미지 */}
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
               <Image
@@ -51,13 +51,13 @@ export default function AboutPage() {
               <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
                 Representative
               </p>
-              <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
+              <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
                 이현정 대표
               </h2>
-              <p className="mt-2 text-lg font-semibold text-primary/80">
+              <p className="mt-2 text-base font-semibold text-primary/80 sm:text-lg">
                 성악가 · 합창 지휘자 · 공연 기획자
               </p>
-              <div className="mt-8 space-y-4 text-base font-medium leading-relaxed text-secondary/70">
+              <div className="mt-6 space-y-3 text-sm font-medium leading-relaxed text-secondary/70 sm:mt-8 sm:space-y-4 sm:text-base">
                 <p>
                   이현정 대표는 예술의 힘으로 사람들의 삶에 감동을 전하고자
                   수아트앤컴퍼니를 설립했습니다. 성악 전공 후 다수의 무대에
@@ -106,16 +106,16 @@ export default function AboutPage() {
             <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
               Brand Story
             </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
+            <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
               예술을 통해 만드는 <br className="hidden md:block" />
               특별한 순간
             </h2>
-            <p className="mt-8 text-base font-medium leading-relaxed text-secondary/70">
+            <p className="mt-6 text-sm font-medium leading-relaxed text-secondary/70 sm:mt-8 sm:text-base">
               수아트앤컴퍼니는 &ldquo;예술로 세상을 감동시킨다&rdquo;는
               비전 아래, 성악 교육·합창단 운영·공연 기획이라는 세 축을
               중심으로 활동하고 있습니다.
             </p>
-            <p className="mt-4 text-base font-medium leading-relaxed text-secondary/70">
+            <p className="mt-4 text-sm font-medium leading-relaxed text-secondary/70 sm:text-base">
               일반인부터 전문 음악인까지, 무대 위에 서는 모든 이들이
               자신만의 이야기를 노래할 수 있도록 돕는 것이 우리의
               사명입니다. 수아트가 만드는 무대는 단순한 공연이 아닌,
@@ -124,7 +124,7 @@ export default function AboutPage() {
           </div>
 
           {/* 핵심 가치 */}
-          <div className="mt-20 grid gap-8 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 sm:mt-16 sm:gap-8 md:grid-cols-3">
             {[
               {
                 icon: (
@@ -156,13 +156,13 @@ export default function AboutPage() {
             ].map((value) => (
               <div
                 key={value.title}
-                className="rounded-xl bg-white p-8 shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
+                className="rounded-xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)] sm:p-8"
               >
-                <div className="mb-4 text-primary">{value.icon}</div>
-                <h3 className="mb-2 text-xl font-bold tracking-tight text-secondary">
+                <div className="mb-3 text-primary sm:mb-4">{value.icon}</div>
+                <h3 className="mb-2 text-lg font-bold tracking-tight text-secondary sm:text-xl">
                   {value.title}
                 </h3>
-                <p className="text-sm font-medium leading-relaxed text-secondary/60">
+                <p className="text-xs font-medium leading-relaxed text-secondary/60 sm:text-sm">
                   {value.desc}
                 </p>
               </div>
@@ -172,17 +172,17 @@ export default function AboutPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-primary py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+      <section className="bg-primary py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
             함께 만들어갈 무대가 있으신가요?
           </h2>
-          <p className="mt-4 text-base font-medium text-white/80">
+          <p className="mt-4 text-sm font-medium text-white/80 sm:text-base">
             수아트앤컴퍼니와 함께라면 어떤 무대든 특별해집니다.
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary shadow-[0_4px_14px_rgba(255,255,255,0.25)] transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(255,255,255,0.45)]"
+            className="mt-6 inline-block rounded-xl bg-white px-6 py-3 text-sm font-bold text-primary shadow-[0_4px_14px_rgba(255,255,255,0.25)] transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(255,255,255,0.45)] sm:mt-8 sm:px-8 sm:py-4 sm:text-base"
           >
             문의하기
           </Link>

@@ -53,42 +53,42 @@ export default function TestimonialsSection() {
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Testimonials
           </span>
-          <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             참여자들의 <span className="text-primary">생생한 후기</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-secondary/60">
+          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
             수아트앤컴퍼니와 함께한 분들의 이야기입니다.
           </p>
         </div>
 
         {/* ── 후기 카드 그리드 ── */}
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:mt-16 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, idx) => (
             <div
               key={idx}
-              className="flex flex-col justify-between rounded-2xl bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+              className="flex flex-col justify-between rounded-2xl bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] sm:p-8"
             >
               {/* 인용 아이콘 */}
               <div>
                 <svg
-                  className="mb-4 h-8 w-8 text-primary/20"
+                  className="mb-3 h-6 w-6 text-primary/20 sm:mb-4 sm:h-8 sm:w-8"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                 </svg>
-                <p className="text-sm font-medium leading-relaxed text-secondary/70 italic">
+                <p className="text-xs font-medium leading-relaxed text-secondary/70 italic sm:text-sm">
                   &ldquo;{t.quote}&rdquo;
                 </p>
               </div>
 
               {/* 작성자 */}
-              <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4">
+              <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3 sm:mt-6 sm:pt-4">
                 <div>
-                  <p className="text-base font-bold text-secondary">{t.name}</p>
+                  <p className="text-sm font-bold text-secondary sm:text-base">{t.name}</p>
                   <p className="text-xs font-medium text-secondary/50">{t.role}</p>
                 </div>
-                <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                <span className="rounded-full bg-primary/10 px-2 py-1 text-xs font-bold text-primary sm:px-3">
                   {t.tag}
                 </span>
               </div>

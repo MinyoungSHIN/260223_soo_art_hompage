@@ -55,23 +55,23 @@ export default function PortfolioSection() {
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Portfolio
           </span>
-          <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             함께 만든 무대
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-secondary/60">
+          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
             클래식·뮤지컬 공연부터 합창 컨설팅까지, 수아트앤컴퍼니의 레퍼런스를
             확인하세요.
           </p>
         </div>
 
         {/* ── 포트폴리오 그리드 ── */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {portfolioItems.map((item) => (
             <article
               key={item.id}
               className="group relative overflow-hidden rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
             >
-              <div className="relative h-64">
+              <div className="relative h-48 sm:h-56 md:h-64">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -80,11 +80,11 @@ export default function PortfolioSection() {
                 />
                 {/* ── 호버 오버레이 ── */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="absolute inset-0 flex flex-col items-start justify-end p-6 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  <span className="mb-1 rounded-full bg-primary/90 px-3 py-1 text-xs font-bold text-white">
+                <div className="absolute inset-0 flex flex-col items-start justify-end p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100 sm:p-6">
+                  <span className="mb-1 rounded-full bg-primary/90 px-2 py-1 text-xs font-bold text-white sm:px-3">
                     {item.category}
                   </span>
-                  <h3 className="text-lg font-bold tracking-tight text-white">
+                  <h3 className="text-base font-bold tracking-tight text-white sm:text-lg">
                     {item.title}
                   </h3>
                 </div>

@@ -79,7 +79,7 @@ export default function PortfolioPage() {
   return (
     <>
       {/* ── 페이지 히어로 ── */}
-      <section className="relative flex h-[50vh] min-h-[400px] items-center justify-center overflow-hidden">
+      <section className="relative flex h-[40vh] min-h-[300px] items-center justify-center overflow-hidden sm:h-[50vh] sm:min-h-[400px]">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -88,28 +88,28 @@ export default function PortfolioPage() {
           }}
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+        <div className="relative z-10 px-4 text-center sm:px-6">
+          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
             Portfolio
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">
+          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
             함께 만든 무대
           </h1>
-          <p className="mt-4 text-lg font-medium text-white/70">
+          <p className="mt-4 text-base font-medium text-white/70 sm:text-lg">
             연주회 실적부터 기업 행사까지, 수아트앤컴퍼니의 레퍼런스
           </p>
         </div>
       </section>
 
       {/* ── 포트폴리오 그리드 ── */}
-      <section className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="bg-background py-16 sm:py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* 카테고리 필터 (정적) */}
-          <div className="mb-12 flex flex-wrap justify-center gap-3">
+          <div className="mb-8 flex flex-wrap justify-center gap-2 sm:mb-12 sm:gap-3">
             {categories.map((cat, idx) => (
               <span
                 key={cat}
-                className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+                className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors sm:px-5 sm:py-2 sm:text-sm ${
                   idx === 0
                     ? "bg-primary text-white"
                     : "bg-background-subtle text-secondary/60 hover:bg-accent"
@@ -121,37 +121,38 @@ export default function PortfolioPage() {
           </div>
 
           {/* 그리드 */}
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 md:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {portfolioItems.map((item) => (
               <article
                 key={item.id}
                 className="group overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
               >
                 {/* 이미지 */}
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-48 overflow-hidden sm:h-56">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                    <span className="rounded-full bg-primary/90 px-3 py-1 text-xs font-bold text-white">
+                  <div className="absolute bottom-3 left-3 flex items-center gap-2 sm:bottom-4 sm:left-4">
+                    <span className="rounded-full bg-primary/90 px-2 py-1 text-xs font-bold text-white sm:px-3">
                       {item.category}
                     </span>
-                    <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                    <span className="rounded-full bg-white/20 px-2 py-1 text-xs font-semibold text-white backdrop-blur-sm sm:px-3">
                       {item.year}
                     </span>
                   </div>
                 </div>
 
                 {/* 콘텐츠 */}
-                <div className="p-6">
-                  <h3 className="mb-2 text-lg font-bold tracking-tight text-secondary">
+                <div className="p-5 sm:p-6">
+                  <h3 className="mb-2 text-base font-bold tracking-tight text-secondary sm:text-lg">
                     {item.title}
                   </h3>
-                  <p className="text-sm font-medium leading-relaxed text-secondary/60">
+                  <p className="text-xs font-medium leading-relaxed text-secondary/60 sm:text-sm">
                     {item.description}
                   </p>
                 </div>
@@ -162,17 +163,17 @@ export default function PortfolioPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-accent py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
+      <section className="bg-accent py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
             다음 무대의 주인공이 되어보세요
           </h2>
-          <p className="mt-4 text-base font-medium text-secondary/60">
+          <p className="mt-4 text-sm font-medium text-secondary/60 sm:text-base">
             공연 기획, 합창단 참여, 입시 레슨 등 어떤 문의든 환영합니다.
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-xl bg-primary px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)]"
+            className="mt-6 inline-block rounded-xl bg-primary px-6 py-3 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:mt-8 sm:px-8 sm:py-4 sm:text-base"
             style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
           >
             문의하기

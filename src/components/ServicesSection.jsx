@@ -54,59 +54,58 @@ export default function ServicesSection() {
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Our Services
           </span>
-          <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             수아트가 제안하는 서비스
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-secondary/60">
+          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
             성악 교육부터 대형 공연 기획까지, 예술의 모든 순간을 함께합니다.
           </p>
         </div>
 
         {/* ── 서비스 카드 그리드 ── */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
             <article
               key={service.id}
               className="group overflow-hidden rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
             >
               {/* ── 카드 이미지 ── */}
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-48 overflow-hidden sm:h-56">
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                <span className="absolute bottom-4 left-4 text-4xl font-bold text-white/30">
+                <span className="absolute bottom-3 left-3 text-3xl font-bold text-white/30 sm:bottom-4 sm:left-4 sm:text-4xl">
                   {service.number}
                 </span>
               </div>
 
               {/* ── 카드 콘텐츠 ── */}
-              <div className="p-6">
+              <div className="p-5 sm:p-6">
                 <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-primary">
                   {service.subtitle}
                 </p>
-                <h3 className="mb-2 text-xl font-bold tracking-tight text-secondary">
+                <h3 className="mb-2 text-lg font-bold tracking-tight text-secondary sm:text-xl">
                   {service.title}
                 </h3>
-                <p className="mb-3 text-sm font-semibold leading-relaxed text-primary/80">
+                <p className="mb-3 text-xs font-semibold leading-relaxed text-primary/80 sm:text-sm">
                   &ldquo;{service.description}&rdquo;
                 </p>
-                <p className="mb-6 text-sm font-medium leading-relaxed text-secondary/60">
+                <p className="mb-4 text-xs font-medium leading-relaxed text-secondary/60 sm:mb-6 sm:text-sm">
                   {service.details}
                 </p>
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-xs font-bold text-white transition-all duration-500 hover:-translate-y-0.5 hover:[box-shadow:0_8px_24px_rgba(255,107,53,0.45)] sm:px-5 sm:py-2.5 sm:text-sm"
                   style={{ boxShadow: "0 2px 10px rgba(255,107,53,0.25)" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(255,107,53,0.45)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 2px 10px rgba(255,107,53,0.25)"; }}
                 >
                   {service.cta}
                   <svg
-                    className="h-4 w-4"
+                    className="h-3 w-3 sm:h-4 sm:w-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

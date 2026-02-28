@@ -47,29 +47,29 @@ export default function ProblemSection() {
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Pain Points
           </span>
-          <h2 className="text-3xl font-bold tracking-tight leading-tight text-secondary md:text-5xl">
+          <h2 className="text-2xl font-bold tracking-tight leading-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             혹시 이런 고민,
             <br />
             하고 계신가요?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-secondary/60">
-            많은 분들이 같은 문제로 고민합니다. <br />수아트앤컴퍼니는 이 고민들을 해결하기 위해 존재합니다.
+          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
+            많은 분들이 같은 문제로 고민합니다. <br className="hidden sm:block" />수아트앤컴퍼니는 이 고민들을 해결하기 위해 존재합니다.
           </p>
         </div>
 
         {/* ── 문제 카드 ── */}
-        <div className="mt-16 grid gap-6 md:grid-cols-2">
+        <div className="mt-12 grid gap-4 sm:mt-16 sm:gap-6 md:grid-cols-2">
           {problems.map((p) => (
             <div
               key={p.title}
-              className="flex gap-5 rounded-2xl border border-gray-100 bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
+              className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] sm:gap-5 sm:p-8"
             >
               <div className="shrink-0 text-secondary/30">{p.icon}</div>
               <div>
-                <h3 className="mb-2 text-lg font-bold tracking-tight text-secondary">
+                <h3 className="mb-2 text-base font-bold tracking-tight text-secondary sm:text-lg">
                   {p.title}
                 </h3>
-                <p className="text-sm font-medium leading-relaxed text-secondary/60">
+                <p className="text-xs font-medium leading-relaxed text-secondary/60 sm:text-sm">
                   {p.desc}
                 </p>
               </div>
@@ -78,8 +78,8 @@ export default function ProblemSection() {
         </div>
 
         {/* ── 전환 문구 ── */}
-        <div className="mt-16 text-center">
-          <p className="text-lg font-bold text-secondary/80 md:text-xl">
+        <div className="mt-12 text-center sm:mt-16">
+          <p className="text-base font-bold text-secondary/80 sm:text-lg md:text-xl">
             이 모든 고민, <span className="text-primary">하나의 해답</span>이 있습니다.
           </p>
           <div className="mt-6 flex justify-center">
