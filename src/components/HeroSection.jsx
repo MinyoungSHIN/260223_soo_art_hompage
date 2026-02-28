@@ -49,9 +49,6 @@ export default function HeroSection() {
   const videoRef = useRef(null);
   const lastSlideRef = useRef(-1); // 이전 슬라이드 추적 (한 장씩만 넘어가도록)
   const scrollTimeoutRef = useRef(null); // 스크롤 디바운싱
-  const touchStartY = useRef(0); // 터치 시작 Y 위치
-  const touchStartTime = useRef(0); // 터치 시작 시간
-  const isTouching = useRef(false); // 터치 중인지 여부
   const totalSlides = heroImages.length;
   const totalPages = totalSlides + 1;
 
@@ -131,155 +128,72 @@ export default function HeroSection() {
     };
   }, []);
 
-  // 4) 모바일 터치 이벤트 처리 (한 번의 스와이프로 한 장씩만 이동)
-  useEffect(() => {
-    if (!ready) return;
-    const isMobile = window.innerWidth < 640;
-    if (!isMobile) return;
-
-    let touchMoveY = 0;
-    let isSwipeHandled = false;
-
-    const handleTouchStart = (e) => {
-      touchStartY.current = e.touches[0].clientY;
-      touchStartTime.current = Date.now();
-      isTouching.current = true;
-      isSwipeHandled = false;
-      touchMoveY = touchStartY.current;
-    };
-
-    const handleTouchMove = (e) => {
-      if (!isTouching.current) return;
-      touchMoveY = e.touches[0].clientY;
-      // 스크롤 방지
-      e.preventDefault();
-    };
-
-    const handleTouchEnd = (e) => {
-      if (!isTouching.current || !sectionRef.current || isSwipeHandled) {
-        isTouching.current = false;
-        return;
-      }
-      isTouching.current = false;
-
-      const touchEndY = touchMoveY;
-      const touchEndTime = Date.now();
-      const deltaY = touchStartY.current - touchEndY;
-      const deltaTime = touchEndTime - touchStartTime.current;
-      
-      // 최소 스와이프 거리를 매우 작게 설정 (터치만으로도 이동 가능)
-      const minSwipeDistance = 10;
-      const maxSwipeTime = 1000;
-
-      // 터치가 감지되면 (거리와 시간 체크 또는 단순 터치)
-      const isSwipe = Math.abs(deltaY) > minSwipeDistance && deltaTime < maxSwipeTime;
-      const isSimpleTouch = Math.abs(deltaY) < 20 && deltaTime < 300; // 단순 터치 (거의 움직이지 않음)
-
-      if (isSwipe || isSimpleTouch) {
-        isSwipeHandled = true;
-        e.preventDefault();
-        
-        const sectionHeight = sectionRef.current.offsetHeight;
-        const pageHeight = sectionHeight / totalPages;
-        const currentTop = sectionRef.current.getBoundingClientRect().top;
-        const currentScroll = -currentTop;
-        
-        // 현재 인덱스 정확히 계산
-        let currentIndex;
-        if (currentScroll <= 0) {
-          currentIndex = -1; // 비디오
-        } else {
-          currentIndex = Math.min(
-            Math.floor(currentScroll / pageHeight),
-            totalSlides - 1
-          );
-        }
-        
-        let targetIndex = currentIndex;
-        
-        // 단순 터치인 경우 기본적으로 다음 슬라이드로
-        if (isSimpleTouch && !isSwipe) {
-          targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : currentIndex;
-        } else if (deltaY > 0) {
-          // 위로 스와이프 (다음 슬라이드)
-          targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : totalSlides - 1;
-        } else if (deltaY < 0) {
-          // 아래로 스와이프 (이전 슬라이드)
-          targetIndex = currentIndex > -1 ? currentIndex - 1 : -1;
-        }
-
-        // 슬라이드 변경 (스크롤 양과 무관하게 한 장씩만)
-        if (targetIndex !== currentIndex) {
-          const targetScroll = targetIndex === -1 
-            ? sectionRef.current.offsetTop 
-            : sectionRef.current.offsetTop + targetIndex * pageHeight;
-          
-          window.scrollTo({ top: targetScroll, behavior: "smooth" });
-          setCurrentSlide(targetIndex === -1 ? -1 : targetIndex);
-          lastSlideRef.current = targetIndex === -1 ? -1 : targetIndex;
-        }
-      }
-    };
-
-    const element = sectionRef.current;
-    if (element) {
-      element.addEventListener("touchstart", handleTouchStart, { passive: false });
-      element.addEventListener("touchmove", handleTouchMove, { passive: false });
-      element.addEventListener("touchend", handleTouchEnd, { passive: false });
-    }
-
-    return () => {
-      if (element) {
-        element.removeEventListener("touchstart", handleTouchStart);
-        element.removeEventListener("touchmove", handleTouchMove);
-        element.removeEventListener("touchend", handleTouchEnd);
-      }
-    };
-  }, [ready, totalPages, totalSlides]);
-
-  // 5) ready 이후에만 스크롤 리스너 등록 (모바일에서는 터치 이벤트가 우선)
+  // 4) ready 이후에만 스크롤 리스너 등록 (모바일에서 한 장씩만 넘어가도록)
   useEffect(() => {
     if (!ready) return;
 
     const handleScroll = () => {
       if (!sectionRef.current) return;
       
-      const isMobile = window.innerWidth < 640;
-      // 모바일에서는 터치 중이거나 터치 이벤트가 처리된 경우 스크롤 이벤트 무시
-      if (isMobile && (isTouching.current || lastSlideRef.current === -1)) {
-        return;
+      // 디바운싱: 빠른 스크롤 시 마지막 위치만 처리
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
-      
-      const rect = sectionRef.current.getBoundingClientRect();
-      const sectionHeight = sectionRef.current.offsetHeight;
-      const scrolled = -rect.top;
-      const pageHeight = sectionHeight / totalPages;
 
-      if (scrolled <= 0) {
-        const newSlide = -1;
-        if (newSlide !== lastSlideRef.current) {
-          setCurrentSlide(newSlide);
-          lastSlideRef.current = newSlide;
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (!sectionRef.current) return;
+        const rect = sectionRef.current.getBoundingClientRect();
+        const sectionHeight = sectionRef.current.offsetHeight;
+        const scrolled = -rect.top;
+
+        if (scrolled <= 0) {
+          const newSlide = -1;
+          if (newSlide !== lastSlideRef.current) {
+            setCurrentSlide(newSlide);
+            lastSlideRef.current = newSlide;
+          }
+        } else {
+          const pageHeight = sectionHeight / totalPages;
+          const calculatedIndex = Math.min(
+            Math.floor(scrolled / pageHeight),
+            totalSlides - 1
+          );
+          
+          // 모바일에서 한 장씩만 넘어가도록 제한
+          const isMobile = window.innerWidth < 640;
+          let newSlide = calculatedIndex;
+          
+          if (isMobile && lastSlideRef.current !== -1) {
+            // 이전 슬라이드와의 차이가 1 이상이면 한 장씩만 이동
+            const diff = calculatedIndex - lastSlideRef.current;
+            if (Math.abs(diff) > 1) {
+              // 방향에 따라 한 장씩만 이동
+              newSlide = diff > 0 
+                ? lastSlideRef.current + 1 
+                : lastSlideRef.current - 1;
+              newSlide = Math.max(0, Math.min(newSlide, totalSlides - 1));
+              
+              // 스크롤 위치도 조정하여 한 장씩만 보이도록
+              const targetScroll = sectionRef.current.offsetTop + (newSlide + 0.5) * pageHeight;
+              window.scrollTo({ top: targetScroll, behavior: "smooth" });
+            }
+          }
+          
+          if (newSlide !== lastSlideRef.current) {
+            setCurrentSlide(newSlide);
+            lastSlideRef.current = newSlide;
+          }
         }
-      } else {
-        let calculatedIndex = Math.min(
-          Math.floor(scrolled / pageHeight),
-          totalSlides - 1
-        );
-        
-        // 데스크톱에서는 정상 작동, 모바일에서는 터치 이벤트가 처리
-        if (!isMobile && calculatedIndex !== lastSlideRef.current) {
-          setCurrentSlide(calculatedIndex);
-          lastSlideRef.current = calculatedIndex;
-        }
-      }
+      }, 50); // 50ms 디바운싱
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
     };
   }, [ready, totalPages, totalSlides]);
 
@@ -293,10 +207,7 @@ export default function HeroSection() {
       data-header-theme="dark"
     >
       {/* ── 고정 뷰포트 ── */}
-      <div 
-        className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden"
-        style={{ scrollSnapAlign: "start" }}
-      >
+      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         {/* ── 배경 동영상 ── */}
         <div
           className="absolute inset-0 z-[1]"

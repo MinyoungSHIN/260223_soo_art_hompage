@@ -49,10 +49,6 @@
 }
 
 /* ── Base Styles ── */
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -60,18 +56,6 @@ body {
     BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* ── 모바일에서 히어로 섹션 스크롤 스냅 ── */
-@media (max-width: 639px) {
-  html {
-    scroll-snap-type: y mandatory;
-  }
-  
-  section[data-header-theme="dark"] {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-  }
 }
 
 /* ── Hero Section 이미지 위치 및 크기 조정 ── */
