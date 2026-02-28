@@ -344,9 +344,12 @@ export default function HeroSection() {
     };
   }, [ready, totalPages, totalSlides]);
 
-  // 5) ready 이후에만 스크롤 리스너 등록 (데스크톱 전용 — 모바일은 터치로 제어)
+  // 5) 스크롤 리스너 — 슬라이드 인덱스 업데이트 + 모바일 하단 경계 방어
   useEffect(() => {
     if (!ready) return;
+
+    const isMobile = window.innerWidth < 640;
+    let lastScrollY = window.scrollY; // 스크롤 방향 감지용
 
     const handleScroll = () => {
       // ★ isScrolling 또는 쿨다운 중이면 인덱스 업데이트 완전 건너뛰기
@@ -355,8 +358,32 @@ export default function HeroSection() {
       if (isTouching.current) return;
       if (!sectionRef.current) return;
 
-      const rect = sectionRef.current.getBoundingClientRect();
+      const currentScrollY = window.scrollY;
+      const sectionTop = sectionRef.current.offsetTop;
       const sectionHeight = sectionRef.current.offsetHeight;
+      const sectionBottom = sectionTop + sectionHeight;
+
+      // ── 모바일: 아래에서 위로 스크롤 시 히어로 섹션 진입 방지 ──
+      if (isMobile) {
+        const isScrollingUp = currentScrollY < lastScrollY;
+        // 아래에서 위로 올라오다가 히어로 섹션 하단 경계에 도달하면 멈춤
+        if (isScrollingUp && currentScrollY < sectionBottom && lastScrollY >= sectionBottom) {
+          window.scrollTo({ top: sectionBottom, behavior: "instant" });
+          lastScrollY = sectionBottom;
+          return;
+        }
+        // 히어로 섹션 내부에서 위로 스크롤하는 것도 방지 (터치가 아닌 관성 스크롤)
+        if (isScrollingUp && currentScrollY >= sectionTop && currentScrollY < sectionBottom) {
+          window.scrollTo({ top: sectionBottom, behavior: "instant" });
+          lastScrollY = sectionBottom;
+          return;
+        }
+      }
+
+      lastScrollY = currentScrollY;
+
+      // ── 슬라이드 인덱스 업데이트 ──
+      const rect = sectionRef.current.getBoundingClientRect();
       const scrolled = -rect.top;
       const pageHeight = sectionHeight / totalPages;
 
