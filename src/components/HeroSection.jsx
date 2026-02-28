@@ -66,7 +66,7 @@ export default function HeroSection() {
     const revealVideo = () => {
       // 커버를 페이드아웃하고, 이미지 렌더링 허용
       setCoverVisible(false);
-      setTimeout(() => setReady(true), 100); // 커버가 사라진 후 이미지 활성화
+      setTimeout(() => setReady(true), 50); // 커버가 사라진 후 이미지 활성화
     };
 
     const vid = videoRef.current;
@@ -74,7 +74,7 @@ export default function HeroSection() {
       // 이미 로드된 경우 (캐시)
       revealVideo();
     } else if (vid) {
-      vid.addEventListener("playing", revealVideo, { once: true });
+      vid.addEventListener("canplay", revealVideo, { once: true });
       // 비디오 로드 실패 시 fallback (3초)
       const fallback = setTimeout(revealVideo, 3000);
       return () => {
@@ -195,7 +195,7 @@ export default function HeroSection() {
       // ── 하단 탈출: 마지막 슬라이드에서 2회 스와이프 → 다음 섹션 ──
       if (finalTargetIndex > totalSlides - 1) {
         exitAttemptRef.current += 1;
-        if (exitAttemptRef.current < 2) return;
+        if (exitAttemptRef.current < 1) return;
         exitAttemptRef.current = 0;
         topEntryBlockRef.current = false;
         swipeCooldownRef.current = true;
