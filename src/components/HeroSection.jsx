@@ -186,7 +186,7 @@ export default function HeroSection() {
       setTimeout(() => {
         isScrolling.current = false;
         swipeCooldownRef.current = false;
-      }, 600);
+      }, 1000);
     };
 
     const handleTouchStart = (e) => {
