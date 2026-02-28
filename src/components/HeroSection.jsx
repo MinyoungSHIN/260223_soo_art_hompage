@@ -160,19 +160,19 @@ export default function HeroSection() {
       if (finalTargetIndex > totalSlides - 1) {
         // 마지막 슬라이드에서 아래로 스와이프 → 탈출 카운터 증가
         exitAttemptRef.current += 1;
-        if (exitAttemptRef.current < 3) {
-          return; // 3회 미만이면 꿈쩍도 안 함
+        if (exitAttemptRef.current < 2) {
+          return; // 2회 미만이면 꿈쩍도 안 함
         }
-        // 3회 이상 → 쿨다운 시작 후 다음 섹션으로 자연스럽게 넘어감
+        // 2회 이상 → 쿨다운 시작 후 다음 섹션으로 부드럽게 넘어감
         swipeCooldownRef.current = true;
         isScrolling.current = true;
         const sectionBottom =
           sectionRef.current.offsetTop + sectionRef.current.offsetHeight;
-        window.scrollTo({ top: sectionBottom, behavior: "instant" });
+        window.scrollTo({ top: sectionBottom, behavior: "smooth" });
         setTimeout(() => {
           isScrolling.current = false;
           swipeCooldownRef.current = false;
-        }, 800);
+        }, 1000);
         return;
       }
       if (finalTargetIndex < -1) return; // 첫 슬라이드 이전으로는 불가
@@ -492,6 +492,24 @@ export default function HeroSection() {
                   isActive
                     ? "h-2 w-2 bg-primary scale-125"
                     : "h-2 w-2 bg-white/30"
+                }`}
+              />
+            );
+          })}
+        </div>
+
+        {/* ── 모바일 슬라이드 인디케이터 (하단 중앙 가로 동그라미) ── */}
+        <div className="absolute bottom-16 left-1/2 z-20 flex -translate-x-1/2 gap-2 md:hidden">
+          {[...Array(totalPages)].map((_, idx) => {
+            const slideIdx = idx - 1; // -1 = video, 0~4 = images
+            const isActive = currentSlide === slideIdx;
+            return (
+              <div
+                key={idx}
+                className={`rounded-full transition-all duration-300 ${
+                  isActive
+                    ? "h-2.5 w-2.5 bg-primary scale-125"
+                    : "h-2 w-2 bg-white/40"
                 }`}
               />
             );
