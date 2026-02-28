@@ -53,6 +53,7 @@ export default function HeroSection() {
   const touchStartTime = useRef(0); // 터치 시작 시간
   const isTouching = useRef(false); // 터치 중인지 여부
   const isScrolling = useRef(false); // 프로그래밍 스크롤 중인지 여부
+  const swipeCooldownRef = useRef(false); // 스와이프 쿨다운 (한 번에 하나씩만)
   const totalSlides = heroImages.length;
   const totalPages = totalSlides + 1;
 
@@ -145,8 +146,13 @@ export default function HeroSection() {
     const moveToSlide = (targetIndex) => {
       if (!sectionRef.current) return;
       
-      // isScrolling 체크를 제거하여 연속 스와이프 허용
+      // 스와이프 쿨다운 중이면 무시
+      if (swipeCooldownRef.current) return;
+      
+      // 쿨다운 시작
+      swipeCooldownRef.current = true;
       isScrolling.current = true;
+      
       const sectionHeight = sectionRef.current.offsetHeight;
       const pageHeight = sectionHeight / totalPages;
       const targetScroll = targetIndex === -1 
@@ -158,10 +164,14 @@ export default function HeroSection() {
       setCurrentSlide(targetIndex === -1 ? -1 : targetIndex);
       lastSlideRef.current = targetIndex === -1 ? -1 : targetIndex;
       
-      // 스크롤 완료 후 플래그 해제 (시간 단축)
+      // 스크롤 완료 후 플래그 해제 (충분한 시간 확보)
       setTimeout(() => {
         isScrolling.current = false;
-      }, 50); // 100ms -> 50ms로 단축
+        // 쿨다운 해제 (스와이프 애니메이션 시간 고려)
+        setTimeout(() => {
+          swipeCooldownRef.current = false;
+        }, 200); // 추가 쿨다운 시간
+      }, 300); // 스크롤 완료 대기 시간
     };
 
     const handleTouchStart = (e) => {
@@ -194,6 +204,13 @@ export default function HeroSection() {
         isTouching.current = false;
         return;
       }
+      
+      // 스와이프 쿨다운 중이면 무시
+      if (swipeCooldownRef.current) {
+        isTouching.current = false;
+        return;
+      }
+      
       isTouching.current = false;
 
       const touchEndX = touchMoveX;
@@ -236,8 +253,8 @@ export default function HeroSection() {
       // 탭 감지 (거의 움직이지 않고 빠르게 터치)
       const isTap = Math.abs(deltaY) < 10 && Math.abs(deltaX) < 10 && deltaTime < 300;
       
-      // 가로 스와이프 감지
-      const minSwipeDistance = 30;
+      // 가로 스와이프 감지 (거리 임계값 증가)
+      const minSwipeDistance = 50; // 30 -> 50으로 증가하여 의도적인 스와이프만 인식
       const maxSwipeTime = 500;
       const isHorizontalSwipeDetected = isHorizontalSwipe && Math.abs(deltaX) > minSwipeDistance && deltaTime < maxSwipeTime;
 
@@ -249,18 +266,19 @@ export default function HeroSection() {
           moveToSlide(targetIndex);
         }
       } else if (isHorizontalSwipeDetected) {
-        // 가로 스와이프: 방향에 따라 이동
+        // 가로 스와이프: 방향에 따라 이동 (한 장씩만)
         e.preventDefault();
         let targetIndex = currentIndex;
         
         if (deltaX > 0) {
-          // 왼쪽으로 스와이프 (다음 슬라이드)
+          // 왼쪽으로 스와이프 (다음 슬라이드) - 한 장씩만
           targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : totalSlides - 1;
         } else {
-          // 오른쪽으로 스와이프 (이전 슬라이드)
+          // 오른쪽으로 스와이프 (이전 슬라이드) - 한 장씩만
           targetIndex = currentIndex > -1 ? currentIndex - 1 : -1;
         }
         
+        // 현재 인덱스와 다를 때만 이동 (한 장씩만 보장)
         if (targetIndex !== currentIndex) {
           moveToSlide(targetIndex);
         }
