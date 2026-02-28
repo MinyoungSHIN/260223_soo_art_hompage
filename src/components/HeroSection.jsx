@@ -167,11 +167,15 @@ export default function HeroSection() {
       const deltaY = touchStartY.current - touchEndY;
       const deltaTime = touchEndTime - touchStartTime.current;
       
-      // 최소 스와이프 거리와 시간 체크
-      const minSwipeDistance = 30;
-      const maxSwipeTime = 500;
+      // 최소 스와이프 거리를 매우 작게 설정 (터치만으로도 이동 가능)
+      const minSwipeDistance = 10;
+      const maxSwipeTime = 1000;
 
-      if (Math.abs(deltaY) > minSwipeDistance && deltaTime < maxSwipeTime) {
+      // 터치가 감지되면 (거리와 시간 체크 또는 단순 터치)
+      const isSwipe = Math.abs(deltaY) > minSwipeDistance && deltaTime < maxSwipeTime;
+      const isSimpleTouch = Math.abs(deltaY) < 20 && deltaTime < 300; // 단순 터치 (거의 움직이지 않음)
+
+      if (isSwipe || isSimpleTouch) {
         isSwipeHandled = true;
         e.preventDefault();
         
@@ -179,14 +183,27 @@ export default function HeroSection() {
         const pageHeight = sectionHeight / totalPages;
         const currentTop = sectionRef.current.getBoundingClientRect().top;
         const currentScroll = -currentTop;
-        const currentIndex = currentScroll <= 0 ? -1 : Math.floor(currentScroll / pageHeight);
+        
+        // 현재 인덱스 정확히 계산
+        let currentIndex;
+        if (currentScroll <= 0) {
+          currentIndex = -1; // 비디오
+        } else {
+          currentIndex = Math.min(
+            Math.floor(currentScroll / pageHeight),
+            totalSlides - 1
+          );
+        }
         
         let targetIndex = currentIndex;
         
-        if (deltaY > 0) {
+        // 단순 터치인 경우 기본적으로 다음 슬라이드로
+        if (isSimpleTouch && !isSwipe) {
+          targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : currentIndex;
+        } else if (deltaY > 0) {
           // 위로 스와이프 (다음 슬라이드)
           targetIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : totalSlides - 1;
-        } else {
+        } else if (deltaY < 0) {
           // 아래로 스와이프 (이전 슬라이드)
           targetIndex = currentIndex > -1 ? currentIndex - 1 : -1;
         }
@@ -197,7 +214,6 @@ export default function HeroSection() {
             ? sectionRef.current.offsetTop 
             : sectionRef.current.offsetTop + targetIndex * pageHeight;
           
-          // 즉시 스크롤 (smooth 대신 instant로 변경하여 더 빠르게)
           window.scrollTo({ top: targetScroll, behavior: "smooth" });
           setCurrentSlide(targetIndex === -1 ? -1 : targetIndex);
           lastSlideRef.current = targetIndex === -1 ? -1 : targetIndex;
