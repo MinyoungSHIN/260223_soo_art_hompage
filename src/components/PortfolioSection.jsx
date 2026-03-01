@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import ScrollDownArrow from "./ScrollDownArrow";
 
 const portfolioItems = [
   {
@@ -47,10 +50,10 @@ const portfolioItems = [
 
 export default function PortfolioSection() {
   return (
-    <section id="portfolio" className="bg-background-subtle py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="portfolio" className="relative bg-background-subtle py-24 lg:pt-5 lg:pb-24">
+      <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
-        <div className="mb-16 text-center">
+        <div className="mb-12 text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Portfolio
@@ -93,6 +96,7 @@ export default function PortfolioSection() {
           ))}
         </div>
       </div>
+      <ScrollDownArrow nextSectionId={null} isDark={false} />
     </section>
   );
 }

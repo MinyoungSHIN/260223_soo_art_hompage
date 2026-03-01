@@ -520,7 +520,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 z-[2] bg-black/50" />
 
         {/* ── 콘텐츠 ── */}
-        <div className="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6">
+        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
           <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
             Soo Art &amp; Company
           </span>
@@ -545,17 +545,17 @@ export default function HeroSection() {
             <br className="hidden sm:block" /> 수아트앤컴퍼니와 함께 하세요.
           </p>
 
-          <div className="mt-8 flex flex-row flex-nowrap items-center justify-center gap-3 sm:mt-12 sm:gap-4">
+          <div className="mt-8 flex flex-row items-center justify-center gap-3 w-full px-4 mx-auto sm:mt-12 sm:gap-4 sm:max-w-none">
             <Link
               href="/contact"
-              className="whitespace-nowrap rounded-xl border-2 border-transparent bg-primary px-4 py-2.5 text-xs font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:px-8 sm:py-3 sm:text-base md:px-10 md:text-lg"
+              className="flex-1 whitespace-nowrap text-center rounded-xl border-2 border-transparent bg-primary px-2 py-3 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:flex-none sm:min-w-[160px] sm:px-5 sm:text-lg"
               style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
             >
               상담 신청
             </Link>
             <a
               href="#problem"
-              className="whitespace-nowrap rounded-xl border-2 border-white/30 px-4 py-2.5 text-xs font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:py-3 sm:text-base md:text-lg"
+              className="flex-1 whitespace-nowrap text-center rounded-xl border-2 border-white/30 px-2 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:flex-none sm:min-w-[160px] sm:px-5 sm:text-lg"
               style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
             >
               서비스 알아보기
@@ -614,10 +614,70 @@ export default function HeroSection() {
           })}
         </div>
 
-        {/* ── 스크롤 인디케이터 ── */}
-        <div className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 animate-bounce sm:bottom-8">
+        {/* ── 스크롤 인디케이터 (클릭/터치 가능) ── */}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!sectionRef.current) return;
+            
+            // 다음 섹션(ProblemSection)의 시작 위치 찾기
+            const nextSection = document.getElementById("problem");
+            let targetY;
+            
+            if (nextSection) {
+              // 다음 섹션이 있으면 그 시작 위치로
+              // HeroSection이 완전히 벗어나도록 충분히 스크롤 (헤더가 검정색으로 변경되도록)
+              // IntersectionObserver의 rootMargin이 -95%이므로 HeroSection이 완전히 벗어나야 함
+              const sectionBottom = sectionRef.current.offsetTop + sectionRef.current.offsetHeight;
+              targetY = Math.max(nextSection.offsetTop - 100, sectionBottom + 50);
+            } else {
+              // 다음 섹션을 찾을 수 없으면 HeroSection의 끝으로
+              const sectionBottom =
+                sectionRef.current.offsetTop + sectionRef.current.offsetHeight;
+              targetY = Math.max(sectionBottom, 100);
+            }
+            
+            // 부드러운 스크롤 함수
+            const smoothScrollTo = (targetY, duration = 500) => {
+              const startY = window.scrollY;
+              const diff = targetY - startY;
+              if (Math.abs(diff) < 1) return;
+              const startTime = performance.now();
+              const easeInOutCubic = (t) =>
+                t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+              const step = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                window.scrollTo({
+                  top: startY + diff * easeInOutCubic(progress),
+                  behavior: "instant",
+                });
+                if (progress < 1) {
+                  requestAnimationFrame(step);
+                } else {
+                  // 스크롤 완료 후 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
+                  // 약간의 딜레이를 두어 IntersectionObserver가 업데이트되도록 함
+                  setTimeout(() => {
+                    window.dispatchEvent(new Event("scroll"));
+                  }, 100);
+                }
+              };
+              requestAnimationFrame(step);
+            };
+            
+            smoothScrollTo(targetY, 500);
+          }}
+          onTouchStart={(e) => {
+            e.stopPropagation();
+          }}
+          onTouchEnd={(e) => {
+            e.stopPropagation();
+          }}
+          className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 animate-bounce cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 sm:bottom-8"
+          aria-label="다음 섹션으로 이동"
+        >
           <svg
-            className="h-6 w-6 text-white/60"
+            className="h-6 w-6 text-white/60 transition-colors duration-300 hover:text-white/90"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -629,7 +689,7 @@ export default function HeroSection() {
               d="M19 9l-7 7-7-7"
             />
           </svg>
-        </div>
+        </button>
 
         {/* ── 로딩 커버 (모든 레이어 위에 검정 화면, 비디오 재생 후 페이드아웃) ── */}
         <div

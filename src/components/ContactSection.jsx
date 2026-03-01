@@ -51,7 +51,7 @@ export default function ContactSection() {
 
   return (
     <section id="contact" data-header-theme="dark" className="bg-secondary py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-5xl px-6 lg:px-8">
         <div className="grid items-start gap-12 sm:gap-16 lg:grid-cols-2">
           {/* ── 왼쪽: 안내 텍스트 ── */}
           <div>
@@ -59,14 +59,14 @@ export default function ContactSection() {
               <span className="h-2.5 w-2.5 rounded-full bg-primary" />
               Contact Us
             </span>
-            <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
+            <h2 className="text-2xl font-bold tracking-tight leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
               함께 만들어갈
               <br />
               무대가 있으신가요?
             </h2>
             <p className="mt-6 max-w-md text-sm font-medium leading-relaxed text-white/60 sm:text-base">
               수강 신청, 공연 기획, 비즈니스 협업 등 어떤 문의든 환영합니다.
-              빠른 시간 내에 연락드리겠습니다.
+              <br />빠른 시간 내에 연락드리겠습니다.
             </p>
             <div className="mt-10 space-y-6">
               <div className="flex items-center gap-4">

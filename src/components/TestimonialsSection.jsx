@@ -1,3 +1,7 @@
+"use client";
+
+import ScrollDownArrow from "./ScrollDownArrow";
+
 const testimonials = [
   {
     name: "김○○",
@@ -45,24 +49,24 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="bg-background-subtle py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="relative bg-background-subtle py-24 lg:py-24">
+      <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Testimonials
           </span>
-          <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="text-2xl font-bold tracking-tight leading-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             참여자들의 <span className="text-primary">생생한 후기</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
+          <p className="mx-auto mt-2 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
             수아트앤컴퍼니와 함께한 분들의 이야기입니다.
           </p>
         </div>
 
         {/* ── 후기 카드 그리드 ── */}
-        <div className="mt-12 grid gap-4 sm:mt-16 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:mt-12 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, idx) => (
             <div
               key={idx}
@@ -96,6 +100,7 @@ export default function TestimonialsSection() {
           ))}
         </div>
       </div>
+      <ScrollDownArrow nextSectionId="portfolio" isDark={false} />
     </section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import ScrollDownArrow from "./ScrollDownArrow";
 
 export default function CtaSection() {
   return (
@@ -44,6 +45,7 @@ export default function CtaSection() {
           * 상담은 무료이며, 24시간 내에 연락드립니다.
         </p>
       </div>
+      <ScrollDownArrow nextSectionId="contact" isDark={true} />
     </section>
   );
 }

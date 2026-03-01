@@ -1,3 +1,5 @@
+"use client";
+
 export default function ProblemSection() {
   const problems = [
     {
@@ -39,8 +41,8 @@ export default function ProblemSection() {
   ];
 
   return (
-    <section id="problem" className="bg-background-subtle py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="problem" className="relative bg-background-subtle pt-24 pb-12 lg:pt-32 lg:pb-16">  
+      <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm tracking-wide text-secondary shadow-sm">
@@ -83,9 +85,56 @@ export default function ProblemSection() {
             이 모든 고민, <span className="text-primary">하나의 해답</span>이 있습니다.
           </p>
           <div className="mt-6 flex justify-center">
-            <svg className="h-8 w-8 animate-bounce text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                const nextSection = document.getElementById("solution");
+                if (!nextSection) return;
+                
+                const targetY = nextSection.offsetTop - 80;
+                
+                // 부드러운 스크롤 함수
+                const smoothScrollTo = (targetY, duration = 500) => {
+                  const startY = window.scrollY;
+                  const diff = targetY - startY;
+                  if (Math.abs(diff) < 1) return;
+                  const startTime = performance.now();
+                  const easeInOutCubic = (t) =>
+                    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                  const step = (now) => {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    window.scrollTo({
+                      top: startY + diff * easeInOutCubic(progress),
+                      behavior: "instant",
+                    });
+                    if (progress < 1) {
+                      requestAnimationFrame(step);
+                    } else {
+                      // 스크롤 완료 후 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
+                      setTimeout(() => {
+                        window.dispatchEvent(new Event("scroll"));
+                      }, 100);
+                    }
+                  };
+                  requestAnimationFrame(step);
+                };
+                
+                smoothScrollTo(targetY, 500);
+              }}
+              onTouchStart={(e) => {
+                e.stopPropagation();
+              }}
+              onTouchEnd={(e) => {
+                e.stopPropagation();
+              }}
+              className="cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95"
+              aria-label="다음 섹션으로 이동"
+            >
+              <svg className="h-8 w-8 animate-bounce text-primary transition-colors duration-300 hover:text-primary/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>

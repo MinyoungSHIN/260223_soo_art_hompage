@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import ScrollDownArrow from "./ScrollDownArrow";
 
 const solutions = [
   {
@@ -39,15 +42,15 @@ const solutions = [
 
 export default function SolutionSection() {
   return (
-    <section id="solution" className="bg-background py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="solution" className="relative bg-background pt-8 pb-24 lg:pt-10 lg:pb-28">
+      <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
+          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Our Solutions
           </span>
-          <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="text-2xl font-bold tracking-tight leading-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             수아트가 제안하는
             <br />
             <span className="text-primary">3가지 해답</span>
@@ -58,7 +61,7 @@ export default function SolutionSection() {
         </div>
 
         {/* ── 솔루션 카드 ── */}
-        <div className="mt-12 grid gap-6 sm:mt-16 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:mt-12 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
           {solutions.map((s) => (
             <Link
               key={s.number}
@@ -107,6 +110,7 @@ export default function SolutionSection() {
           ))}
         </div>
       </div>
+      <ScrollDownArrow nextSectionId={null} isDark={false} />
     </section>
   );
 }

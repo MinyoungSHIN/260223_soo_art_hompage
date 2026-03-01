@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import ScrollDownArrow from "./ScrollDownArrow";
 
 export default function TrustSection() {
   /*
@@ -26,15 +29,15 @@ export default function TrustSection() {
   ];
 
   return (
-    <section data-header-theme="dark" className="bg-secondary py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section data-header-theme="dark" className="relative bg-secondary py-24 lg:py-18">
+      <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-white shadow-sm backdrop-blur-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Trusted Partners
           </span>
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
+          <h2 className="text-3xl font-bold tracking-tight leading-tight text-white md:text-5xl">
             공인기관이 선택한
             <br />
             <span className="text-primary">검증된 파트너</span>
@@ -77,10 +80,11 @@ export default function TrustSection() {
             ))}
           </div>
           <p className="mt-6 text-center text-[11px] font-medium text-white/20">
-            * 로고 이미지는 플레이스홀더이며, 실제 기관 로고로 교체 예정입니다.
+           
           </p>
         </div>
       </div>
+      <ScrollDownArrow nextSectionId={null} isDark={true} />
     </section>
   );
 }
