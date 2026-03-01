@@ -5,39 +5,6 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
   const arrowColor = isDark 
     ? "text-white/60 hover:text-white/90" 
     : "text-secondary/60 hover:text-secondary/90";
-  const scrollToNextSection = (e) => {
-    e.stopPropagation();
-    
-    // 헤더 높이 계산 (헤더 요소에서 실제 높이 가져오기)
-    const header = document.querySelector("header");
-    const headerHeight = header ? header.offsetHeight : 80;
-    
-    if (!nextSectionId) {
-      // 다음 섹션이 없으면 현재 섹션의 다음 형제 요소로 이동
-      const currentSection = e.currentTarget.closest("section");
-      if (!currentSection) return;
-      
-      let nextSibling = currentSection.nextElementSibling;
-      while (nextSibling && nextSibling.tagName !== "SECTION") {
-        nextSibling = nextSibling.nextElementSibling;
-      }
-      
-      if (nextSibling) {
-        // 모든 디스플레이: 헤더 바로 밑에 위치하도록
-        const targetY = nextSibling.offsetTop - headerHeight;
-        smoothScrollTo(targetY, 500);
-      }
-      return;
-    }
-    
-    const nextSection = document.getElementById(nextSectionId);
-    if (!nextSection) return;
-    
-    // 모든 디스플레이: 헤더 바로 밑에 위치하도록
-    const targetY = nextSection.offsetTop - headerHeight;
-    
-    smoothScrollTo(targetY, 500);
-  };
   
   // 부드러운 스크롤 함수
   const smoothScrollTo = (targetY, duration = 500) => {
@@ -65,6 +32,46 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
     };
     requestAnimationFrame(step);
   };
+
+  const scrollToNextSection = (e) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    
+    // 헤더 높이 계산 (헤더 요소에서 실제 높이 가져오기)
+    const header = document.querySelector("header");
+    const headerHeight = header ? header.offsetHeight : 80;
+    
+    if (!nextSectionId) {
+      // 다음 섹션이 없으면 현재 섹션의 다음 형제 요소로 이동
+      const button = e?.currentTarget || document.querySelector('[aria-label="다음 섹션으로 이동"]');
+      if (!button) return;
+      
+      const currentSection = button.closest("section");
+      if (!currentSection) return;
+      
+      let nextSibling = currentSection.nextElementSibling;
+      while (nextSibling && nextSibling.tagName !== "SECTION") {
+        nextSibling = nextSibling.nextElementSibling;
+      }
+      
+      if (nextSibling) {
+        // 모든 디스플레이: 헤더 바로 밑에 위치하도록
+        const targetY = nextSibling.offsetTop - headerHeight;
+        smoothScrollTo(targetY, 500);
+      }
+      return;
+    }
+    
+    const nextSection = document.getElementById(nextSectionId);
+    if (!nextSection) return;
+    
+    // 모든 디스플레이: 헤더 바로 밑에 위치하도록
+    const targetY = nextSection.offsetTop - headerHeight;
+    
+    smoothScrollTo(targetY, 500);
+  };
   
   return (
     <button
@@ -74,6 +81,9 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
       }}
       onTouchEnd={(e) => {
         e.stopPropagation();
+        e.preventDefault();
+        // 모바일 터치에서도 스크롤 실행
+        scrollToNextSection(e);
       }}
       className={`absolute bottom-4 left-1/2 z-20 -translate-x-1/2 animate-bounce cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 sm:bottom-8 ${className}`}
       aria-label="다음 섹션으로 이동"

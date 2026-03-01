@@ -5,26 +5,34 @@ import ScrollDownArrow from "./ScrollDownArrow";
 
 export default function CtaSection() {
   return (
-    <section className="relative overflow-hidden bg-primary pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
+    <section id="cta" className="relative overflow-hidden bg-primary pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
       {/* ── 배경 패턴 ── */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full bg-white/30 blur-3xl" />
         <div className="absolute -right-20 -bottom-20 h-80 w-80 rounded-full bg-white/20 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-          다음 무대의 주인공은
-          <br />
-          <span className="text-white/90">바로 당신입니다</span>
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-6 sm:text-base md:text-lg">
-          합창단 참여, 입시 레슨, 공연 초청 등 어떤 문의든 환영합니다.
-          <br className="hidden md:block" />
-          지금 무료 상담을 신청하시고 시작해보세요.
-        </p>
+      <div className="relative mx-auto max-w-5xl px-6 lg:px-8">
+        {/* ── 섹션 헤더 ── */}
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-white shadow-sm backdrop-blur-sm">
+            <span className="h-2.5 w-2.5 rounded-full bg-white" />
+            Call to Action
+          </span>
+          <h2 className="text-2xl font-bold tracking-tight leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
+            다음 무대의 주인공은
+            <br />
+            <span className="text-white/90">바로 당신입니다</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:text-base">
+            합창단 참여, 입시 레슨, 공연 초청 등 어떤 문의든 환영합니다.
+            <br className="hidden sm:block" />
+            지금 무료 상담을 신청하시고 시작해보세요.
+          </p>
+        </div>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
+        {/* ── CTA 버튼 ── */}
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-12 sm:flex-row sm:gap-4">
           <Link
             href="/contact"
             className="w-full rounded-xl border-2 border-transparent bg-white px-6 py-3 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.45)] sm:w-auto sm:px-10 sm:py-4 sm:text-lg"
@@ -41,7 +49,7 @@ export default function CtaSection() {
           </Link>
         </div>
 
-        <p className="mt-6 text-sm font-medium text-white/50">
+        <p className="mt-6 text-center text-sm font-medium text-white/50">
           * 상담은 무료이며, 24시간 내에 연락드립니다.
         </p>
       </div>

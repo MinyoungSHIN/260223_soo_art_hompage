@@ -88,9 +88,9 @@ export default function Header() {
             : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 py-[14.4px] sm:py-[18px] lg:px-8">
         {/* ── 왼쪽: 로고 + 상호명 ── */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0" onClick={handleHomeClick}>
+        <Link href="/" className="flex items-center gap-2.5 shrink-0 md:gap-3 flex-[1_0_0] justify-start" onClick={handleHomeClick}>
           <div className="relative h-10 w-10">
             <Image
               src="/image/logo1.png"
@@ -113,7 +113,7 @@ export default function Header() {
         </Link>
 
         {/* ── 가운데: Desktop Nav ── */}
-        <nav className="hidden items-center gap-8 md:flex absolute left-1/2 -translate-x-1/2">
+        <nav className="hidden items-center gap-3 md:gap-5 lg:gap-7 xl:gap-10 md:flex flex-[2_0_0] justify-center pl-10">
           {navLinks.map((link) =>
             link.subLinks ? (
               /* ── Service 드롭다운 (hover) ── */
@@ -184,10 +184,10 @@ export default function Header() {
         </nav>
 
         {/* ── 오른쪽: CTA + 모바일 메뉴 ── */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-4 shrink-0 flex-[1_0_0] justify-end">
           <Link
             href="/contact"
-            className="hidden rounded-xl bg-primary px-5 py-2 text-base font-bold text-white transition-all duration-500 hover:-translate-y-0.5 hover:[box-shadow:0_8px_24px_rgba(255,107,53,0.45)] md:inline-block"
+            className="hidden rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-0.5 hover:[box-shadow:0_8px_24px_rgba(255,107,53,0.45)] md:inline-block md:px-5 md:text-base"
             style={{ boxShadow: "0 2px 10px rgba(255,107,53,0.25)" }}
           >
             상담 신청

@@ -50,7 +50,7 @@ const portfolioItems = [
 
 export default function PortfolioSection() {
   return (
-    <section id="portfolio" className="relative bg-background-subtle pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pt-20 lg:pb-24">
+    <section id="portfolio" className="relative bg-background-subtle pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
@@ -96,7 +96,7 @@ export default function PortfolioSection() {
           ))}
         </div>
       </div>
-      <ScrollDownArrow nextSectionId={null} isDark={false} />
+      <ScrollDownArrow nextSectionId="cta" isDark={false} />
     </section>
   );
 }

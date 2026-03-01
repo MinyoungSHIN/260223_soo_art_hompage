@@ -132,6 +132,42 @@ export default function ProblemSection() {
               }}
               onTouchEnd={(e) => {
                 e.stopPropagation();
+                e.preventDefault();
+                // 모바일 터치에서도 스크롤 실행
+                const nextSection = document.getElementById("solution");
+                if (!nextSection) return;
+
+                const header = document.querySelector("header");
+                const headerHeight = header ? header.offsetHeight : 80;
+
+                const targetY = nextSection.offsetTop - headerHeight;
+
+                const smoothScrollTo = (targetY, duration = 500) => {
+                  const startY = window.scrollY;
+                  const diff = targetY - startY;
+                  if (Math.abs(diff) < 1) return;
+                  const startTime = performance.now();
+                  const easeInOutCubic = (t) =>
+                    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                  const step = (now) => {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    window.scrollTo({
+                      top: startY + diff * easeInOutCubic(progress),
+                      behavior: "instant",
+                    });
+                    if (progress < 1) {
+                      requestAnimationFrame(step);
+                    } else {
+                      setTimeout(() => {
+                        window.dispatchEvent(new Event("scroll"));
+                      }, 100);
+                    }
+                  };
+                  requestAnimationFrame(step);
+                };
+
+                smoothScrollTo(targetY, 500);
               }}
               className="cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95"
               aria-label="다음 섹션으로 이동"

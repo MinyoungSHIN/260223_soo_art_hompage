@@ -543,7 +543,7 @@ export default function HeroSection() {
             <br className="hidden sm:block" /> 수아트앤컴퍼니와 함께 하세요.
           </p>
 
-          <div className="mt-8 flex flex-row items-center justify-center gap-3 w-full px-4 mx-auto sm:mt-12 sm:gap-4 sm:max-w-none">
+          <div className="mt-8 flex flex-row flex-nowrap items-center justify-center gap-3 w-full px-4 mx-auto sm:mt-12 sm:gap-4 sm:max-w-none">
             <Link
               href="/contact"
               className="flex-1 whitespace-nowrap text-center rounded-xl border-2 border-transparent bg-primary px-2 py-3 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:flex-none sm:min-w-[160px] sm:px-5 sm:text-lg"
@@ -675,7 +675,6 @@ export default function HeroSection() {
           }}
           onTouchStart={(e) => {
             e.stopPropagation();
-            e.preventDefault();
             // 터치 이벤트가 다른 로직을 트리거하지 않도록
             isTouching.current = false;
           }}
@@ -684,6 +683,63 @@ export default function HeroSection() {
             e.preventDefault();
             // 터치 이벤트가 다른 로직을 트리거하지 않도록
             isTouching.current = false;
+            
+            // 모바일 터치에서도 스크롤 실행
+            if (!sectionRef.current) return;
+            
+            // 다른 스크롤 로직이 작동하지 않도록 플래그 설정
+            isScrolling.current = true;
+            swipeCooldownRef.current = true;
+            
+            // 다음 섹션(ProblemSection)의 시작 위치 찾기
+            const nextSection = document.getElementById("problem");
+            if (!nextSection) {
+              isScrolling.current = false;
+              swipeCooldownRef.current = false;
+              return;
+            }
+            
+            // 헤더 높이 계산
+            const header = document.querySelector("header");
+            const headerHeight = header ? header.offsetHeight : 80;
+            
+            // 모든 디스플레이: 헤더 바로 밑에 위치하도록
+            const targetY = nextSection.offsetTop - headerHeight;
+            
+            // 부드러운 스크롤 함수
+            const smoothScrollTo = (targetY, duration = 500) => {
+              const startY = window.scrollY;
+              const diff = targetY - startY;
+              if (Math.abs(diff) < 1) {
+                isScrolling.current = false;
+                swipeCooldownRef.current = false;
+                return;
+              }
+              const startTime = performance.now();
+              const easeInOutCubic = (t) =>
+                t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+              const step = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                window.scrollTo({
+                  top: startY + diff * easeInOutCubic(progress),
+                  behavior: "instant",
+                });
+                if (progress < 1) {
+                  requestAnimationFrame(step);
+                } else {
+                  // 스크롤 완료 후 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
+                  setTimeout(() => {
+                    window.dispatchEvent(new Event("scroll"));
+                    isScrolling.current = false;
+                    swipeCooldownRef.current = false;
+                  }, 100);
+                }
+              };
+              requestAnimationFrame(step);
+            };
+            
+            smoothScrollTo(targetY, 500);
           }}
           className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 animate-bounce cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 sm:bottom-8"
           aria-label="다음 섹션으로 이동"

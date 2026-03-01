@@ -29,7 +29,7 @@ export default function TrustSection() {
   ];
 
   return (
-    <section data-header-theme="dark" className="relative bg-secondary pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
+    <section id="trust" data-header-theme="dark" className="relative bg-secondary pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
@@ -84,7 +84,7 @@ export default function TrustSection() {
           </p>
         </div>
       </div>
-      <ScrollDownArrow nextSectionId={null} isDark={true} />
+      <ScrollDownArrow nextSectionId="testimonials" isDark={true} />
     </section>
   );
 }

@@ -49,7 +49,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative bg-background-subtle pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
+    <section id="testimonials" className="relative bg-background-subtle pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
@@ -60,7 +60,7 @@ export default function TestimonialsSection() {
           <h2 className="text-2xl font-bold tracking-tight leading-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             참여자들의 <span className="text-primary">생생한 후기</span>
           </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
+          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
             수아트앤컴퍼니와 함께한 분들의 이야기입니다.
           </p>
         </div>
