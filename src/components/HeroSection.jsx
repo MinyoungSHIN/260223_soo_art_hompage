@@ -454,7 +454,7 @@ export default function HeroSection() {
       data-header-theme="dark"
     >
       {/* ── 고정 뷰포트 ── */}
-      <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
+      <div className="sticky top-0 flex w-full items-center justify-center overflow-hidden" style={{ height: '100dvh' }}>
         {/* ── 배경 동영상 ── */}
         <div
           className="absolute inset-0 z-[1]"
@@ -602,7 +602,7 @@ export default function HeroSection() {
         </div>
 
         {/* ── 모바일 슬라이드 인디케이터 (하단 중앙 가로 동그라미) ── */}
-        <div className="absolute bottom-16 left-1/2 z-20 flex -translate-x-1/2 gap-2 md:hidden">
+        <div className="absolute bottom-28 left-1/2 z-20 flex -translate-x-1/2 gap-2 md:hidden">
           {[...Array(totalPages)].map((_, idx) => {
             const slideIdx = idx - 1; // -1 = video, 0~4 = images
             const isActive = currentSlide === slideIdx;
