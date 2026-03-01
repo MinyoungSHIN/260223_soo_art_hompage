@@ -5,7 +5,7 @@ import ScrollDownArrow from "./ScrollDownArrow";
 
 export default function CtaSection() {
   return (
-    <section className="relative overflow-hidden bg-primary py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-primary pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
       {/* ── 배경 패턴 ── */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full bg-white/30 blur-3xl" />

@@ -42,11 +42,11 @@ const solutions = [
 
 export default function SolutionSection() {
   return (
-    <section id="solution" className="relative bg-background pt-8 pb-24 lg:pt-10 lg:pb-28">
+    <section id="solution" className="relative bg-background pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pt-20 lg:pb-24">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Our Solutions
           </span>

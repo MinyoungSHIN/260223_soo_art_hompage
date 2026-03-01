@@ -41,7 +41,7 @@ export default function ProblemSection() {
   ];
 
   return (
-    <section id="problem" className="relative bg-background-subtle pt-24 pb-12 sm:pt-48 sm:pb-24 lg:pt-32 lg:pb-16">  
+    <section id="problem" className="relative bg-background-subtle pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">  
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
@@ -91,7 +91,12 @@ export default function ProblemSection() {
                 const nextSection = document.getElementById("solution");
                 if (!nextSection) return;
                 
-                const targetY = nextSection.offsetTop - 80;
+                // 헤더 높이 계산
+                const header = document.querySelector("header");
+                const headerHeight = header ? header.offsetHeight : 80;
+                
+                // 모든 디스플레이: 헤더 바로 밑에 위치하도록
+                const targetY = nextSection.offsetTop - headerHeight;
                 
                 // 부드러운 스크롤 함수
                 const smoothScrollTo = (targetY, duration = 500) => {

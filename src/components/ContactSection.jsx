@@ -50,7 +50,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" data-header-theme="dark" className="bg-secondary pt-12 pb-24 lg:py-32">
+    <section id="contact" data-header-theme="dark" className="bg-secondary pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         <div className="grid items-start gap-12 sm:gap-16 lg:grid-cols-2">
           {/* ── 왼쪽: 안내 텍스트 ── */}

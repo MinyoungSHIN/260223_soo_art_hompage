@@ -12,10 +12,9 @@ const heroImages = [
   "/image/hero5.png",
 ];
 
-// 각 이미지의 모바일 object-position 설정
+// 각 이미지의 object-position 설정 (모든 디스플레이 사이즈에 적용)
 // 중앙(0)을 기준으로: 왼쪽은 음수(-), 오른쪽은 양수(+)
 // 예: -10 (왼쪽으로 10%), 0 (중앙), +20 (오른쪽으로 20%)
-// 데스크톱에서는 모두 중앙(0)으로 유지됩니다
 const heroImagePositions = [
   -2,   // image1: 왼쪽으로 2%
   +20,  // image2: 오른쪽으로 20%
@@ -24,11 +23,10 @@ const heroImagePositions = [
   +41,  // image5: 오른쪽으로 41% (수정 가능)
 ];
 
-// 비디오 씬별 위치 설정
+// 비디오 씬별 위치 설정 (모든 디스플레이 사이즈에 적용)
 // 형식: [시작시간(초), 끝시간(초), 가로위치]
 // 가로위치: 중앙(0), 왼쪽은 음수(-), 오른쪽은 양수(+)
 // 예: [0, 5, 0] = 0-5초 동안 중앙, [5, 10, +20] = 5-10초 동안 오른쪽으로 20%
-// 데스크톱에서는 모두 중앙(0)으로 유지됩니다
 const videoScenePositions = [
   [0, 2, 0],     // 0-5초: 중앙
   [2.5, 4.6, -10],    // 5-10초: 중앙 (수정 가능)
@@ -460,7 +458,7 @@ export default function HeroSection() {
         >
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover sm:object-center"
+            className="absolute inset-0 h-full w-full object-cover"
             style={{
               objectPosition:
                 videoPosition === 0
@@ -502,7 +500,7 @@ export default function HeroSection() {
                   src={src}
                   alt={`Hero ${idx + 1}`}
                   fill
-                  className="object-cover sm:object-center"
+                  className="object-cover"
                   style={{
                     objectPosition:
                       heroImagePositions[idx] === 0
@@ -618,30 +616,37 @@ export default function HeroSection() {
         <button
           onClick={(e) => {
             e.stopPropagation();
+            e.preventDefault();
             if (!sectionRef.current) return;
+            
+            // 다른 스크롤 로직이 작동하지 않도록 플래그 설정
+            isScrolling.current = true;
+            swipeCooldownRef.current = true;
             
             // 다음 섹션(ProblemSection)의 시작 위치 찾기
             const nextSection = document.getElementById("problem");
-            let targetY;
-            
-            if (nextSection) {
-              // 다음 섹션이 있으면 그 시작 위치로
-              // HeroSection이 완전히 벗어나도록 충분히 스크롤 (헤더가 검정색으로 변경되도록)
-              // IntersectionObserver의 rootMargin이 -95%이므로 HeroSection이 완전히 벗어나야 함
-              const sectionBottom = sectionRef.current.offsetTop + sectionRef.current.offsetHeight;
-              targetY = Math.max(nextSection.offsetTop - 100, sectionBottom + 50);
-            } else {
-              // 다음 섹션을 찾을 수 없으면 HeroSection의 끝으로
-              const sectionBottom =
-                sectionRef.current.offsetTop + sectionRef.current.offsetHeight;
-              targetY = Math.max(sectionBottom, 100);
+            if (!nextSection) {
+              isScrolling.current = false;
+              swipeCooldownRef.current = false;
+              return;
             }
+            
+            // 헤더 높이 계산
+            const header = document.querySelector("header");
+            const headerHeight = header ? header.offsetHeight : 80;
+            
+            // 모든 디스플레이: 헤더 바로 밑에 위치하도록
+            const targetY = nextSection.offsetTop - headerHeight;
             
             // 부드러운 스크롤 함수
             const smoothScrollTo = (targetY, duration = 500) => {
               const startY = window.scrollY;
               const diff = targetY - startY;
-              if (Math.abs(diff) < 1) return;
+              if (Math.abs(diff) < 1) {
+                isScrolling.current = false;
+                swipeCooldownRef.current = false;
+                return;
+              }
               const startTime = performance.now();
               const easeInOutCubic = (t) =>
                 t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -656,9 +661,10 @@ export default function HeroSection() {
                   requestAnimationFrame(step);
                 } else {
                   // 스크롤 완료 후 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
-                  // 약간의 딜레이를 두어 IntersectionObserver가 업데이트되도록 함
                   setTimeout(() => {
                     window.dispatchEvent(new Event("scroll"));
+                    isScrolling.current = false;
+                    swipeCooldownRef.current = false;
                   }, 100);
                 }
               };
@@ -669,9 +675,15 @@ export default function HeroSection() {
           }}
           onTouchStart={(e) => {
             e.stopPropagation();
+            e.preventDefault();
+            // 터치 이벤트가 다른 로직을 트리거하지 않도록
+            isTouching.current = false;
           }}
           onTouchEnd={(e) => {
             e.stopPropagation();
+            e.preventDefault();
+            // 터치 이벤트가 다른 로직을 트리거하지 않도록
+            isTouching.current = false;
           }}
           className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 animate-bounce cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 sm:bottom-8"
           aria-label="다음 섹션으로 이동"

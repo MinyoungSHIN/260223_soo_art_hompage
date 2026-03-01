@@ -8,6 +8,10 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
   const scrollToNextSection = (e) => {
     e.stopPropagation();
     
+    // 헤더 높이 계산 (헤더 요소에서 실제 높이 가져오기)
+    const header = document.querySelector("header");
+    const headerHeight = header ? header.offsetHeight : 80;
+    
     if (!nextSectionId) {
       // 다음 섹션이 없으면 현재 섹션의 다음 형제 요소로 이동
       const currentSection = e.currentTarget.closest("section");
@@ -19,7 +23,8 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
       }
       
       if (nextSibling) {
-        const targetY = nextSibling.offsetTop - 80;
+        // 모든 디스플레이: 헤더 바로 밑에 위치하도록
+        const targetY = nextSibling.offsetTop - headerHeight;
         smoothScrollTo(targetY, 500);
       }
       return;
@@ -28,8 +33,8 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
     const nextSection = document.getElementById(nextSectionId);
     if (!nextSection) return;
     
-    // 다음 섹션의 시작 위치로 스크롤 (헤더가 보이도록 여유 추가)
-    const targetY = nextSection.offsetTop - 80;
+    // 모든 디스플레이: 헤더 바로 밑에 위치하도록
+    const targetY = nextSection.offsetTop - headerHeight;
     
     smoothScrollTo(targetY, 500);
   };

@@ -49,7 +49,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative bg-background-subtle pt-12 pb-24 lg:py-24">
+    <section className="relative bg-background-subtle pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
