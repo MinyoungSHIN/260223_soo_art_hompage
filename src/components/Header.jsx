@@ -94,7 +94,7 @@ export default function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 py-[14.4px] sm:py-[18px] lg:px-8">
         {/* ── 왼쪽: 로고 + 상호명 ── */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0 md:gap-3 flex-[1_0_0] justify-start" onClick={handleHomeClick}>
-          <div className="relative h-10 w-10">
+          <div className="relative h-8 w-8 sm:h-9 sm:w-9">
             <Image
               src="/image/logo1.png"
               alt="Soo Art & Company"
@@ -109,7 +109,7 @@ export default function Header() {
             />
           </div>
           <span
-            className={`text-lg font-bold tracking-wider transition-colors duration-150 ${textColor}`}
+            className={`text-base font-bold tracking-wider transition-colors duration-150 ${textColor}`}
           >
             수아트앤컴퍼니
           </span>
