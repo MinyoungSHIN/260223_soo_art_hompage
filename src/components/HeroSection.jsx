@@ -622,7 +622,7 @@ export default function HeroSection() {
         {/* ── 스크롤 인디케이터 (클릭/터치 가능) ── */}
         <button
           onClick={(e) => {
-            if (typeof window === "undefined") return;
+            if (typeof window === "undefined" || typeof document === "undefined") return;
             e.stopPropagation();
             e.preventDefault();
             if (!sectionRef.current) return;
@@ -687,7 +687,7 @@ export default function HeroSection() {
             isTouching.current = false;
           }}
           onTouchEnd={(e) => {
-            if (typeof window === "undefined") return;
+            if (typeof window === "undefined" || typeof document === "undefined") return;
             e.stopPropagation();
             e.preventDefault();
             // 터치 이벤트가 다른 로직을 트리거하지 않도록

@@ -32,18 +32,24 @@ export default function CtaSection() {
         </div>
 
         {/* ── CTA 버튼 ── */}
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-12 sm:flex-row sm:gap-4">
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-12 sm:flex-row sm:gap-4" style={{ display: 'flex', flexWrap: 'nowrap' }}>
           <Link
             href="/contact"
             className="w-full rounded-xl border-2 border-transparent bg-white px-6 py-3 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.45)] sm:w-auto sm:px-10 sm:py-4 sm:text-lg"
-            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
+            style={{ 
+              boxShadow: "0 4px 14px rgba(255,255,255,0.25)",
+              flexShrink: 0
+            }}
           >
             무료 상담 신청하기
           </Link>
           <Link
             href="/portfolio"
             className="w-full rounded-xl border-2 border-white/40 px-6 py-3 text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:w-auto sm:px-10 sm:py-4 sm:text-lg"
-            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
+            style={{ 
+              boxShadow: "0 4px 14px rgba(255,255,255,0.1)",
+              flexShrink: 0
+            }}
           >
             포트폴리오 보기
           </Link>

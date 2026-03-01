@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 export default function ScrollDownArrow({ nextSectionId, className = "", isDark = false }) {
   const [isMounted, setIsMounted] = useState(false);
+  const buttonRef = useRef(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -15,7 +16,7 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
     : "text-secondary/60 hover:text-secondary/90";
   
   // 부드러운 스크롤 함수
-  const smoothScrollTo = (targetY, duration = 500) => {
+  const smoothScrollTo = useCallback((targetY, duration = 500) => {
     if (typeof window === "undefined") return;
     
     const startY = window.scrollY;
@@ -43,52 +44,87 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
       }
     };
     requestAnimationFrame(step);
-  };
+  }, []);
 
-  const scrollToNextSection = (e) => {
-    if (!isMounted || typeof window === "undefined" || typeof document === "undefined") return;
+  const scrollToNextSection = useCallback((e) => {
+    if (!isMounted || typeof window === "undefined" || typeof document === "undefined") {
+      return;
+    }
     
     if (e) {
       e.stopPropagation();
       e.preventDefault();
     }
     
-    // 헤더 높이 계산 (헤더 요소에서 실제 높이 가져오기)
-    const header = document.querySelector("header");
-    const headerHeight = header ? header.offsetHeight : 80;
-    
-    if (!nextSectionId) {
-      // 다음 섹션이 없으면 현재 섹션의 다음 형제 요소로 이동
-      const button = e?.currentTarget || document.querySelector('[aria-label="다음 섹션으로 이동"]');
-      if (!button) return;
+    try {
+      // 헤더 높이 계산 (헤더 요소에서 실제 높이 가져오기)
+      const header = document.querySelector("header");
+      const headerHeight = header ? header.offsetHeight : 80;
       
-      const currentSection = button.closest("section");
-      if (!currentSection) return;
-      
-      let nextSibling = currentSection.nextElementSibling;
-      while (nextSibling && nextSibling.tagName !== "SECTION") {
-        nextSibling = nextSibling.nextElementSibling;
+      if (!nextSectionId) {
+        // 다음 섹션이 없으면 현재 섹션의 다음 형제 요소로 이동
+        const button = buttonRef.current || e?.currentTarget || document.querySelector('[aria-label="다음 섹션으로 이동"]');
+        if (!button) return;
+        
+        const currentSection = button.closest("section");
+        if (!currentSection) return;
+        
+        let nextSibling = currentSection.nextElementSibling;
+        while (nextSibling && nextSibling.tagName !== "SECTION") {
+          nextSibling = nextSibling.nextElementSibling;
+        }
+        
+        if (nextSibling) {
+          // 모든 디스플레이: 헤더 바로 밑에 위치하도록
+          const targetY = nextSibling.offsetTop - headerHeight;
+          smoothScrollTo(targetY, 500);
+        }
+        return;
       }
       
-      if (nextSibling) {
-        // 모든 디스플레이: 헤더 바로 밑에 위치하도록
-        const targetY = nextSibling.offsetTop - headerHeight;
-        smoothScrollTo(targetY, 500);
-      }
-      return;
+      const nextSection = document.getElementById(nextSectionId);
+      if (!nextSection) return;
+      
+      // 모든 디스플레이: 헤더 바로 밑에 위치하도록
+      const targetY = nextSection.offsetTop - headerHeight;
+      
+      smoothScrollTo(targetY, 500);
+    } catch (error) {
+      // 에러 발생 시 조용히 실패
     }
-    
-    const nextSection = document.getElementById(nextSectionId);
-    if (!nextSection) return;
-    
-    // 모든 디스플레이: 헤더 바로 밑에 위치하도록
-    const targetY = nextSection.offsetTop - headerHeight;
-    
-    smoothScrollTo(targetY, 500);
-  };
+  }, [isMounted, nextSectionId, smoothScrollTo]);
   
+  useEffect(() => {
+    if (!isMounted || !buttonRef.current) return;
+    
+    const button = buttonRef.current;
+    
+    const handleClick = (e) => {
+      scrollToNextSection(e);
+    };
+    
+    const handleTouchEnd = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      scrollToNextSection(e);
+    };
+    
+    button.addEventListener("click", handleClick);
+    button.addEventListener("touchend", handleTouchEnd);
+    
+    return () => {
+      button.removeEventListener("click", handleClick);
+      button.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isMounted, scrollToNextSection]);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <button
+      ref={buttonRef}
       onClick={scrollToNextSection}
       onTouchStart={(e) => {
         e.stopPropagation();
