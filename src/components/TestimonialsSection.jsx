@@ -49,7 +49,7 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative bg-background-subtle py-24 lg:py-24">
+    <section className="relative bg-background-subtle pt-12 pb-24 lg:py-24">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
@@ -66,7 +66,7 @@ export default function TestimonialsSection() {
         </div>
 
         {/* ── 후기 카드 그리드 ── */}
-        <div className="mt-12 grid gap-4 sm:mt-12 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:mt-12 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, idx) => (
             <div
               key={idx}

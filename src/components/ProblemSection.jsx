@@ -60,11 +60,11 @@ export default function ProblemSection() {
         </div>
 
         {/* ── 문제 카드 ── */}
-        <div className="mt-12 grid gap-4 sm:mt-16 sm:gap-6 md:grid-cols-2">
+        <div className="mt-10 grid gap-4 sm:mt-16 sm:gap-6 md:grid-cols-2">
           {problems.map((p) => (
             <div
               key={p.title}
-              className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] sm:gap-5 sm:p-8"
+              className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-4 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] sm:gap-5 sm:p-8"
             >
               <div className="shrink-0 text-secondary/30">{p.icon}</div>
               <div>
