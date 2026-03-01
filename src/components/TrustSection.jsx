@@ -29,7 +29,7 @@ export default function TrustSection() {
   ];
 
   return (
-    <section data-header-theme="dark" className="relative bg-secondary pt-12 pb-24 lg:py-18">
+    <section data-header-theme="dark" className="relative bg-secondary pt-12 pb-24 sm:pt-24 sm:pb-40 lg:py-18">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">

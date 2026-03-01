@@ -41,7 +41,7 @@ export default function ProblemSection() {
   ];
 
   return (
-    <section id="problem" className="relative bg-background-subtle pt-24 pb-12 lg:pt-32 lg:pb-16">  
+    <section id="problem" className="relative bg-background-subtle pt-24 pb-12 sm:pt-48 sm:pb-24 lg:pt-32 lg:pb-16">  
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
