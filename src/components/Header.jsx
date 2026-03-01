@@ -55,7 +55,7 @@ export default function Header() {
         const isAnyDark = [...darkMap.values()].some(Boolean);
         setOnDarkSection(isAnyDark);
       },
-      { rootMargin: "-0px 0px -95% 0px" }
+      { rootMargin: "-0px 0px -90% 0px" }
     );
     darkSections.forEach((el) => observer.observe(el));
 
