@@ -50,7 +50,7 @@ const portfolioItems = [
 
 export default function PortfolioSection() {
   return (
-    <section id="portfolio" className="relative bg-background-subtle pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-24">
+    <section id="portfolio" className="relative bg-background-subtle pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-6 lg:pb-24">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
@@ -61,14 +61,14 @@ export default function PortfolioSection() {
           <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             함께 만든 무대
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
+          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
             클래식·뮤지컬 공연부터 합창 컨설팅까지, 수아트앤컴퍼니의 레퍼런스를
             확인하세요.
           </p>
         </div>
 
         {/* ── 포트폴리오 그리드 ── */}
-        <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:mt-12 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {portfolioItems.map((item) => (
             <article
               key={item.id}
