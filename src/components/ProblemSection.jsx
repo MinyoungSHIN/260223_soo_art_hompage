@@ -87,6 +87,7 @@ export default function ProblemSection() {
           <div className="mt-6 flex justify-center">
             <button
               onClick={(e) => {
+                if (typeof window === "undefined") return;
                 e.stopPropagation();
                 const nextSection = document.getElementById("solution");
                 if (!nextSection) return;
@@ -131,6 +132,7 @@ export default function ProblemSection() {
                 e.stopPropagation();
               }}
               onTouchEnd={(e) => {
+                if (typeof window === "undefined") return;
                 e.stopPropagation();
                 e.preventDefault();
                 // 모바일 터치에서도 스크롤 실행

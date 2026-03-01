@@ -59,6 +59,7 @@ export default function HeroSection() {
 
   // 1) 마운트 시: 스크롤 리셋 → 비디오 재생 확인 → 커버 제거
   useEffect(() => {
+    if (typeof window === "undefined") return;
     window.scrollTo(0, 0);
 
     const revealVideo = () => {
@@ -114,6 +115,8 @@ export default function HeroSection() {
 
   // 3) 비디오 리셋 함수를 window에 등록 (Header에서 호출 가능하도록)
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     const resetVideo = () => {
       const vid = videoRef.current;
       if (vid) {
@@ -129,7 +132,9 @@ export default function HeroSection() {
 
     return () => {
       // cleanup
-      delete window.resetHeroVideo;
+      if (typeof window !== "undefined") {
+        delete window.resetHeroVideo;
+      }
     };
   }, []);
 
@@ -138,6 +143,7 @@ export default function HeroSection() {
   //    · HeroSection 내 touchmove preventDefault → 브라우저 스크롤 차단
   //    · 방향 기반 ±1 이동만 허용, 800ms 부드러운 전환
   useEffect(() => {
+    if (typeof window === "undefined") return;
     if (!ready) return;
     const isMobile = window.innerWidth < 640;
     if (!isMobile) return;
@@ -309,6 +315,7 @@ export default function HeroSection() {
   //    · 하단 경계: 위로 스크롤 시 1차 멈춤 → 2차 진입 (isScrolling 잠금으로 무한 루프 방지)
   //    · 상단 경계: HeroSection 위로 벗어나지 못하게 차단
   useEffect(() => {
+    if (typeof window === "undefined") return;
     if (!ready) return;
 
     const isMobile = window.innerWidth < 640;
@@ -615,6 +622,7 @@ export default function HeroSection() {
         {/* ── 스크롤 인디케이터 (클릭/터치 가능) ── */}
         <button
           onClick={(e) => {
+            if (typeof window === "undefined") return;
             e.stopPropagation();
             e.preventDefault();
             if (!sectionRef.current) return;
@@ -679,6 +687,7 @@ export default function HeroSection() {
             isTouching.current = false;
           }}
           onTouchEnd={(e) => {
+            if (typeof window === "undefined") return;
             e.stopPropagation();
             e.preventDefault();
             // 터치 이벤트가 다른 로직을 트리거하지 않도록

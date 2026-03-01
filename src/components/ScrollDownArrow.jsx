@@ -1,6 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 export default function ScrollDownArrow({ nextSectionId, className = "", isDark = false }) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // 어두운 배경 섹션에서는 흰색, 밝은 배경 섹션에서는 검정색
   const arrowColor = isDark 
     ? "text-white/60 hover:text-white/90" 
@@ -8,6 +16,8 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
   
   // 부드러운 스크롤 함수
   const smoothScrollTo = (targetY, duration = 500) => {
+    if (typeof window === "undefined") return;
+    
     const startY = window.scrollY;
     const diff = targetY - startY;
     if (Math.abs(diff) < 1) return;
@@ -26,7 +36,9 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
       } else {
         // 스크롤 완료 후 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
         setTimeout(() => {
-          window.dispatchEvent(new Event("scroll"));
+          if (typeof window !== "undefined") {
+            window.dispatchEvent(new Event("scroll"));
+          }
         }, 100);
       }
     };
@@ -34,6 +46,8 @@ export default function ScrollDownArrow({ nextSectionId, className = "", isDark 
   };
 
   const scrollToNextSection = (e) => {
+    if (!isMounted || typeof window === "undefined" || typeof document === "undefined") return;
+    
     if (e) {
       e.stopPropagation();
       e.preventDefault();

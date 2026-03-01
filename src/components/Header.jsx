@@ -29,6 +29,7 @@ export default function Header() {
 
   // Home / 로고 클릭 시 스크롤을 맨 위로 올려 동영상부터 재생
   const handleHomeClick = (e) => {
+    if (typeof window === "undefined") return;
     // 현재 페이지가 홈(/)이면 기본 라우팅 대신 스크롤만 이동
     if (window.location.pathname === "/") {
       e.preventDefault();
@@ -41,6 +42,8 @@ export default function Header() {
   };
 
   useEffect(() => {
+    if (typeof window === "undefined" || typeof document === "undefined") return;
+    
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
 

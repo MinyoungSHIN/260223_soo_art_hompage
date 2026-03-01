@@ -7,6 +7,8 @@ export default function ScrollToTop() {
 
   // 스크롤 위치에 따라 버튼 표시 여부 결정 (solution 섹션부터)
   useEffect(() => {
+    if (typeof window === "undefined" || typeof document === "undefined") return;
+    
     const toggleVisibility = () => {
       // solution 섹션의 위치를 기준으로 버튼 표시
       const solutionSection = document.getElementById("solution");
@@ -41,6 +43,8 @@ export default function ScrollToTop() {
 
   // 히어로 섹션으로 스크롤
   const scrollToTop = () => {
+    if (typeof window === "undefined" || typeof document === "undefined") return;
+    
     // 첫 번째 섹션(히어로 섹션) 찾기
     const sections = document.querySelectorAll("section");
     if (sections.length > 0) {
