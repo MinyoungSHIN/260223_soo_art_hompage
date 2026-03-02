@@ -23,7 +23,7 @@ export default function ProblemSection() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 5.636a9 9 0 11-12.728 0M12 9v4m0 4h.01" />
         </svg>
       ),
-      title: "똑같은 입시 레슨으로는 합격 할 수 없습니다.",
+      title: "똑같은 입시 레슨으로 합격 할 수 있을까요?",
       desc: (
       <>
       리틀엔젤스부터 예중·예고·음대 입시까지. <br/>
@@ -53,7 +53,7 @@ export default function ProblemSection() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
-      title: "노래만 하는 합창, 관객은 이미 지루합니다.",
+      title: "노래만 하는 합창, 관객들이 지루해 하나요?",
       desc: (
       <>
       합창단은 많지만, 눈을 뗄 수 없는 합창단은 드뭅니다. <br/>
@@ -106,7 +106,7 @@ export default function ProblemSection() {
         {/* ── 전환 문구 ── */}
         <div className="mt-12 text-center sm:mt-16">
           <p className="text-base font-bold text-secondary/80 sm:text-lg md:text-xl">
-            이 모든 고민, <span className="text-primary">하나의 해답</span>이 있습니다.
+            이 모든 고민, <span className="text-primary">수아트에 해답</span>이 있습니다.
           </p>
           <div className="mt-6 flex justify-center">
             <button

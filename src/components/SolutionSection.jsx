@@ -39,14 +39,14 @@ const solutions = [
   },
   {
     number: "03",
-    title: (<span className="text-lg sm:text-xl">합창단 위탁 운영<br/> 합창 안무 컨설팅<br/> 행사 공연 및 파견</span>),
+    title: (<span className="text-xl sm:text-2xl">합창 지휘 및 안무<br/> 행사 공연 및 파견</span>),
     subtitle: "B2B Solution",
-    tagline: "클래식·뮤지컬 전문 공연단체",
+    tagline: "비지니스와 예술이 만나는 가장 완벽한 방법",
     desc: (
       <>
-      기업, 단체, 소모임 등 합창 지휘 및 위탁 운영,<br/>
-      합창/뮤지컬 안무 작품 제작 및 디렉팅 서비스, <br/>
-      행사, 축가 공연 및 전문 공연팀 섭외 대행
+      기업·단체·소모임 합창 지휘부터 독보적인 합창 안무 디렉팅까지,<br/>
+      클래식 전문가들이 당신의 단체에 예술적 생명력을 불어넣습니다.<br/>
+      뻔한 행사를 잊지 못할 감동의 공연으로 탈바꿈시키세요.    
       </>
     ),
     image:
