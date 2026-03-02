@@ -12,7 +12,7 @@ const navLinks = [
     subLinks: [
       { href: "/services/choir", label: "수아트 콰이어" },
       { href: "/services/lesson", label: "프리미엄 레슨" },
-      { href: "/services/b2bg", label: "B2BG 비즈니스" },
+      { href: "/services/b2bg", label: "B2B 비즈니스" },
     ],
   },
   { href: "/portfolio", label: "Portfolio" },

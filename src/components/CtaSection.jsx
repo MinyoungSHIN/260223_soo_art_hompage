@@ -15,7 +15,7 @@ export default function CtaSection() {
       <div className="relative mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-white shadow-sm backdrop-blur-sm">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm tracking-wide text-white shadow-sm backdrop-blur-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-white" />
             Call to Action
           </span>

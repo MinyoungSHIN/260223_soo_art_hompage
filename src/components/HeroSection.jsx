@@ -133,7 +133,7 @@ export default function HeroSection() {
     return () => {
       // cleanup
       if (typeof window !== "undefined") {
-        delete window.resetHeroVideo;
+      delete window.resetHeroVideo;
       }
     };
   }, []);

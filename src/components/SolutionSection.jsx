@@ -7,32 +7,48 @@ import ScrollDownArrow from "./ScrollDownArrow";
 const solutions = [
   {
     number: "01",
-    title: "수아트 콰이어",
+    title: "수아트 콰이어 합창단",
     subtitle: "Soo Art Choir",
     tagline: "무대 위의 주인공이 되는 경험",
-    desc: "음악을 사랑하는 누구나 전문 무대에 설 수 있습니다. 발성·합창·안무를 체계적으로 배우고, 매 시즌 진짜 관객 앞에서 공연합니다.",
-    image:
-      "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&h=600&fit=crop&q=80",
+    desc: (
+      <>
+      합창·뮤지컬 무대를 경험하고 싶은 아마추어 성인을 위한 합창단. <br/>
+      발성·합창·안무를 체계적으로 배우고, 매 시즌 관객 앞에서 공연합니다. <br/>
+      더 이상의 다음은 없습니다. 지금, 당신의 무대를 시작하세요.
+      </>
+    ),
+    image: "/image/choire.png",
     href: "/services/choir",
     cta: "자세히 보기",
   },
   {
     number: "02",
-    title: "프리미엄 1:1 레슨",
-    subtitle: "Premium Lesson",
-    tagline: "합격을 넘어 예술가로",
-    desc: "이현정 대표의 직접 지도. 학생 맞춤형 커리큘럼으로 높은 입시 합격률. 발성·호흡·딕션부터 무대 매너까지 밀착 코칭합니다.",
-    image:
-      "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&h=600&fit=crop&q=80",
+    title: "프리미엄 1:1 보이스 레슨",
+    subtitle: "Premium Voice Lesson",
+    tagline: "합격을 넘어, 예술가로 성장하는 시간",
+    desc: (
+      <>
+      리틀엔젤스 입단, 예중·예고·음대 입시준비, <br/>
+      전문적인 코칭을 받고 싶은 비전공 일반인까지, <br/>
+      많은 합격자를 배출한 이현정 대표가 1:1 밀착 코칭합니다.
+      </>
+    ),
+    image: "/image/lesson2.png",
     href: "/services/lesson",
     cta: "자세히 보기",
   },
   {
     number: "03",
-    title: "B2BG 비즈니스",
-    subtitle: "B2BG Business",
+    title: (<span className="text-lg sm:text-xl">합창단 위탁 운영<br/> 합창 안무 컨설팅<br/> 행사 공연 및 파견</span>),
+    subtitle: "B2B Solution",
     tagline: "클래식·뮤지컬 전문 공연단체",
-    desc: "이현정 대표가 직접 무대에 서는 클래식·뮤지컬 공연, 합창 안무 컨설팅, 전문 아티스트 섭외까지. 기관·기업·학교에 격이 다른 공연을 제공합니다.",
+    desc: (
+      <>
+      기업, 단체, 소모임 등 합창 지휘 및 위탁 운영,<br/>
+      합창/뮤지컬 안무 작품 제작 및 디렉팅 서비스, <br/>
+      행사, 축가 공연 및 전문 공연팀 섭외 대행
+      </>
+    ),
     image:
       "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&h=600&fit=crop&q=80",
     href: "/services/b2bg",
@@ -46,7 +62,7 @@ export default function SolutionSection() {
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm tracking-wide text-secondary shadow-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Our Solutions
           </span>
@@ -56,7 +72,7 @@ export default function SolutionSection() {
             <span className="text-primary">3가지 해답</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
-            15년 이상의 무대 경험을 바탕으로, 고객의 고민을 해결하는 최적의 솔루션을 제공합니다.
+            20년 이상의 무대 경험을 바탕으로, 고객의 고민을 해결하는 최적의 솔루션을 제공합니다.
           </p>
         </div>
 
@@ -77,7 +93,8 @@ export default function SolutionSection() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                {/* 검정색 오버레이 레이어 - 위에서 아래로 그라데이션 */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90" />
                 <div className="absolute bottom-3 left-4 right-4 sm:bottom-4 sm:left-5 sm:right-5">
                   <span className="text-xs font-bold uppercase tracking-widest text-primary">
                     {s.subtitle}
@@ -86,9 +103,6 @@ export default function SolutionSection() {
                     {s.title}
                   </h3>
                 </div>
-                <span className="absolute top-3 right-4 text-4xl font-bold text-white/15 sm:top-4 sm:right-5 sm:text-5xl">
-                  {s.number}
-                </span>
               </div>
 
               {/* 텍스트 */}

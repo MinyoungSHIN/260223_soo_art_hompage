@@ -2,17 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: "수아트 콰이어 | Soo Art & Company",
+  title: "수아트 콰이어 in 하남 (20~30세) | Soo Art & Company",
   description:
-    "다시 뜨거워질 당신의 무대, 함께하는 화음으로 완성됩니다. 수아트 콰이어 단원 모집.",
+    "하남 지역 20~30세를 위한 프리미엄 합창단. 무대 위의 주인공이 되는 경험, 수아트 콰이어와 함께하세요.",
 };
 
 /* ── 수치 카드 데이터 ── */
 const stats = [
-  { value: "60+", label: "현재 활동 단원" },
+  { value: "20~30세", label: "타겟 연령대" },
+  { value: "하남", label: "활동 지역" },
   { value: "주 1회", label: "정기 연습" },
   { value: "연 2회", label: "정기 연주회" },
-  { value: "5년+", label: "운영 경력" },
 ];
 
 /* ── 커리큘럼 ── */
@@ -47,15 +47,15 @@ const faqs = [
   },
   {
     q: "연습 일정과 장소는 어떻게 되나요?",
-    a: "매주 토요일 오전 10시~12시, 서울 강남 연습실에서 진행됩니다. 자세한 위치는 입단 시 안내드립니다.",
+    a: "하남 지역 연습실에서 주 1회 정기 연습이 진행됩니다. 자세한 일정과 위치는 입단 시 안내드립니다.",
+  },
+  {
+    q: "20~30세만 참여할 수 있나요?",
+    a: "수아트 콰이어 in 하남은 20~30세를 주 타겟으로 하지만, 음악에 대한 열정이 있으시다면 문의해주세요. 다른 연령대를 위한 프로그램도 준비 중입니다.",
   },
   {
     q: "단원비는 얼마인가요?",
     a: "월 단원비와 연주회 참가비가 별도로 있습니다. 상담을 통해 자세한 안내를 받으실 수 있습니다.",
-  },
-  {
-    q: "시니어(60세 이상)도 활동 가능한가요?",
-    a: "물론입니다. 현재 단원 중 상당수가 50~70대이며, 무대 위에서 청춘을 되찾는 기쁨을 만끽하고 계십니다.",
   },
 ];
 
@@ -70,22 +70,21 @@ export default function ChoirPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=1920&h=900&fit=crop&q=80')",
+              "url('/image/choire.png')",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-4 sm:text-sm">
-            Service 01 · Soo Art Choir
+            수아트 콰이어 in 하남 · 2030 Youth 세대 모집 중
           </p>
           <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            다시 뜨거워질 당신의 무대,
+            하남 2030, 이제는 관객석 말고
             <br />
-            <span className="text-primary">함께하는 화음</span>으로 완성됩니다.
+            <span className="text-primary">무대 위로 출근하세요</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-white/70 sm:mt-6 sm:text-base md:text-lg">
-            음악을 사랑하는 당신을 위한 프리미엄 합창단.
-            발성·합창·안무를 아우르는 체계적인 교육으로 진짜 무대에 서보세요.
+            퇴근 후 방구석 코노는 끝. 당신의 목소리가 웅장한 뮤지컬 무대가 되는 경험.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
             <Link
@@ -128,7 +127,7 @@ export default function ChoirPage() {
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1504680177321-2e6a879aac86?w=800&h=600&fit=crop&q=80"
+                src="/image/choire.png"
                 alt="합창단 연습"
                 fill
                 className="object-cover"
@@ -139,20 +138,51 @@ export default function ChoirPage() {
                 Who We Are
               </p>
               <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-                노래로 하나 되는 순간,
+                하남 2030을 위한
                 <br />
-                인생이 빛나기 시작합니다
+                프리미엄 합창단
               </h2>
-              <p className="mt-6 text-base font-medium leading-relaxed text-secondary/70">
-                수아트 콰이어는 &ldquo;무대 주인공을 꿈꾸는 일반 성인 및 시니어&rdquo;를
-                위한 프리미엄 합창단입니다. 단순히 노래만 부르는 것이 아니라,
-                전문 성악가 이현정 대표의 직접 지도 아래 발성·합창·안무를
-                체계적으로 배우고, 매 시즌 진짜 관객 앞에서 공연합니다.
-              </p>
-              <p className="mt-4 text-base font-medium leading-relaxed text-secondary/70">
-                음악 경험이 전혀 없어도 괜찮습니다. 함께 호흡하고, 함께
-                노래하는 그 순간이 이미 당신을 무대의 주인공으로 만들어줍니다.
-              </p>
+              <div className="mt-8 space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                    <svg className="h-3.5 w-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-secondary">취향 저격 선곡</h3>
+                    <p className="mt-1 text-sm font-medium leading-relaxed text-secondary/60">
+                      지루한 가곡 대신, 우리가 사랑하는 뮤지컬 넘버와 트렌디한 팝 합창.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                    <svg className="h-3.5 w-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-secondary">전문가 밀착 코칭</h3>
+                    <p className="mt-1 text-sm font-medium leading-relaxed text-secondary/60">
+                      악보를 몰라도 OK. 발성부터 무대 안무까지 아티스트가 직접 전수.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                    <svg className="h-3.5 w-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-secondary">리얼 공연 보장</h3>
+                    <p className="mt-1 text-sm font-medium leading-relaxed text-secondary/60">
+                      하남의 전문 공연장에서 화려한 조명을 받으며 맞이하는 커튼콜의 전율.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -213,9 +243,9 @@ export default function ChoirPage() {
 
           <div className="mt-12 grid gap-4 md:grid-cols-3">
             {[
-              "https://images.unsplash.com/photo-1501612780327-45045538702b?w=600&h=400&fit=crop&q=80",
-              "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop&q=80",
-              "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&h=400&fit=crop&q=80",
+              "/image/choire.png",
+              "/image/choire.png",
+              "/image/choire.png",
             ].map((src, idx) => (
               <div key={idx} className="relative aspect-[3/2] overflow-hidden rounded-xl">
                 <Image
@@ -245,11 +275,11 @@ export default function ChoirPage() {
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
+              "하남 지역에 거주하거나 근무하는 20~30세",
+              "합창·뮤지컬 무대를 경험하고 싶은 아마추어",
               "노래가 좋지만 혼자 부르기엔 아쉬운 분",
-              "은퇴 후 새로운 취미와 사회 활동을 찾는 시니어",
+              "새로운 취미와 사회 활동을 찾는 분",
               "무대 경험을 통해 자신감을 키우고 싶은 분",
-              "합창의 감동을 제대로 느끼고 싶은 음악 애호가",
-              "자녀와 함께 음악 활동을 즐기고 싶은 가족",
               "단체 활동으로 소속감과 성취감을 원하는 분",
             ].map((text) => (
               <div
@@ -306,10 +336,10 @@ export default function ChoirPage() {
       <section className="bg-primary py-20">
         <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-            당신의 무대, 지금 시작하세요
+            하남에서 당신의 무대, 지금 시작하세요
           </h2>
           <p className="mt-4 text-base font-medium text-white/80">
-            수아트 콰이어는 상시 단원을 모집합니다. 부담 없이 문의해주세요.
+            수아트 콰이어 in 하남은 상시 단원을 모집합니다. 부담 없이 문의해주세요.
           </p>
           <Link
             href="/contact"

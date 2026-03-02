@@ -6,7 +6,7 @@ const serviceOptions = [
   { value: "", label: "서비스를 선택해주세요" },
   { value: "choir", label: "수아트 콰이어 (단원 신청)" },
   { value: "lesson", label: "프리미엄 1:1 레슨 (상담 신청)" },
-  { value: "b2bg", label: "B2BG 비즈니스 (제안서 요청)" },
+  { value: "b2bg", label: "B2B 비즈니스 (제안서 요청)" },
 ];
 
 export default function ContactSection() {
@@ -60,12 +60,12 @@ export default function ContactSection() {
               Contact Us
             </span>
             <h2 className="text-2xl font-bold tracking-tight leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-              함께 만들어갈
+              함께 만들어 가고 싶은
               <br />
               무대가 있으신가요?
             </h2>
             <p className="mt-6 max-w-md text-sm font-medium leading-relaxed text-white/60 sm:text-base">
-              수강 신청, 공연 기획, 비즈니스 협업 등 어떤 문의든 환영합니다.
+              합창단원 / 1:1 레슨 신청, B2B 협업 제안 등 어떤 문의든 환영합니다.
               <br />빠른 시간 내에 연락드리겠습니다.
             </p>
             <div className="mt-10 space-y-6">

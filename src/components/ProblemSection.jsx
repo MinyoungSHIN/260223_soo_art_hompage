@@ -5,11 +5,17 @@ export default function ProblemSection() {
     {
       icon: (
         <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
         </svg>
       ),
-      title: "합창단 무대가 단조롭다",
-      desc: "노래만 부르는 합창은 관객에게 지루합니다. 안무와 퍼포먼스를 더해 무대를 살리고 싶지만 전문가를 찾기 어렵습니다.",
+      title: "잊었던 17살의 꿈, 여전히 관객석에 계신가요?",
+      desc: ( 
+      <>
+      오디션 공고 앞에서 발길을 돌렸던 그 미련. <br/>
+      바쁜 일상에 잊었던 당신의 뜨거운 목소리. <br/>
+      먼지 쌓인 마이크를 꺼내세요. 이제 당신이 주인공입니다.
+      </>
+      ),
     },
     {
       icon: (
@@ -17,17 +23,14 @@ export default function ProblemSection() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 5.636a9 9 0 11-12.728 0M12 9v4m0 4h.01" />
         </svg>
       ),
-      title: "입시 준비, 어디서부터 해야 할지",
-      desc: "예중·예고·예대 성악과 입시를 준비하고 싶지만, 검증된 전문가의 체계적인 지도를 받기가 쉽지 않습니다.",
-    },
-    {
-      icon: (
-        <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+      title: "똑같은 입시 레슨으로는 합격 할 수 없습니다.",
+      desc: (
+      <>
+      리틀엔젤스부터 예중·예고·음대 입시까지. <br/>
+      수많은 지원자 사이에서 내가 선택 받으려면, <br/>
+      한 번에 사로잡는 '전략적 보이스'가 필요합니다.
+      </>
       ),
-      title: "노래를 배우고 싶지만 기회가 없다",
-      desc: "무대에 서고 싶은 꿈은 있지만, 일반인이 전문 교육을 받고 실제로 공연할 수 있는 곳을 찾기 어렵습니다.",
     },
     {
       icon: (
@@ -35,8 +38,29 @@ export default function ProblemSection() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
-      title: "수준 높은 클래식·뮤지컬 공연을 초청하고 싶다",
-      desc: "기관이나 기업에서 격 있는 클래식·뮤지컬 공연을 초청하고 싶지만, 믿을 수 있는 전문 공연단체를 찾기 어렵습니다.",
+      title: "뻔한 행사/축가, 혹시 예산 낭비라 느끼셨나요?",
+      desc: (
+      <>
+      격식만 차린 공연은 품격을 높이지 못합니다. <br/>
+      현직 성악가의 공연으로 행사의 '급'을 바꾸세요.<br/>
+      검증된 실력파 아티스트들이 작품으로 만들어 드립니다.
+      </>
+      ),
+    },
+    {
+      icon: (
+        <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      title: "노래만 하는 합창, 관객은 이미 지루합니다.",
+      desc: (
+      <>
+      합창단은 많지만, 눈을 뗄 수 없는 합창단은 드뭅니다. <br/>
+      합창 안무와 퍼포먼스로 '살아있는 무대'를 만듭니다. <br/>
+      지루할 틈 없는 연출로 관객의 시선을 압도하세요.
+      </>
+      ),
     },
   ];
 
@@ -68,7 +92,7 @@ export default function ProblemSection() {
             >
               <div className="shrink-0 text-secondary/30">{p.icon}</div>
               <div>
-                <h3 className="mb-2 text-base font-bold tracking-tight text-secondary sm:text-lg">
+                <h3 className="mb-2 text-base font-bold tracking-tight text-secondary sm:text-lg line-clamp-1">
                   {p.title}
                 </h3>
                 <p className="text-xs font-medium leading-relaxed text-secondary/60 sm:text-sm">

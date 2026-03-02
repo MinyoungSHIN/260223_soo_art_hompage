@@ -4,46 +4,46 @@ import ScrollDownArrow from "./ScrollDownArrow";
 
 const testimonials = [
   {
-    name: "김○○",
-    role: "수아트 콰이어 단원 (3년차)",
+    name: "김○경",
+    role: "HP 기업 합창단원",
     quote:
-      "은퇴 후 무료한 일상이었는데, 콰이어 활동을 시작하면서 인생에 다시 무대가 생겼어요. 매 공연이 감동입니다.",
+      "초보자이고 노래도 잘 못해서 걱정했는데 편안하게 해 주셨어요. 현정쌤 덕분에 무대에서 주인공이 될 수 있었어요. 매 공연이 감동이었습니다. 감사합니다!!",
     tag: "콰이어",
   },
   {
-    name: "박○○ 학생",
-    role: "서울대 성악과 합격",
+    name: "윤○한",
+    role: "단국대 성악과 합격",
     quote:
-      "이현정 선생님의 1:1 레슨 덕분에 발성의 원리를 완전히 이해할 수 있었어요. 입시 당일에도 가장 편안한 상태로 노래할 수 있었습니다.",
+      "이현정 스승님의 1:1 레슨 덕분에 발성의 원리를 완전히 이해할 수 있었어요. 입시 당일에도 가장 편안한 상태로 노래할 수 있었습니다.",
     tag: "프리미엄레슨",
   },
   {
-    name: "이○○ 담당자",
-    role: "경기도청 문화공연 담당",
+    name: "이○현 선생님",
+    role: "경기도 OO중학교",
     quote:
-      "초청 공연 퀄리티가 압도적이었습니다. 클래식과 뮤지컬 넘버 구성이 완벽했고, 관객 반응이 뜨거웠어요. 내년에도 꼭 함께하고 싶습니다.",
-    tag: "B2BG",
+      "초청 공연 퀄리티가 압도적이었습니다. 클래식과 뮤지컬 넘버 구성이 완벽했고, 학생들 반응이 뜨거웠어요. 내년에도 꼭 함께하고 싶습니다.",
+    tag: "B2B",
   },
   {
-    name: "최○○ 학부모",
-    role: "예고 성악과 합격생 학부모",
+    name: "조○영 학부모",
+    role: "단국대 성악과 합격생 학부모",
     quote:
-      "아이의 잠재력을 정확히 파악하고 맞춤 지도해주셔서 예고 합격이라는 결과를 얻었습니다. 정말 감사합니다.",
+      "아이의 잠재력을 정확히 파악하고 맞춤 지도해주셔서 음대 합격이라는 결과를 얻었습니다. 정말 감사합니다.",
     tag: "프리미엄레슨",
   },
   {
-    name: "정○○",
-    role: "하남시 합창단 지휘자",
+    name: "김○미",
+    role: "OO 합창단 지휘자",
     quote:
-      "안무 컨설팅 이후 단원들의 무대 자신감이 확연히 달라졌습니다. 대회에서 수상까지 할 수 있었어요.",
-    tag: "B2BG",
+      "감각적인 안무와 디렉팅 이후 단원들의 무대 자신감이 확연히 달라졌습니다. 공연의 Quality를 높여주는 합창안무입니다. 최고에요~!",
+    tag: "B2B",
   },
   {
-    name: "한○○",
-    role: "수아트 콰이어 단원 (1년차)",
+    name: "신○윤 학부모",
+    role: "리틀엔젤스 합격생 학부모",
     quote:
-      "노래는 좋아하지만 실력이 없어서 망설였는데, 초보자도 따뜻하게 맞아주는 분위기가 정말 좋았습니다.",
-    tag: "콰이어",
+      "아이 나이와 목소리에 맞게 발성 지도해 주시고, 노래를 완성해 주셨어요. 덕분에 리틀엔젤스에 입단 할 수 있었습니다. 감사합니다.",
+    tag: "프리미엄레슨",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function TestimonialsSection() {
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm tracking-wide text-secondary shadow-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Testimonials
           </span>

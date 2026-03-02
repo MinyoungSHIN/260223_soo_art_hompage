@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: "프리미엄 1:1 레슨 | Soo Art & Company",
+  title: "프리미엄 1:1 보이스 레슨 | Soo Art & Company",
   description:
-    "합격을 넘어 예술가로 성장하는 시간. 이현정 대표의 밀착 코칭으로 입시 합격률 98%.",
+    "리틀엔젤스 입학, 예중·예고·음대 입시, 일반인 취미레슨까지. 합격을 넘어 예술가로 성장하는 시간.",
 };
 
 /* ── 실적 수치 ── */
@@ -15,6 +15,43 @@ const stats = [
   { value: "300+", label: "누적 수강생" },
 ];
 
+/* ── 타겟별 프로그램 ── */
+const programs = [
+  {
+    title: "트랙 1. 엘리트(입시)",
+    subtitle: "리틀엔젤스 입단, 예중·예고·음대 입시",
+    desc: "합격률로 증명하는 보이스 메이킹.",
+    details: [
+      "입시곡 선정 및 해석",
+      "발성 포지셔닝 (두성·흉성·혼합성구)",
+      "이탈리아어·독일어 딕션",
+      "모의 실기시험 및 피드백",
+    ],
+  },
+  {
+    title: "트랙 2. 커리어(전문)",
+    subtitle: "성가대 솔리스트, 예비 아티스트",
+    desc: "고난도 레퍼토리 및 발성 교정을 위한 전문 레슨.",
+    details: [
+      "전문 레퍼토리 구축",
+      "발성 교정 및 테크닉 강화",
+      "무대 퍼포먼스 향상",
+      "아티스트 포트폴리오 준비",
+    ],
+  },
+  {
+    title: "트랙 3. 라이프(취미)",
+    subtitle: "나만의 인생곡 마스터",
+    desc: "노래 실력 향상, 발표 불안 해소 등 취미 성악 레슨.",
+    details: [
+      "기초 발성 및 호흡법",
+      "좋아하는 곡으로 배우는 레슨",
+      "개인 맞춤형 진도",
+      "부담 없는 수업 분위기",
+    ],
+  },
+];
+
 /* ── 커리큘럼 타임라인 ── */
 const timeline = [
   {
@@ -23,7 +60,7 @@ const timeline = [
     duration: "1~2주",
     details: [
       "학생의 현재 음역·음색·호흡 능력 정밀 진단",
-      "입시 목표 학교 및 전공 분석",
+      "입시 목표 학교 및 전공 분석 (입시생의 경우)",
       "맞춤형 장기 커리큘럼 설계",
     ],
   },
@@ -34,7 +71,7 @@ const timeline = [
     details: [
       "복식호흡 및 횡격막 지지 훈련",
       "발성 포지셔닝 (두성·흉성·혼합성구)",
-      "이탈리아어·독일어 딕션 기초",
+      "이탈리아어·독일어 딕션 기초 (입시생의 경우)",
     ],
   },
   {
@@ -42,7 +79,8 @@ const timeline = [
     title: "레퍼토리 구축 & 해석",
     duration: "3~6개월",
     details: [
-      "입시곡 선정 (아리아·가곡·한국가곡)",
+      "입시곡 선정 (아리아·가곡·한국가곡) - 입시생의 경우",
+      "좋아하는 곡으로 배우기 - 취미레슨의 경우",
       "악곡 분석 및 음악적 해석 지도",
       "표현력·감정 전달 심화 트레이닝",
     ],
@@ -50,9 +88,9 @@ const timeline = [
   {
     phase: "Phase 4",
     title: "실전 시뮬레이션",
-    duration: "입시 직전",
+    duration: "입시 직전 / 필요시",
     details: [
-      "모의 실기시험 (영상 촬영 + 피드백)",
+      "모의 실기시험 (영상 촬영 + 피드백) - 입시생의 경우",
       "무대 매너·시선 처리·입퇴장 연습",
       "심리 컨디션 관리 및 컨설팅",
     ],
@@ -75,9 +113,15 @@ const testimonials = [
   },
   {
     name: "이○○ 학생",
-    school: "이화여대 성악과 합격",
+    school: "리틀엔젤스 합격",
     quote:
-      "모의 실기시험 덕분에 실제 시험에서 전혀 긴장하지 않았어요. 체계적인 준비의 힘을 느꼈습니다.",
+      "어린이 성대에 맞는 안전한 발성 지도 덕분에 무리 없이 실력을 키울 수 있었어요. 오디션에서 자신감 있게 노래할 수 있었습니다.",
+  },
+  {
+    name: "최○○ (일반인)",
+    school: "취미 레슨 수강생",
+    quote:
+      "부담 없이 즐기면서도 제대로 된 발성을 배울 수 있어서 정말 만족합니다. 이제는 자신 있게 노래할 수 있게 되었어요.",
   },
 ];
 
@@ -98,7 +142,7 @@ export default function LessonPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-primary">
-            Service 02 · Premium Lesson
+            Service 02 · Premium Voice Lesson
           </p>
           <h1 className="text-4xl font-bold leading-relaxed tracking-tight text-white md:text-6xl lg:text-7xl">
             합격을 넘어
@@ -106,8 +150,8 @@ export default function LessonPage() {
             <span className="text-primary">예술가</span>로 성장하는 시간
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/70">
-            단 한 사람을 위한 밀착 코칭.
-            이현정 대표가 직접 설계하는 프리미엄 1:1 성악 레슨입니다.
+            리틀엔젤스 입학, 예중·예고·음대 입시, 일반인 취미레슨까지.
+            단 한 사람을 위한 밀착 코칭. 이현정 대표가 직접 설계하는 프리미엄 1:1 보이스 레슨입니다.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
@@ -118,11 +162,11 @@ export default function LessonPage() {
               레슨 상담 신청
             </Link>
             <a
-              href="#curriculum"
+              href="#programs"
               className="rounded-xl border-2 border-white/30 px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)]"
               style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
             >
-              커리큘럼 보기
+              프로그램 보기
             </a>
           </div>
         </div>
@@ -143,9 +187,72 @@ export default function LessonPage() {
       </section>
 
       {/* ═══════════════════════════════════════
+          타겟별 프로그램
+      ═══════════════════════════════════════ */}
+      <section id="programs" className="bg-background-subtle py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+              Programs
+            </p>
+            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
+              3가지 트랙으로 나누어
+              <br />
+              목표에 맞는 맞춤형 레슨 제공
+            </h2>
+          </div>
+
+          <div className="mt-16 space-y-12">
+            {programs.map((program, idx) => (
+              <div
+                key={program.title}
+                className="grid gap-8 rounded-2xl bg-white p-8 shadow-[0_4px_20px_rgba(0,0,0,0.06)] md:grid-cols-2 md:p-10"
+              >
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                    Program {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-2 text-2xl font-bold tracking-tight text-secondary">
+                    {program.title}
+                  </h3>
+                  <p className="mt-2 text-sm font-bold text-primary">{program.subtitle}</p>
+                  <p className="mt-4 text-base font-medium leading-relaxed text-secondary/70">
+                    {program.desc}
+                  </p>
+                </div>
+                <ul className="space-y-3 border-t border-gray-100 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                  {program.details.map((detail) => (
+                    <li
+                      key={detail}
+                      className="flex items-start gap-3 text-sm font-medium text-secondary/70"
+                    >
+                      <svg
+                        className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
           레슨 특장점
       ═══════════════════════════════════════ */}
-      <section className="bg-background-subtle py-24 lg:py-32">
+      <section className="bg-background py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <div>
@@ -215,7 +322,7 @@ export default function LessonPage() {
       {/* ═══════════════════════════════════════
           CURRICULUM — 타임라인
       ═══════════════════════════════════════ */}
-      <section id="curriculum" className="bg-background py-24 lg:py-32">
+      <section id="curriculum" className="bg-background-subtle py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
@@ -230,10 +337,10 @@ export default function LessonPage() {
           </div>
 
           <div className="mt-16 space-y-8">
-            {timeline.map((item, idx) => (
+            {timeline.map((item) => (
               <div
                 key={item.phase}
-                className="grid gap-6 rounded-xl bg-background-subtle p-8 md:grid-cols-[200px_1fr]"
+                className="grid gap-6 rounded-xl bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] md:grid-cols-[200px_1fr]"
               >
                 <div>
                   <span className="text-xs font-bold uppercase tracking-widest text-primary">
@@ -288,10 +395,12 @@ export default function LessonPage() {
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
             {[
-              "예중·예고·예대 성악과 입시를 준비하는 학생",
+              "리틀엔젤스 등 초등부 공연단체 입학을 준비하는 어린이",
+              "예중·예고·음대 성악과 입시를 준비하는 학생",
               "체계적인 발성 지도를 원하는 입시생 학부모",
               "유학 준비 중인 성악 전공생",
               "취미 성악을 더 깊이 배우고 싶은 일반인",
+              "부담 없이 즐기면서 제대로 된 발성을 배우고 싶은 분",
             ].map((text) => (
               <div
                 key={text}
@@ -327,10 +436,10 @@ export default function LessonPage() {
               Testimonials
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              합격생 이야기
+              수강생 이야기
             </h2>
           </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
+          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {testimonials.map((t) => (
               <div
                 key={t.name}

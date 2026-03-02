@@ -7,7 +7,7 @@ const footerLinks = [
     links: [
       { label: "수아트 콰이어", href: "/services/choir" },
       { label: "프리미엄 1:1 레슨", href: "/services/lesson" },
-      { label: "B2BG 비즈니스", href: "/services/b2bg" },
+      { label: "B2B 비즈니스", href: "/services/b2bg" },
     ],
   },
   {

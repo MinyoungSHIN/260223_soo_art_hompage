@@ -6,7 +6,7 @@ export const metadata = {
   description: "수아트앤컴퍼니 연주회 실적 및 행사 레퍼런스",
 };
 
-const categories = ["전체", "공연", "합창", "레슨", "B2BG"];
+const categories = ["전체", "공연", "합창", "레슨", "B2B"];
 
 const portfolioItems = [
   {
@@ -28,7 +28,7 @@ const portfolioItems = [
   {
     id: 3,
     title: "삼성전자 창립기념 문화행사",
-    category: "B2BG",
+    category: "B2B",
     year: "2024",
     description: "기업 문화행사 총괄 기획·운영. 직원 합창단 특별 공연 및 아티스트 초청.",
     image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&q=80",
@@ -36,7 +36,7 @@ const portfolioItems = [
   {
     id: 4,
     title: "전국 합창 페스티벌 안무 컨설팅",
-    category: "B2BG",
+    category: "B2B",
     year: "2023",
     description: "전국 12개 합창단을 대상으로 한 합창 안무 컨설팅. 무대 퍼포먼스 퀄리티 향상 프로젝트.",
     image: "https://images.unsplash.com/photo-1504680177321-2e6a879aac86?w=800&h=600&fit=crop&q=80",
@@ -52,7 +52,7 @@ const portfolioItems = [
   {
     id: 6,
     title: "서울시 교육청 교원 합창 연수",
-    category: "B2BG",
+    category: "B2B",
     year: "2023",
     description: "서울시 교육청 소속 교원 200명 대상 합창 지도법 연수 프로그램.",
     image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop&q=80",

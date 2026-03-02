@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: "B2BG 비즈니스 | Soo Art & Company",
+  title: "B2B Solution | Soo Art & Company",
   description:
-    "이현정 대표가 직접 무대에 서는 클래식·뮤지컬 공연, 합창 안무 컨설팅, 전문 아티스트 섭외 — 기관·기업을 위한 전문 공연단체.",
+    "이현정 대표가 직접 무대에 서는 클래식·뮤지컬 공연, 합창 안무 컨설팅, 전문 아티스트 섭외 — 학교·정부기관·회사를 위한 전문 공연 솔루션.",
 };
 
 /* ── 핵심 서비스 ── */
@@ -16,7 +16,7 @@ const coreServices = [
       </svg>
     ),
     title: "클래식·뮤지컬 전문 공연",
-    desc: "이현정 대표가 직접 무대에 서는 클래식·뮤지컬 공연을 제공합니다. 기관·기업·지자체의 문화 공연, 초청 공연, 기념 공연 등에 최고 수준의 라이브 무대를 선사합니다.",
+    desc: "이현정 대표가 직접 무대에 서는 클래식·뮤지컬 공연을 제공합니다. 학교·정부기관·회사·지자체의 문화 공연, 초청 공연, 기념 공연 등에 최고 수준의 라이브 무대를 선사합니다.",
     details: [
       "클래식 성악 리사이틀",
       "뮤지컬 갈라 공연",
@@ -101,7 +101,7 @@ const clients = [
   { name: "대한민국공군", logo: "/logos/rokaf.svg" },
 ];
 
-export default function B2BGPage() {
+export default function B2BPage() {
   return (
     <>
       {/* ═══════════════════════════════════════
@@ -118,16 +118,16 @@ export default function B2BGPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-primary">
-            Service 03 · B2BG Business
+            Service 03 · B2B Business
           </p>
           <h1 className="text-4xl font-bold leading-relaxed tracking-tight text-white md:text-6xl lg:text-7xl">
-            기관·기업을 위한
+            행사의 격은 무대의
             <br />
-            <span className="text-primary">전문 공연단체</span>
+            <span className="text-primary">디테일에서 결정됩니다</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/70">
-            이현정 대표가 직접 무대에 서는 클래식·뮤지컬 공연, 합창 안무 컨설팅,
-            전문 아티스트 섭외까지. 기관·기업에 격이 다른 공연을 제공합니다.
+            클래식/뮤지컬 전문 공연 기획, 기업 합창단 안무 컨설팅, 전문 아티스트 섭외 대행.
+            학교·정부기관·회사를 위한 신뢰할 수 있는 공연 솔루션.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
@@ -172,10 +172,10 @@ export default function B2BGPage() {
               Core Services
             </p>
             <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              3대 핵심 서비스
+              제공 서비스
             </h2>
             <p className="mt-4 text-base font-medium text-secondary/60">
-              기관·기업의 니즈에 맞는 최적의 공연 솔루션을 제공합니다.
+              클래식/뮤지컬 전문 공연 기획, 기업 합창단 안무 컨설팅, 전문 아티스트 섭외 대행.
             </p>
           </div>
 
@@ -262,6 +262,75 @@ export default function B2BGPage() {
       </section>
 
       {/* ═══════════════════════════════════════
+          타겟 — 이런 단체를 위해
+      ═══════════════════════════════════════ */}
+      <section className="bg-accent py-24 lg:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+              For Organizations
+            </p>
+            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
+              이런 단체를 위해
+            </h2>
+            <p className="mt-4 text-base font-medium text-secondary/60">
+              학교·정부기관·회사 등 단체를 위한 전문 공연 솔루션을 제공합니다.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                title: "학교",
+                desc: "초·중·고등학교, 대학교의 문화 공연, 축제, 기념 행사 등",
+                examples: ["학교 축제 공연", "개교 기념 공연", "졸업식 공연", "문화의 날 행사"],
+              },
+              {
+                title: "정부기관",
+                desc: "지자체, 공공기관의 문화 공연, 축제, 기념 행사 등",
+                examples: ["지자체 축제", "공공기관 기념 행사", "문화 공연", "신년 갈라 콘서트"],
+              },
+              {
+                title: "회사",
+                desc: "기업의 기념 행사, 창립 기념일, 사내 문화 행사 등",
+                examples: ["창립 기념 공연", "사내 문화 행사", "고객 초청 공연", "연말 행사"],
+              },
+            ].map((target) => (
+              <div
+                key={target.title}
+                className="rounded-xl bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
+              >
+                <h3 className="text-xl font-bold text-secondary">{target.title}</h3>
+                <p className="mt-2 text-sm font-medium text-secondary/60">{target.desc}</p>
+                <ul className="mt-4 space-y-2">
+                  {target.examples.map((example) => (
+                    <li
+                      key={example}
+                      className="flex items-start gap-2 text-sm font-medium text-secondary/70"
+                    >
+                      <svg
+                        className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      {example}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
           협업 기관
       ═══════════════════════════════════════ */}
       <section className="bg-secondary py-24 lg:py-32">
@@ -274,7 +343,7 @@ export default function B2BGPage() {
               함께한 파트너
             </h2>
             <p className="mt-4 text-base font-medium text-white/50">
-              정부·기업·대학이 신뢰하는 전문 공연단체
+              학교·정부기관·회사가 신뢰하는 전문 공연단체
             </p>
           </div>
 
@@ -368,7 +437,7 @@ export default function B2BGPage() {
       <section className="bg-primary py-20">
         <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-            다음 무대, 수아트와 함께하세요
+            학교·정부기관·회사를 위한 무대, 수아트와 함께하세요
           </h2>
           <p className="mt-4 text-base font-medium text-white/80">
             공연 규모와 예산에 맞는 맞춤 제안서를 무료로 제공합니다.

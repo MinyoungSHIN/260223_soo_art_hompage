@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Services | Soo Art & Company",
-  description: "수아트 콰이어, 프리미엄 1:1 레슨, B2BG 비즈니스",
+  description: "수아트 콰이어, 프리미엄 1:1 레슨, B2B 비즈니스",
 };
 
 const services = [
@@ -27,8 +27,8 @@ const services = [
   },
   {
     href: "/services/b2bg",
-    title: "B2BG 비즈니스",
-    subtitle: "B2BG Business",
+    title: "B2B 비즈니스",
+    subtitle: "B2B Business",
     copy: "격이 다른 공연 기획, 수아트가 제안하는 압도적인 무대 솔루션.",
     image:
       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop&q=80",

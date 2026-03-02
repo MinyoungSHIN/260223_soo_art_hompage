@@ -21,7 +21,7 @@ const portfolioItems = [
   {
     id: 3,
     title: "경기도 합창 안무 컨설팅",
-    category: "B2BG",
+    category: "B2B",
     image:
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop&q=80",
   },
@@ -42,7 +42,7 @@ const portfolioItems = [
   {
     id: 6,
     title: "지자체 합창 컨설팅",
-    category: "B2BG",
+    category: "B2B",
     image:
       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop&q=80",
   },
@@ -54,14 +54,14 @@ export default function PortfolioSection() {
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
-          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-secondary shadow-sm">
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm tracking-wide text-secondary shadow-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             Portfolio
           </span>
           <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl lg:text-5xl">
             함께 만든 무대
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
+          <p className="mx-auto mt-5 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
             클래식·뮤지컬 공연부터 합창 컨설팅까지, 수아트앤컴퍼니의 레퍼런스를
             확인하세요.
           </p>

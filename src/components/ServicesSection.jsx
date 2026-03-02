@@ -24,7 +24,7 @@ const services = [
     description:
       "합격을 넘어 예술가로 성장하는 시간, 단 한 사람을 위한 밀착 코칭.",
     details:
-      "예중·예고·예대 성악 입시생을 위한 이현정 대표의 디테일한 맞춤 레슨. 차분한 분위기의 전문 연습실에서 최고의 결과를 만들어 냅니다.",
+      "예중·예고·음대 성악 입시생을 위한 이현정 대표의 디테일한 맞춤 레슨. 차분한 분위기의 전문 연습실에서 최고의 결과를 만들어 냅니다.",
     image:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&h=600&fit=crop&q=80",
     cta: "레슨 상담 신청",
@@ -32,8 +32,8 @@ const services = [
   {
     id: "b2bg",
     number: "03",
-    title: "B2BG 비즈니스",
-    subtitle: "B2BG Business",
+    title: "B2B 비즈니스",
+    subtitle: "B2B Solution",
     description:
       "격이 다른 공연 기획, 수아트가 제안하는 압도적인 무대 솔루션.",
     details:
