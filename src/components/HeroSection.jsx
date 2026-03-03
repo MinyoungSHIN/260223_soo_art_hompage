@@ -43,7 +43,6 @@ export default function HeroSection() {
   const [coverVisible, setCoverVisible] = useState(true); // 로딩 커버
   const [ready, setReady] = useState(false); // 이미지 렌더링 허용
   const [videoPosition, setVideoPosition] = useState(0); // 비디오 현재 씬의 위치
-  const [bounceEffect, setBounceEffect] = useState(false); // 위로 스와이프 시 쫀득쫀득 효과
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const lastSlideRef = useRef(-1); // 이전 슬라이드 추적 (한 장씩만 넘어가도록)
@@ -308,11 +307,7 @@ export default function HeroSection() {
               }, COOLDOWN);
             }
           } else {
-            // 위로 스와이프 (아래로 스크롤) → 쫀득쫀득한 효과만
-            setBounceEffect(true);
-            setTimeout(() => {
-              setBounceEffect(false);
-            }, 500);
+            // 위로 스와이프 (아래로 스크롤) → 아무 동작 없음
           }
         }
       }
@@ -474,11 +469,7 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       className="relative w-full"
-      style={{ 
-        height: `${totalPages * 100}vh`,
-        transform: bounceEffect ? 'translateY(30px)' : 'translateY(0)',
-        transition: bounceEffect ? 'transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)' : 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)'
-      }}
+      style={{ height: `${totalPages * 100}vh` }}
       data-header-theme="dark"
     >
       {/* ── 고정 뷰포트 ── */}
@@ -524,10 +515,10 @@ export default function HeroSection() {
                   zIndex: 0,
                   opacity: isActive ? 1 : 0,
                   transform: isActive
-                    ? "translateY(0)"
+                    ? "translateX(0)"
                     : currentSlide < idx
-                      ? "translateY(100%)"
-                      : "translateY(-30%)",
+                      ? "translateX(100%)"
+                      : "translateX(-100%)",
                   transition: "opacity 0.3s ease, transform 0.3s ease-out",
                 }}
               >
