@@ -22,22 +22,22 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer data-header-theme="dark" className="bg-[#111112] pt-16 pb-8">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <footer data-header-theme="dark" className="bg-[#111112] pt-16 pb-6">
+      <div className="mx-auto max-w-5xl px-6 lg:px-8">
         <div className="grid gap-8 sm:gap-12 md:grid-cols-3">
           {/* ── 로고 & 설명 ── */}
           <div className="md:col-span-1">
-            <div className="relative mb-4 h-10 w-32 sm:h-13 sm:w-40">
+            <div className="relative mb-4 h-8 w-28 sm:h-10 sm:w-32">
               <Image
                 src="/image/logo_footer.png?v=1"
                 alt="Soo Art & Company"
                 fill
-                className="object-contain brightness-0 invert"
+                className="object-contain object-left brightness-0 invert"
                 unoptimized
               />
             </div>
-            <p className="max-w-xs text-xs font-medium leading-relaxed text-white/40 sm:text-sm">
-              성악, 합창, 공연 기획 전문 기업
+            <p className="text-xs font-medium leading-relaxed text-white/40 sm:text-sm">
+              공연 기획 및 보이스 에듀케이션 전문 기업,
               <br />
               예술로 세상을 감동시킵니다.
             </p>
@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
 
         {/* ── 하단 구분선 & 카피라이트 ── */}
-        <div className="mt-16 border-t border-white/10 pt-8">
+        <div className="mt-8 border-t border-white/10 pt-6 pb-3">
           <p className="text-center text-xs font-medium text-white/30">
             © {new Date().getFullYear()} Soo Art &amp; Company. All rights
             reserved.

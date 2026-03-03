@@ -13,7 +13,7 @@ export default function ProblemSection() {
       <>
       오디션 공고 앞에서 발길을 돌렸던 그 미련. <br/>
       바쁜 일상에 잊었던 당신의 뜨거운 목소리. <br/>
-      먼지 쌓인 마이크를 꺼내세요. 이제 당신이 주인공입니다.
+      <span className="tracking-tighter sm:tracking-normal">먼지 쌓인 마이크를 꺼내세요. 이제 당신이 주인공입니다.</span>
       </>
       ),
     },
@@ -77,10 +77,7 @@ export default function ProblemSection() {
             혹시 이런 고민,
             <br />
             하고 계신가요?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
-            많은 분들이 같은 문제로 고민합니다. <br className="hidden sm:block" />수아트앤컴퍼니는 이 고민들을 해결하기 위해 존재합니다.
-          </p>
+          </h2>         
         </div>
 
         {/* ── 문제 카드 ── */}
@@ -88,14 +85,14 @@ export default function ProblemSection() {
           {problems.map((p) => (
             <div
               key={p.title}
-              className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-4 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] sm:gap-5 sm:p-8"
+              className="flex gap-3 rounded-2xl border border-gray-100 bg-white p-3.5 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] sm:gap-5 sm:p-8"
             >
               <div className="shrink-0 text-secondary/30">{p.icon}</div>
-              <div>
-                <h3 className="mb-2 text-base font-bold tracking-tight text-secondary sm:text-lg line-clamp-1">
+              <div className="min-w-0 flex-1">
+                <h3 className="mb-1.5 text-sm font-bold tracking-tight text-secondary sm:text-lg sm:mb-2">
                   {p.title}
                 </h3>
-                <p className="text-xs font-medium leading-relaxed text-secondary/60 sm:text-sm">
+                <p className="text-xs font-medium leading-relaxed tracking-tight text-secondary/60 sm:text-sm sm:tracking-normal">
                   {p.desc}
                 </p>
               </div>

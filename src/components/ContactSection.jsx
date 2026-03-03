@@ -65,7 +65,7 @@ export default function ContactSection() {
               무대가 있으신가요?
             </h2>
             <p className="mt-6 max-w-md text-sm font-medium leading-relaxed text-white/60 sm:text-base">
-              합창단원 / 1:1 레슨 신청, B2B 협업 제안 등 어떤 문의든 환영합니다.
+              합창단원 신청, 1:1 레슨 신청, B2B 협업 제안 환영합니다.
               <br />빠른 시간 내에 연락드리겠습니다.
             </p>
             <div className="mt-10 space-y-6">

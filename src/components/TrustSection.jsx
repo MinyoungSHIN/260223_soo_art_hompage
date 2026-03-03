@@ -43,7 +43,7 @@ export default function TrustSection() {
             <span className="text-primary">검증된 파트너</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base font-medium leading-relaxed text-white/50">
-            지자체·공공기관·대학·기업이 수아트앤컴퍼니와 함께합니다.
+            지자체·공공기관·대학·기업이 <br/> 수아트앤컴퍼니와 함께합니다.
           </p>
         </div>
 

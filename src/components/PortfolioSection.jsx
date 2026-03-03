@@ -62,7 +62,7 @@ export default function PortfolioSection() {
             함께 만든 무대
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
-            클래식·뮤지컬 공연부터 합창 컨설팅까지, 수아트앤컴퍼니의 레퍼런스를
+            클래식·뮤지컬 공연부터 합창 컨설팅까지, <br/>수아트앤컴퍼니의 레퍼런스를
             확인하세요.
           </p>
         </div>

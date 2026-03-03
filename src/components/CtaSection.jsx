@@ -26,8 +26,7 @@ export default function CtaSection() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:text-base">
             합창단 참여, 입시 레슨, 공연 초청 등 어떤 문의든 환영합니다.
-            <br className="hidden sm:block" />
-            지금 무료 상담을 신청하시고 시작해보세요.
+            <br/> 지금 무료 상담을 신청하시고 시작해보세요.
           </p>
         </div>
 
@@ -35,7 +34,7 @@ export default function CtaSection() {
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-12 sm:flex-row sm:gap-4" style={{ display: 'flex', flexWrap: 'nowrap' }}>
           <Link
             href="/contact"
-            className="w-full rounded-xl border-2 border-transparent bg-white px-6 py-3 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.45)] sm:w-auto sm:px-10 sm:py-4 sm:text-lg"
+            className="w-full rounded-xl border-2 border-transparent bg-white px-6 py-3 text-center text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.45)] sm:w-auto sm:px-10 sm:py-4 sm:text-lg"
             style={{ 
               boxShadow: "0 4px 14px rgba(255,255,255,0.25)",
               flexShrink: 0
@@ -45,7 +44,7 @@ export default function CtaSection() {
           </Link>
           <Link
             href="/portfolio"
-            className="w-full rounded-xl border-2 border-white/40 px-6 py-3 text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:w-auto sm:px-10 sm:py-4 sm:text-lg"
+            className="w-full rounded-xl border-2 border-white/40 px-6 py-3 text-center text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:w-auto sm:px-10 sm:py-4 sm:text-lg"
             style={{ 
               boxShadow: "0 4px 14px rgba(255,255,255,0.1)",
               flexShrink: 0
