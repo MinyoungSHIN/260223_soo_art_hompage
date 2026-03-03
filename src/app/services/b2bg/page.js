@@ -107,7 +107,7 @@ export default function B2BPage() {
       {/* ═══════════════════════════════════════
           HERO
       ═══════════════════════════════════════ */}
-      <section className="relative flex h-[70vh] min-h-[520px] items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[80vh] sm:pt-24">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -115,19 +115,20 @@ export default function B2BPage() {
               "url('https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=1920&h=900&fit=crop&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-primary">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
+        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
             Service 03 · B2B Business
           </p>
-          <h1 className="text-4xl font-bold leading-relaxed tracking-tight text-white md:text-6xl lg:text-7xl">
-            행사의 격은 무대의
+          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            B2B Solution
             <br />
-            <span className="text-primary">디테일에서 결정됩니다</span>
+            <span className="text-primary">전문 공연 기획 및 컨설팅</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/70">
-            클래식/뮤지컬 전문 공연 기획, 기업 합창단 안무 컨설팅, 전문 아티스트 섭외 대행.
-            학교·정부기관·회사를 위한 신뢰할 수 있는 공연 솔루션.
+          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base">
+            기업·기관·지자체를 위한 클래식·뮤지컬 공연 기획
+            <br className="hidden sm:block" />
+            합창단 안무 컨설팅 및 전문 아티스트 섭외 서비스
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
@@ -152,7 +153,7 @@ export default function B2BPage() {
           STATS
       ═══════════════════════════════════════ */}
       <section className="bg-background py-16">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-6 md:grid-cols-4 lg:px-8">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-8 sm:px-6 md:grid-cols-4 lg:px-8">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <p className="text-4xl font-bold tracking-tight text-primary">{s.value}</p>
@@ -165,60 +166,53 @@ export default function B2BPage() {
       {/* ═══════════════════════════════════════
           핵심 서비스 3가지
       ═══════════════════════════════════════ */}
-      <section id="services" className="bg-background-subtle py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section id="services" className="bg-background-subtle py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Core Services
             </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
+            <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
               제공 서비스
             </h2>
-            <p className="mt-4 text-base font-medium text-secondary/60">
-              클래식/뮤지컬 전문 공연 기획, 기업 합창단 안무 컨설팅, 전문 아티스트 섭외 대행.
-            </p>
           </div>
 
-          <div className="mt-16 space-y-12">
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
             {coreServices.map((service) => (
               <div
                 key={service.title}
-                className="rounded-2xl bg-white p-8 shadow-[0_4px_20px_rgba(0,0,0,0.06)] md:p-10"
+                className="rounded-xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
               >
-                <div className="grid gap-8 md:grid-cols-[1fr_300px]">
-                  <div>
-                    <div className="mb-4 text-primary">{service.icon}</div>
-                    <h3 className="text-2xl font-bold tracking-tight text-secondary">
-                      {service.title}
-                    </h3>
-                    <p className="mt-4 text-base font-medium leading-relaxed text-secondary/70">
-                      {service.desc}
-                    </p>
-                  </div>
-                  <ul className="space-y-3 md:border-l md:border-gray-100 md:pl-8">
-                    {service.details.map((d) => (
-                      <li
-                        key={d}
-                        className="flex items-start gap-3 text-sm font-medium text-secondary/70"
+                <div className="mb-4 text-primary">{service.icon}</div>
+                <h3 className="mb-3 text-lg font-bold tracking-tight text-secondary">
+                  {service.title}
+                </h3>
+                <p className="mb-4 text-sm font-medium leading-relaxed text-secondary/70">
+                  {service.desc}
+                </p>
+                <ul className="space-y-2">
+                  {service.details.map((d) => (
+                    <li
+                      key={d}
+                      className="flex items-start gap-2 text-xs font-medium text-secondary/60"
+                    >
+                      <svg
+                        className="mt-0.5 h-3 w-3 shrink-0 text-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
-                        <svg
-                          className="mt-0.5 h-4 w-4 shrink-0 text-primary"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      {d}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
@@ -228,28 +222,25 @@ export default function B2BPage() {
       {/* ═══════════════════════════════════════
           진행 프로세스
       ═══════════════════════════════════════ */}
-      <section className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="bg-background py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Process
             </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
+            <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
               진행 프로세스
             </h2>
-            <p className="mt-4 text-base font-medium text-secondary/60">
-              상담부터 사후 관리까지, 체계적인 4단계로 진행합니다.
-            </p>
           </div>
 
-          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {process.map((item) => (
               <div
                 key={item.step}
-                className="relative rounded-xl bg-background-subtle p-8"
+                className="rounded-xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
               >
-                <span className="text-5xl font-bold text-primary/15">{item.step}</span>
-                <h3 className="mt-4 mb-3 text-lg font-bold tracking-tight text-secondary">
+                <span className="text-xs font-bold text-primary/60">{item.step}</span>
+                <h3 className="mt-3 mb-2 text-base font-bold tracking-tight text-secondary">
                   {item.title}
                 </h3>
                 <p className="text-sm font-medium leading-relaxed text-secondary/60">
@@ -262,192 +253,22 @@ export default function B2BPage() {
       </section>
 
       {/* ═══════════════════════════════════════
-          타겟 — 이런 단체를 위해
-      ═══════════════════════════════════════ */}
-      <section className="bg-accent py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
-              For Organizations
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              이런 단체를 위해
-            </h2>
-            <p className="mt-4 text-base font-medium text-secondary/60">
-              학교·정부기관·회사 등 단체를 위한 전문 공연 솔루션을 제공합니다.
-            </p>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "학교",
-                desc: "초·중·고등학교, 대학교의 문화 공연, 축제, 기념 행사 등",
-                examples: ["학교 축제 공연", "개교 기념 공연", "졸업식 공연", "문화의 날 행사"],
-              },
-              {
-                title: "정부기관",
-                desc: "지자체, 공공기관의 문화 공연, 축제, 기념 행사 등",
-                examples: ["지자체 축제", "공공기관 기념 행사", "문화 공연", "신년 갈라 콘서트"],
-              },
-              {
-                title: "회사",
-                desc: "기업의 기념 행사, 창립 기념일, 사내 문화 행사 등",
-                examples: ["창립 기념 공연", "사내 문화 행사", "고객 초청 공연", "연말 행사"],
-              },
-            ].map((target) => (
-              <div
-                key={target.title}
-                className="rounded-xl bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
-              >
-                <h3 className="text-xl font-bold text-secondary">{target.title}</h3>
-                <p className="mt-2 text-sm font-medium text-secondary/60">{target.desc}</p>
-                <ul className="mt-4 space-y-2">
-                  {target.examples.map((example) => (
-                    <li
-                      key={example}
-                      className="flex items-start gap-2 text-sm font-medium text-secondary/70"
-                    >
-                      <svg
-                        className="mt-0.5 h-4 w-4 shrink-0 text-primary"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      {example}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          협업 기관
-      ═══════════════════════════════════════ */}
-      <section className="bg-secondary py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
-              Trusted By
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-              함께한 파트너
-            </h2>
-            <p className="mt-4 text-base font-medium text-white/50">
-              학교·정부기관·회사가 신뢰하는 전문 공연단체
-            </p>
-          </div>
-
-          <div className="mx-auto mt-12 grid max-w-5xl grid-cols-3 gap-5 md:grid-cols-5">
-            {clients.map((c) => (
-              <div
-                key={c.name}
-                className="flex h-24 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-white/10"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={c.logo}
-                  alt={c.name}
-                  className="h-8 w-auto max-w-full brightness-0 invert opacity-60"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          포트폴리오 미리보기
-      ═══════════════════════════════════════ */}
-      <section className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
-              Portfolio
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              주요 공연 실적
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "경기도 합창단 안무 컨설팅",
-                desc: "경기도 소속 합창단의 무대 퍼포먼스를 혁신한 안무 컨설팅 프로젝트.",
-                image:
-                  "https://images.unsplash.com/photo-1504680177321-2e6a879aac86?w=600&h=400&fit=crop&q=80",
-              },
-              {
-                title: "이화여대 초청 클래식 공연",
-                desc: "이화여대 개교 기념 초청 클래식 리사이틀 — 이현정 대표 출연.",
-                image:
-                  "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=600&h=400&fit=crop&q=80",
-              },
-              {
-                title: "하남시 신년 갈라 콘서트",
-                desc: "하남시 주최 신년 갈라 콘서트. 클래식·뮤지컬 하이라이트 프로그램 구성.",
-                image:
-                  "https://images.unsplash.com/photo-1501612780327-45045538702b?w=600&h=400&fit=crop&q=80",
-              },
-            ].map((project) => (
-              <div
-                key={project.title}
-                className="group overflow-hidden rounded-xl bg-background-subtle"
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-base font-bold text-secondary">{project.title}</h3>
-                  <p className="mt-2 text-sm font-medium text-secondary/60">{project.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 text-center">
-            <Link
-              href="/portfolio"
-              className="text-base font-bold text-primary hover:text-primary-dark transition-colors"
-            >
-              전체 포트폴리오 보기 →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
           CTA
       ═══════════════════════════════════════ */}
-      <section className="bg-primary py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-            학교·정부기관·회사를 위한 무대, 수아트와 함께하세요
+      <section className="bg-primary py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-8 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+            공연 문의하기
           </h2>
-          <p className="mt-4 text-base font-medium text-white/80">
-            공연 규모와 예산에 맞는 맞춤 제안서를 무료로 제공합니다.
+          <p className="mt-6 text-sm font-medium text-white/90 sm:text-base">
+            공연 규모와 예산에 맞는 맞춤 제안서를 제공합니다.
           </p>
           <Link
             href="/contact"
             className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.45)]"
             style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
           >
-            공연 문의하기
+            문의하기
           </Link>
         </div>
       </section>

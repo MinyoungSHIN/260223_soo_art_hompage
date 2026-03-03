@@ -65,7 +65,7 @@ export default function ChoirPage() {
       {/* ═══════════════════════════════════════
           HERO — Full-width 비주얼 + 카피
       ═══════════════════════════════════════ */}
-      <section className="relative flex h-[50vh] min-h-[400px] items-center justify-center overflow-hidden sm:h-[60vh] sm:min-h-[480px] md:h-[70vh] md:min-h-[520px]">
+      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[80vh] sm:pt-24">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -73,18 +73,20 @@ export default function ChoirPage() {
               "url('/image/choire.png')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-        <div className="relative z-10 mx-auto max-w-4xl px-4 text-center sm:px-6">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-4 sm:text-sm">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
+        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
             수아트 콰이어 in 하남 · 2030 Youth 세대 모집 중
           </p>
-          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            하남 2030, 이제는 관객석 말고
+          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            수아트 콰이어
             <br />
-            <span className="text-primary">무대 위로 출근하세요</span>
+            <span className="text-primary">프리미엄 합창단</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm font-medium leading-relaxed text-white/70 sm:mt-6 sm:text-base md:text-lg">
-            퇴근 후 방구석 코노는 끝. 당신의 목소리가 웅장한 뮤지컬 무대가 되는 경험.
+          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base">
+            하남 지역 20~30세를 위한 전문 합창단
+            <br className="hidden sm:block" />
+            체계적인 교육과 정기 연주회로 성장하는 무대
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
             <Link
@@ -109,7 +111,7 @@ export default function ChoirPage() {
           STATS — 핵심 수치
       ═══════════════════════════════════════ */}
       <section className="bg-background py-12 sm:py-16">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 px-4 sm:gap-6 sm:px-6 md:grid-cols-4 lg:px-8">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 px-8 sm:gap-6 sm:px-6 md:grid-cols-4 lg:px-8">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <p className="text-4xl font-bold tracking-tight text-primary">{s.value}</p>
@@ -122,9 +124,9 @@ export default function ChoirPage() {
       {/* ═══════════════════════════════════════
           ABOUT — 콰이어 소개
       ═══════════════════════════════════════ */}
-      <section className="bg-background-subtle py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
+      <section className="bg-background-subtle py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image
                 src="/image/choire.png"
@@ -134,54 +136,28 @@ export default function ChoirPage() {
               />
             </div>
             <div>
-              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
-                Who We Are
+              <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
+                About
               </p>
-              <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-                하남 2030을 위한
-                <br />
-                프리미엄 합창단
+              <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
+                전문 지도와 체계적인 교육
               </h2>
-              <div className="mt-8 space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                    <svg className="h-3.5 w-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                    </svg>
+              <p className="mt-6 text-sm font-medium leading-relaxed text-secondary/70 sm:text-base">
+                이현정 대표의 전문 지도 아래, 발성부터 무대 퍼포먼스까지 체계적으로 학습합니다.
+                뮤지컬 넘버와 현대적 레퍼토리로 구성된 프로그램으로 즐겁게 성장할 수 있습니다.
+              </p>
+              <div className="mt-8 grid grid-cols-2 gap-6">
+                {[
+                  { label: "전문 지도", value: "이현정 대표" },
+                  { label: "정기 연습", value: "주 1회" },
+                  { label: "연주회", value: "연 2회" },
+                  { label: "타겟", value: "20~30세" },
+                ].map((item) => (
+                  <div key={item.label}>
+                    <p className="text-xs font-medium text-secondary/50">{item.label}</p>
+                    <p className="mt-1 text-lg font-bold text-secondary">{item.value}</p>
                   </div>
-                  <div>
-                    <h3 className="text-base font-bold text-secondary">취향 저격 선곡</h3>
-                    <p className="mt-1 text-sm font-medium leading-relaxed text-secondary/60">
-                      지루한 가곡 대신, 우리가 사랑하는 뮤지컬 넘버와 트렌디한 팝 합창.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                    <svg className="h-3.5 w-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-secondary">전문가 밀착 코칭</h3>
-                    <p className="mt-1 text-sm font-medium leading-relaxed text-secondary/60">
-                      악보를 몰라도 OK. 발성부터 무대 안무까지 아티스트가 직접 전수.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                    <svg className="h-3.5 w-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-secondary">리얼 공연 보장</h3>
-                    <p className="mt-1 text-sm font-medium leading-relaxed text-secondary/60">
-                      하남의 전문 공연장에서 화려한 조명을 받으며 맞이하는 커튼콜의 전율.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -189,30 +165,27 @@ export default function ChoirPage() {
       </section>
 
       {/* ═══════════════════════════════════════
-          CURRICULUM — 4단계 교육 과정
+          CURRICULUM — 교육 과정
       ═══════════════════════════════════════ */}
-      <section id="curriculum" className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section id="curriculum" className="bg-background py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Curriculum
             </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              체계적인 4단계 교육 과정
+            <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
+              체계적인 교육 과정
             </h2>
-            <p className="mt-4 text-base font-medium text-secondary/60">
-              초보자부터 경험자까지, 단계별 맞춤 커리큘럼으로 성장합니다.
-            </p>
           </div>
 
-          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {curriculum.map((item) => (
               <div
                 key={item.step}
-                className="rounded-xl bg-background-subtle p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
+                className="rounded-xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
               >
-                <span className="text-4xl font-bold text-primary/20">{item.step}</span>
-                <h3 className="mt-4 mb-3 text-lg font-bold tracking-tight text-secondary">
+                <span className="text-xs font-bold text-primary/60">{item.step}</span>
+                <h3 className="mt-3 mb-2 text-base font-bold tracking-tight text-secondary">
                   {item.title}
                 </h3>
                 <p className="text-sm font-medium leading-relaxed text-secondary/60">
@@ -224,103 +197,22 @@ export default function ChoirPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
-          갤러리 — 무대 사진
-      ═══════════════════════════════════════ */}
-      <section className="bg-secondary py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
-              Gallery
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-              무대 위의 감동
-            </h2>
-            <p className="mt-4 text-base font-medium text-white/50">
-              수아트 콰이어가 만들어온 특별한 순간들
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {[
-              "/image/choire.png",
-              "/image/choire.png",
-              "/image/choire.png",
-            ].map((src, idx) => (
-              <div key={idx} className="relative aspect-[3/2] overflow-hidden rounded-xl">
-                <Image
-                  src={src}
-                  alt={`무대 사진 ${idx + 1}`}
-                  fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          대상 — 이런 분께 추천합니다
-      ═══════════════════════════════════════ */}
-      <section className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
-              For You
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              이런 분께 추천합니다
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              "하남 지역에 거주하거나 근무하는 20~30세",
-              "합창·뮤지컬 무대를 경험하고 싶은 아마추어",
-              "노래가 좋지만 혼자 부르기엔 아쉬운 분",
-              "새로운 취미와 사회 활동을 찾는 분",
-              "무대 경험을 통해 자신감을 키우고 싶은 분",
-              "단체 활동으로 소속감과 성취감을 원하는 분",
-            ].map((text) => (
-              <div
-                key={text}
-                className="flex items-start gap-4 rounded-xl bg-background-subtle p-6"
-              >
-                <svg
-                  className="mt-0.5 h-5 w-5 shrink-0 text-primary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <span className="text-base font-medium text-secondary/80">{text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ═══════════════════════════════════════
           FAQ
       ═══════════════════════════════════════ */}
-      <section className="bg-background-subtle py-24 lg:py-32">
-        <div className="mx-auto max-w-3xl px-6 lg:px-8">
+      <section className="bg-background-subtle py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-8 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">FAQ</p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">FAQ</p>
+            <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
               자주 묻는 질문
             </h2>
           </div>
-          <div className="mt-12 space-y-6">
+          <div className="mt-10 space-y-4">
             {faqs.map((faq) => (
-              <div key={faq.q} className="rounded-xl bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
-                <h3 className="text-base font-bold text-secondary">{faq.q}</h3>
+              <div key={faq.q} className="rounded-xl bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+                <h3 className="text-sm font-bold text-secondary sm:text-base">{faq.q}</h3>
                 <p className="mt-2 text-sm font-medium leading-relaxed text-secondary/60">
                   {faq.a}
                 </p>
@@ -333,13 +225,13 @@ export default function ChoirPage() {
       {/* ═══════════════════════════════════════
           CTA — 단원 신청
       ═══════════════════════════════════════ */}
-      <section className="bg-primary py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-            하남에서 당신의 무대, 지금 시작하세요
+      <section className="bg-primary py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-8 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+            단원 모집 중
           </h2>
-          <p className="mt-4 text-base font-medium text-white/80">
-            수아트 콰이어 in 하남은 상시 단원을 모집합니다. 부담 없이 문의해주세요.
+          <p className="mt-6 text-sm font-medium text-white/90 sm:text-base">
+            상시 단원을 모집합니다. 문의를 통해 자세한 안내를 받으실 수 있습니다.
           </p>
           <Link
             href="/contact"

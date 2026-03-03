@@ -17,7 +17,7 @@ export default function CtaSection() {
         <div className="mx-auto max-w-3xl text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm tracking-wide text-white shadow-sm backdrop-blur-sm">
             <span className="h-2.5 w-2.5 rounded-full bg-white" />
-            Call to Action
+            Start Here
           </span>
           <h2 className="text-2xl font-bold tracking-tight leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
             다음 무대의 주인공은

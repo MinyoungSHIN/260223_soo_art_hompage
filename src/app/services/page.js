@@ -11,35 +11,35 @@ const services = [
     href: "/services/choir",
     title: "수아트 콰이어",
     subtitle: "Soo Art Choir",
-    copy: "다시 뜨거워질 당신의 무대, 함께하는 화음으로 완성됩니다.",
+    copy: "프리미엄 합창단 운영 및 전문 지도",
+    features: ["20~30세 타겟", "하남 지역", "정기 연주회"],
     image:
       "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&h=600&fit=crop&q=80",
-    cta: "자세히 보기",
   },
   {
     href: "/services/lesson",
     title: "프리미엄 1:1 레슨",
-    subtitle: "Premium Lesson",
-    copy: "합격을 넘어 예술가로 성장하는 시간, 단 한 사람을 위한 밀착 코칭.",
+    subtitle: "Premium Voice Lesson",
+    copy: "입시·전문·취미 맞춤형 보이스 트레이닝",
+    features: ["98% 합격률", "1:1 맞춤 코칭", "15년+ 경력"],
     image:
       "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&h=600&fit=crop&q=80",
-    cta: "자세히 보기",
   },
   {
     href: "/services/b2bg",
-    title: "B2B 비즈니스",
+    title: "B2B Solution",
     subtitle: "B2B Business",
-    copy: "격이 다른 공연 기획, 수아트가 제안하는 압도적인 무대 솔루션.",
+    copy: "기업·기관·지자체 공연 기획 및 컨설팅",
+    features: ["200+ 공연 실적", "맞춤형 솔루션", "원스톱 서비스"],
     image:
       "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop&q=80",
-    cta: "자세히 보기",
   },
 ];
 
 export default function ServicesPage() {
   return (
     <>
-      <section className="relative flex h-[50vh] min-h-[400px] items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[70vh] sm:pt-24">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -47,51 +47,64 @@ export default function ServicesPage() {
               "url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1920&h=800&fit=crop&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 text-center">
-          <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
+        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
             Our Services
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-white md:text-6xl">
-            서비스 안내
+          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            전문성과 열정으로 만드는
+            <br className="hidden sm:block" />
+            <span className="text-primary"> 프리미엄 솔루션</span>
           </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base">
+            합창단 운영부터 입시 레슨, 공연 기획까지
+            <br className="hidden sm:block" />
+            예술의 모든 영역을 아우르는 통합 서비스
+          </p>
         </div>
       </section>
 
-      <section className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-10 md:grid-cols-3">
+      <section className="bg-background py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+          <div className="grid gap-8 md:grid-cols-3">
             {services.map((s) => (
               <Link
                 key={s.href}
                 href={s.href}
-                className="group overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]"
+                className="group overflow-hidden rounded-2xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
               >
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative h-64 overflow-hidden">
                   <Image
                     src={s.image}
                     alt={s.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <span className="absolute bottom-4 left-4 text-xs font-bold uppercase tracking-widest text-primary">
-                    {s.subtitle}
-                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-primary">
+                      {s.subtitle}
+                    </p>
+                    <h2 className="text-2xl font-bold tracking-tight text-white">
+                      {s.title}
+                    </h2>
+                  </div>
                 </div>
                 <div className="p-6">
-                  <h2 className="text-xl font-bold tracking-tight text-secondary">
-                    {s.title}
-                  </h2>
-                  <p className="mt-2 text-sm font-medium leading-relaxed text-secondary/60">
+                  <p className="mb-4 text-sm font-medium leading-relaxed text-secondary/70">
                     {s.copy}
                   </p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-primary group-hover:gap-2 transition-all">
-                    {s.cta}
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {s.features.map((feature, idx) => (
+                      <span
+                        key={idx}
+                        className="rounded-full bg-background-subtle px-3 py-1 text-xs font-medium text-secondary/60"
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </Link>
             ))}

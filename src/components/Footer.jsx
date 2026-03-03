@@ -23,7 +23,7 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer data-header-theme="dark" className="bg-[#111112] pt-16 pb-6">
-      <div className="mx-auto max-w-5xl px-6 lg:px-8">
+      <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:gap-12 md:grid-cols-3">
           {/* ── 로고 & 설명 ── */}
           <div className="md:col-span-1">
@@ -67,7 +67,7 @@ export default function Footer() {
 
         {/* ── 하단 구분선 & 카피라이트 ── */}
         <div className="mt-8 border-t border-white/10 pt-6 pb-3">
-          <p className="text-center text-xs font-medium text-white/30">
+          <p className="text-center text-sm font-medium text-white/50">
             © {new Date().getFullYear()} Soo Art &amp; Company. All rights
             reserved.
           </p>

@@ -9,7 +9,7 @@ export default function ContactPage() {
   return (
     <>
       {/* ── 페이지 히어로 ── */}
-      <section className="relative flex h-[40vh] min-h-[300px] items-center justify-center overflow-hidden sm:h-[50vh] sm:min-h-[400px]">
+      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[70vh] sm:pt-24">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -17,16 +17,20 @@ export default function ContactPage() {
               "url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&h=800&fit=crop&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 px-4 text-center sm:px-6">
-          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
+        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
             Contact Us
           </p>
-          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-            문의하기
+          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            함께 시작할
+            <br className="hidden sm:block" />
+            <span className="text-primary"> 특별한 이야기</span>
           </h1>
-          <p className="mt-4 text-base font-medium text-white/70 sm:text-lg">
-            수강 신청, 공연 기획, 비즈니스 협업 등 어떤 문의든 환영합니다.
+          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base md:text-lg">
+            수강 신청, 공연 기획, 비즈니스 협업 등
+            <br className="hidden sm:block" />
+            어떤 문의든 환영합니다.
           </p>
         </div>
       </section>
@@ -35,16 +39,16 @@ export default function ContactPage() {
       <ContactSection />
 
       {/* ── 오시는 길 (선택) ── */}
-      <section className="bg-background-subtle py-16 sm:py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="bg-background-subtle py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Location
             </p>
             <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
               오시는 길
             </h2>
-            <p className="mt-4 text-sm font-medium text-secondary/60 sm:text-base">
+            <p className="mt-6 text-sm font-medium text-secondary/70 sm:text-base">
               서울특별시 강남구 테헤란로 123, 수아트빌딩 5층
             </p>
           </div>

@@ -51,11 +51,11 @@ export default function ContactSection() {
 
   return (
     <section id="contact" data-header-theme="dark" className="bg-secondary pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
-      <div className="mx-auto max-w-5xl px-6 lg:px-8">
+      <div className="mx-auto max-w-5xl px-8 lg:px-8">
         <div className="grid items-start gap-12 sm:gap-16 lg:grid-cols-2">
           {/* ── 왼쪽: 안내 텍스트 ── */}
           <div>
-            <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm font-bold uppercase tracking-widest text-white shadow-sm backdrop-blur-sm">
+            <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-sm tracking-wide text-white shadow-sm backdrop-blur-sm">
               <span className="h-2.5 w-2.5 rounded-full bg-primary" />
               Contact Us
             </span>

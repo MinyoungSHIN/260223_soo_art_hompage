@@ -131,7 +131,7 @@ export default function LessonPage() {
       {/* ═══════════════════════════════════════
           HERO
       ═══════════════════════════════════════ */}
-      <section className="relative flex h-[70vh] min-h-[520px] items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[80vh] sm:pt-24">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -139,19 +139,20 @@ export default function LessonPage() {
               "url('https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1920&h=900&fit=crop&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-primary">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
+        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
             Service 02 · Premium Voice Lesson
           </p>
-          <h1 className="text-4xl font-bold leading-relaxed tracking-tight text-white md:text-6xl lg:text-7xl">
-            합격을 넘어
+          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            프리미엄 1:1 레슨
             <br />
-            <span className="text-primary">예술가</span>로 성장하는 시간
+            <span className="text-primary">맞춤형 보이스 트레이닝</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/70">
-            리틀엔젤스 입학, 예중·예고·음대 입시, 일반인 취미레슨까지.
-            단 한 사람을 위한 밀착 코칭. 이현정 대표가 직접 설계하는 프리미엄 1:1 보이스 레슨입니다.
+          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base">
+            입시·전문·취미 목표에 맞는 1:1 맞춤 레슨
+            <br className="hidden sm:block" />
+            이현정 대표의 전문 지도로 목표를 달성합니다
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
@@ -176,7 +177,7 @@ export default function LessonPage() {
           STATS
       ═══════════════════════════════════════ */}
       <section className="bg-background py-16">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-6 md:grid-cols-4 lg:px-8">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-8 sm:px-6 md:grid-cols-4 lg:px-8">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <p className="text-4xl font-bold tracking-tight text-primary">{s.value}</p>
@@ -189,45 +190,36 @@ export default function LessonPage() {
       {/* ═══════════════════════════════════════
           타겟별 프로그램
       ═══════════════════════════════════════ */}
-      <section id="programs" className="bg-background-subtle py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section id="programs" className="bg-background-subtle py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Programs
             </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              3가지 트랙으로 나누어
-              <br />
-              목표에 맞는 맞춤형 레슨 제공
+            <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
+              목표별 맞춤 프로그램
             </h2>
           </div>
 
-          <div className="mt-16 space-y-12">
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
             {programs.map((program, idx) => (
               <div
                 key={program.title}
-                className="grid gap-8 rounded-2xl bg-white p-8 shadow-[0_4px_20px_rgba(0,0,0,0.06)] md:grid-cols-2 md:p-10"
+                className="rounded-xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
               >
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-primary">
-                    Program {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-2 text-2xl font-bold tracking-tight text-secondary">
-                    {program.title}
-                  </h3>
-                  <p className="mt-2 text-sm font-bold text-primary">{program.subtitle}</p>
-                  <p className="mt-4 text-base font-medium leading-relaxed text-secondary/70">
-                    {program.desc}
-                  </p>
-                </div>
-                <ul className="space-y-3 border-t border-gray-100 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                <span className="text-xs font-bold uppercase tracking-wider text-primary">
+                  {program.title}
+                </span>
+                <h3 className="mt-2 mb-1 text-base font-bold text-primary">{program.subtitle}</h3>
+                <p className="mb-4 text-sm font-medium text-secondary/70">{program.desc}</p>
+                <ul className="space-y-2">
                   {program.details.map((detail) => (
                     <li
                       key={detail}
-                      className="flex items-start gap-3 text-sm font-medium text-secondary/70"
+                      className="flex items-start gap-2 text-xs font-medium text-secondary/60"
                     >
                       <svg
-                        className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                        className="mt-0.5 h-3 w-3 shrink-0 text-primary"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -252,57 +244,30 @@ export default function LessonPage() {
       {/* ═══════════════════════════════════════
           레슨 특장점
       ═══════════════════════════════════════ */}
-      <section className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
+      <section className="bg-background py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
-              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
+              <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
                 Why Premium
               </p>
-              <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-                왜 수아트 프리미엄 레슨인가?
+              <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
+                전문성과 경험의 차이
               </h2>
-              <div className="mt-8 space-y-6">
+              <p className="mt-6 text-sm font-medium leading-relaxed text-secondary/70 sm:text-base">
+                이현정 대표의 15년 이상 지도 경력과 무대 경험을 바탕으로
+                학생 개인의 특성에 맞는 맞춤형 교육을 제공합니다.
+              </p>
+              <div className="mt-8 grid grid-cols-2 gap-6">
                 {[
-                  {
-                    title: "1:1 맞춤 커리큘럼",
-                    desc: "학생의 성대 특성, 음악적 역량, 목표 학교를 정밀 분석하여 완전 개인화된 교육 과정을 설계합니다.",
-                  },
-                  {
-                    title: "현역 성악가의 직접 지도",
-                    desc: "무대 경험이 풍부한 이현정 대표가 이론과 실전 모두에서 살아있는 교육을 제공합니다.",
-                  },
-                  {
-                    title: "실전 시뮬레이션",
-                    desc: "모의 실기시험, 영상 촬영 분석, 무대 매너 지도까지. 시험장에서의 모든 상황에 대비합니다.",
-                  },
-                  {
-                    title: "입시 전략 컨설팅",
-                    desc: "입시곡 선정, 학교별 출제 경향 분석, 면접 대비까지 종합적인 입시 전략을 제시합니다.",
-                  },
+                  { label: "합격률", value: "98%" },
+                  { label: "지도 경력", value: "15년+" },
+                  { label: "수강생", value: "300명+" },
+                  { label: "교육 방식", value: "1:1 맞춤" },
                 ].map((item) => (
-                  <div key={item.title} className="flex items-start gap-4">
-                    <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                      <svg
-                        className="h-3.5 w-3.5 text-primary"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2.5}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold text-secondary">{item.title}</h3>
-                      <p className="mt-1 text-sm font-medium leading-relaxed text-secondary/60">
-                        {item.desc}
-                      </p>
-                    </div>
+                  <div key={item.label}>
+                    <p className="text-xs font-medium text-secondary/50">{item.label}</p>
+                    <p className="mt-1 text-lg font-bold text-secondary">{item.value}</p>
                   </div>
                 ))}
               </div>
@@ -319,169 +284,24 @@ export default function LessonPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════
-          CURRICULUM — 타임라인
-      ═══════════════════════════════════════ */}
-      <section id="curriculum" className="bg-background-subtle py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
-              Curriculum
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              단계별 맞춤 커리큘럼
-            </h2>
-            <p className="mt-4 text-base font-medium text-secondary/60">
-              진단부터 실전 시뮬레이션까지, 체계적인 4단계 코칭 시스템
-            </p>
-          </div>
-
-          <div className="mt-16 space-y-8">
-            {timeline.map((item) => (
-              <div
-                key={item.phase}
-                className="grid gap-6 rounded-xl bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.04)] md:grid-cols-[200px_1fr]"
-              >
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-primary">
-                    {item.phase}
-                  </span>
-                  <h3 className="mt-2 text-xl font-bold tracking-tight text-secondary">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 text-sm font-medium text-secondary/40">{item.duration}</p>
-                </div>
-                <ul className="space-y-3">
-                  {item.details.map((detail) => (
-                    <li
-                      key={detail}
-                      className="flex items-start gap-3 text-sm font-medium text-secondary/70"
-                    >
-                      <svg
-                        className="mt-0.5 h-4 w-4 shrink-0 text-primary"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          대상
-      ═══════════════════════════════════════ */}
-      <section className="bg-accent py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
-              For You
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              이런 분께 추천합니다
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {[
-              "리틀엔젤스 등 초등부 공연단체 입학을 준비하는 어린이",
-              "예중·예고·음대 성악과 입시를 준비하는 학생",
-              "체계적인 발성 지도를 원하는 입시생 학부모",
-              "유학 준비 중인 성악 전공생",
-              "취미 성악을 더 깊이 배우고 싶은 일반인",
-              "부담 없이 즐기면서 제대로 된 발성을 배우고 싶은 분",
-            ].map((text) => (
-              <div
-                key={text}
-                className="flex items-center gap-4 rounded-xl bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
-              >
-                <svg
-                  className="h-5 w-5 shrink-0 text-primary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <span className="text-base font-medium text-secondary/80">{text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════
-          합격 후기
-      ═══════════════════════════════════════ */}
-      <section className="bg-background py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-primary">
-              Testimonials
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight text-secondary md:text-4xl">
-              수강생 이야기
-            </h2>
-          </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {testimonials.map((t) => (
-              <div
-                key={t.name}
-                className="rounded-xl bg-background-subtle p-8"
-              >
-                <svg
-                  className="mb-4 h-8 w-8 text-primary/30"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
-                <p className="text-sm font-medium leading-relaxed text-secondary/70 italic">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="mt-6 border-t border-gray-100 pt-4">
-                  <p className="text-base font-bold text-secondary">{t.name}</p>
-                  <p className="text-sm font-medium text-primary">{t.school}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ═══════════════════════════════════════
           CTA
       ═══════════════════════════════════════ */}
-      <section className="bg-primary py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
-            합격의 첫걸음, 지금 시작하세요
+      <section className="bg-primary py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-8 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+            레슨 상담 신청
           </h2>
-          <p className="mt-4 text-base font-medium text-white/80">
-            무료 레벨 테스트로 나에게 맞는 커리큘럼을 확인해보세요.
+          <p className="mt-6 text-sm font-medium text-white/90 sm:text-base">
+            목표에 맞는 맞춤형 레슨을 위해 상담을 통해 자세한 안내를 받으실 수 있습니다.
           </p>
           <Link
             href="/contact"
             className="mt-8 inline-block rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.45)]"
             style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
           >
-            레슨 상담 신청
+            상담 신청하기
           </Link>
         </div>
       </section>

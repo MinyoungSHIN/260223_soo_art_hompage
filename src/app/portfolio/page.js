@@ -79,7 +79,7 @@ export default function PortfolioPage() {
   return (
     <>
       {/* ── 페이지 히어로 ── */}
-      <section className="relative flex h-[40vh] min-h-[300px] items-center justify-center overflow-hidden sm:h-[50vh] sm:min-h-[400px]">
+      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[70vh] sm:pt-24">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -87,25 +87,29 @@ export default function PortfolioPage() {
               "url('https://images.unsplash.com/photo-1501612780327-45045538702b?w=1920&h=800&fit=crop&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 px-4 text-center sm:px-6">
-          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
+        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
             Portfolio
           </p>
-          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-            함께 만든 무대
+          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            함께 만든
+            <br className="hidden sm:block" />
+            <span className="text-primary"> 특별한 무대</span>
           </h1>
-          <p className="mt-4 text-base font-medium text-white/70 sm:text-lg">
-            연주회 실적부터 기업 행사까지, 수아트앤컴퍼니의 레퍼런스
+          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base md:text-lg">
+            연주회 실적부터 기업 행사까지,
+            <br className="hidden sm:block" />
+            수아트앤컴퍼니가 만들어온 레퍼런스
           </p>
         </div>
       </section>
 
       {/* ── 포트폴리오 그리드 ── */}
-      <section className="bg-background py-16 sm:py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="bg-background py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           {/* 카테고리 필터 (정적) */}
-          <div className="mb-8 flex flex-wrap justify-center gap-2 sm:mb-12 sm:gap-3">
+          <div className="mb-12 flex flex-wrap justify-center gap-2 sm:mb-16 sm:gap-3">
             {categories.map((cat, idx) => (
               <span
                 key={cat}
@@ -163,12 +167,12 @@ export default function PortfolioPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="bg-accent py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <section className="bg-accent py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-8 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
             다음 무대의 주인공이 되어보세요
           </h2>
-          <p className="mt-4 text-sm font-medium text-secondary/60 sm:text-base">
+          <p className="mt-6 text-sm font-medium text-secondary/70 sm:text-base">
             공연 기획, 합창단 참여, 입시 레슨 등 어떤 문의든 환영합니다.
           </p>
           <Link
