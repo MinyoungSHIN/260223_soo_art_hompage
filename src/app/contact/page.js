@@ -41,7 +41,7 @@ export default function ContactPage() {
       {/* ── 오시는 길 (선택) ── */}
       <section className="bg-background-subtle py-20 sm:py-28 lg:py-36">
         <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-5xl text-center">
             <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Location
             </p>

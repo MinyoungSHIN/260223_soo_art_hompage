@@ -26,6 +26,8 @@ export default function Header() {
   const [serviceOpen, setServiceOpen] = useState(false);
   const [mobileServiceOpen, setMobileServiceOpen] = useState(false);
   const closeTimer = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const hamburgerRef = useRef(null);
 
   // Home / 로고 클릭 시 스크롤을 맨 위로 올려 동영상부터 재생
   const handleHomeClick = (e) => {
@@ -64,6 +66,73 @@ export default function Header() {
       observer.disconnect();
     };
   }, []);
+
+  // 모바일 메뉴가 열려있을 때 외부 터치/스와이프 시 닫기
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    let touchStartY = 0;
+    let touchStartX = 0;
+
+    const handleTouchStart = (e) => {
+      // 햄버거 버튼이나 메뉴 내부를 터치한 경우는 무시
+      if (
+        hamburgerRef.current?.contains(e.target) ||
+        mobileMenuRef.current?.contains(e.target)
+      ) {
+        return;
+      }
+      
+      // 터치 시작 위치 저장
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+      // 햄버거 버튼이나 메뉴 내부를 터치한 경우는 무시
+      if (
+        hamburgerRef.current?.contains(e.target) ||
+        mobileMenuRef.current?.contains(e.target)
+      ) {
+        return;
+      }
+
+      const touchEndY = e.touches[0].clientY;
+      const touchEndX = e.touches[0].clientX;
+      const deltaY = Math.abs(touchEndY - touchStartY);
+      const deltaX = Math.abs(touchEndX - touchStartX);
+
+      // 스와이프 감지 (30px 이상 이동)
+      if (deltaY > 30 || deltaX > 30) {
+        setMobileOpen(false);
+        setMobileServiceOpen(false);
+      }
+    };
+
+    const handleTouchEnd = (e) => {
+      // 햄버거 버튼이나 메뉴 내부를 터치한 경우는 무시
+      if (
+        hamburgerRef.current?.contains(e.target) ||
+        mobileMenuRef.current?.contains(e.target)
+      ) {
+        return;
+      }
+      // 외부를 터치한 경우 메뉴 닫기
+      setMobileOpen(false);
+      setMobileServiceOpen(false);
+    };
+
+    // 터치 이벤트 리스너 추가
+    document.addEventListener("touchstart", handleTouchStart, { passive: true });
+    document.addEventListener("touchmove", handleTouchMove, { passive: true });
+    document.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [mobileOpen]);
 
   /* hover 진입 시 열기 (타이머 취소) */
   const handleMouseEnter = () => {
@@ -198,6 +267,7 @@ export default function Header() {
 
           {/* ── Mobile Hamburger ── */}
           <button
+            ref={hamburgerRef}
             onClick={() => setMobileOpen(!mobileOpen)}
             className="flex flex-col gap-1.5 md:hidden"
             aria-label="메뉴 열기"
@@ -235,6 +305,7 @@ export default function Header() {
 
       {/* ── Mobile Menu ── */}
       <div
+        ref={mobileMenuRef}
         className={`overflow-hidden transition-all duration-500 md:hidden ${
           mobileOpen 
             ? `max-h-[500px] ${(onDarkSection || !scrolled) ? "bg-black/80 backdrop-blur-3xl border-t border-white/10" : "bg-white border-t border-gray-100"}`

@@ -168,7 +168,7 @@ export default function PortfolioPage() {
 
       {/* ── CTA ── */}
       <section className="bg-accent py-20 sm:py-28">
-        <div className="mx-auto max-w-3xl px-8 text-center sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-8 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
             다음 무대의 주인공이 되어보세요
           </h2>

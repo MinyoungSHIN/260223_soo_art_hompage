@@ -168,7 +168,7 @@ export default function B2BPage() {
       ═══════════════════════════════════════ */}
       <section id="services" className="bg-background-subtle py-20 sm:py-28 lg:py-36">
         <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-5xl text-center">
             <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Core Services
             </p>
@@ -224,7 +224,7 @@ export default function B2BPage() {
       ═══════════════════════════════════════ */}
       <section className="bg-background py-20 sm:py-28 lg:py-36">
         <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-5xl text-center">
             <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Process
             </p>
@@ -256,7 +256,7 @@ export default function B2BPage() {
           CTA
       ═══════════════════════════════════════ */}
       <section className="bg-primary py-20 sm:py-28">
-        <div className="mx-auto max-w-3xl px-8 text-center sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-8 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
             공연 문의하기
           </h2>

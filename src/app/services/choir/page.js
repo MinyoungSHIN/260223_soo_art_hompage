@@ -169,7 +169,7 @@ export default function ChoirPage() {
       ═══════════════════════════════════════ */}
       <section id="curriculum" className="bg-background py-20 sm:py-28 lg:py-36">
         <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-5xl text-center">
             <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Curriculum
             </p>
@@ -202,7 +202,7 @@ export default function ChoirPage() {
           FAQ
       ═══════════════════════════════════════ */}
       <section className="bg-background-subtle py-20 sm:py-28">
-        <div className="mx-auto max-w-3xl px-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">FAQ</p>
             <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
@@ -226,7 +226,7 @@ export default function ChoirPage() {
           CTA — 단원 신청
       ═══════════════════════════════════════ */}
       <section className="bg-primary py-20 sm:py-28">
-        <div className="mx-auto max-w-3xl px-8 text-center sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-8 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
             단원 모집 중
           </h2>

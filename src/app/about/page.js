@@ -106,7 +106,7 @@ export default function AboutPage() {
       {/* ── 브랜드 스토리 ── */}
       <section className="bg-background-subtle py-20 sm:py-28 lg:py-36">
         <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-5xl text-center">
             <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
               Brand Story
             </p>
@@ -180,7 +180,7 @@ export default function AboutPage() {
 
       {/* ── CTA ── */}
       <section className="bg-primary py-20 sm:py-28">
-        <div className="mx-auto max-w-3xl px-8 text-center sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-8 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
             함께 만들어갈 무대가 있으신가요?
           </h2>
