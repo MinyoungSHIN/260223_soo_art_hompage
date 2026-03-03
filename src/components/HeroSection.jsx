@@ -43,6 +43,7 @@ export default function HeroSection() {
   const [coverVisible, setCoverVisible] = useState(true); // 로딩 커버
   const [ready, setReady] = useState(false); // 이미지 렌더링 허용
   const [videoPosition, setVideoPosition] = useState(0); // 비디오 현재 씬의 위치
+  const [bounceEffect, setBounceEffect] = useState(false); // 위로 스와이프 시 쫀득쫀득 효과
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const lastSlideRef = useRef(-1); // 이전 슬라이드 추적 (한 장씩만 넘어가도록)
@@ -255,7 +256,7 @@ export default function HeroSection() {
       e.preventDefault();
     };
 
-    // ── touchend — 방향 감지 후 ±1 이동 ──
+    // ── touchend — 방향 감지 후 처리 ──
     const handleTouchEnd = (e) => {
       if (!isTouching.current || !sectionRef.current) {
         isTouching.current = false;
@@ -286,10 +287,33 @@ export default function HeroSection() {
       if (isTap) {
         moveToSlide(+1);
       } else if (isSwipe) {
+        // 좌우 스와이프만 이미지 슬라이드 변경
         if (absX >= absY) {
           moveToSlide(deltaX > 0 ? +1 : -1);
         } else {
-          moveToSlide(deltaY > 0 ? +1 : -1);
+          // 상하 스와이프 처리
+          if (deltaY > 0) {
+            // 아래로 스와이프 (위로 스크롤) → problem 섹션으로 이동
+            const nextSection = document.getElementById("problem");
+            if (nextSection) {
+              swipeCooldownRef.current = true;
+              isScrolling.current = true;
+              const header = document.querySelector("header");
+              const headerHeight = header ? header.offsetHeight : 80;
+              const targetY = nextSection.offsetTop - headerHeight;
+              smoothScrollTo(targetY, SCROLL_DURATION);
+              setTimeout(() => {
+                isScrolling.current = false;
+                swipeCooldownRef.current = false;
+              }, COOLDOWN);
+            }
+          } else {
+            // 위로 스와이프 (아래로 스크롤) → 쫀득쫀득한 효과만
+            setBounceEffect(true);
+            setTimeout(() => {
+              setBounceEffect(false);
+            }, 500);
+          }
         }
       }
     };
@@ -450,7 +474,11 @@ export default function HeroSection() {
     <section
       ref={sectionRef}
       className="relative w-full"
-      style={{ height: `${totalPages * 100}vh` }}
+      style={{ 
+        height: `${totalPages * 100}vh`,
+        transform: bounceEffect ? 'translateY(30px)' : 'translateY(0)',
+        transition: bounceEffect ? 'transform 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)' : 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)'
+      }}
       data-header-theme="dark"
     >
       {/* ── 고정 뷰포트 ── */}
@@ -546,8 +574,8 @@ export default function HeroSection() {
           </h1>
 
           <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
-            클래식·뮤지컬 전문 공연, 프리미엄 1:1 Voice 레슨까지
-            <br className="hidden sm:block" /> 수아트앤컴퍼니와 함께 하세요.
+            합창·뮤지컬 전문 공연, 프리미엄 1:1 Voice 레슨까지
+            <br/> 수아트앤컴퍼니와 함께 하세요.
           </p>
 
           <div className="mt-8 flex flex-row flex-nowrap items-center justify-center gap-3 w-full px-4 mx-auto sm:mt-12 sm:gap-4 sm:max-w-none">

@@ -27,7 +27,7 @@ export default function Footer() {
         <div className="grid gap-8 sm:gap-12 md:grid-cols-3">
           {/* ── 로고 & 설명 ── */}
           <div className="md:col-span-1">
-            <div className="relative mb-4 h-8 w-28 sm:h-10 sm:w-32">
+            <div className="relative mb-4 h-10 w-36 sm:h-12 sm:w-40">
               <Image
                 src="/image/logo_footer.png?v=1"
                 alt="Soo Art & Company"
