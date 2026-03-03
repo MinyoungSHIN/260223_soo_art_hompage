@@ -65,7 +65,7 @@ export default function ChoirPage() {
       {/* ═══════════════════════════════════════
           HERO — Full-width 비주얼 + 카피
       ═══════════════════════════════════════ */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[80vh] sm:pt-24">
+      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden" data-header-theme="dark">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -73,20 +73,18 @@ export default function ChoirPage() {
               "url('/image/choire.png')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
-        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
-            수아트 콰이어 in 하남 · 2030 Youth 세대 모집 중
-          </p>
-          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-            수아트 콰이어
+        <div className="absolute inset-0 z-[2] bg-black/50" />
+        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
+          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
+            SOO ART Choir
+          </span>
+          <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+            수아트 콰이어 in 하남
             <br />
-            <span className="text-primary">프리미엄 합창단</span>
+            <span className="text-primary">단원 모집 중!</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base">
-            하남 지역 20~30세를 위한 전문 합창단
-            <br className="hidden sm:block" />
-            체계적인 교육과 정기 연주회로 성장하는 무대
+          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
+            하남 지역 20~30세를 위한 전문 합창단 체계적인 교육과 정기 연주회로 성장하는 무대
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
             <Link
@@ -125,7 +123,7 @@ export default function ChoirPage() {
           ABOUT — 콰이어 소개
       ═══════════════════════════════════════ */}
       <section className="bg-background-subtle py-20 sm:py-28 lg:py-36">
-        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
               <Image

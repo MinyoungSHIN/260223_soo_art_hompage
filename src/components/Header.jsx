@@ -306,10 +306,10 @@ export default function Header() {
       {/* ── Mobile Menu ── */}
       <div
         ref={mobileMenuRef}
-        className={`overflow-hidden transition-all duration-500 md:hidden ${
+        className={`overflow-hidden md:hidden transition-all duration-200 ease-out ${
           mobileOpen 
-            ? `max-h-[500px] ${(onDarkSection || !scrolled) ? "bg-black/80 backdrop-blur-3xl border-t border-white/10" : "bg-white border-t border-gray-100"}`
-            : "max-h-0"
+            ? `max-h-[500px] opacity-100 ${(onDarkSection || !scrolled) ? "bg-black/80 backdrop-blur-3xl border-t border-white/10" : "bg-white border-t border-gray-100"}`
+            : "max-h-0 opacity-0"
         }`}
       >
         <nav className="flex flex-col gap-1 px-6 py-4">

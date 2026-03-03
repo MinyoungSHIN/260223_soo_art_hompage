@@ -107,7 +107,7 @@ export default function B2BPage() {
       {/* ═══════════════════════════════════════
           HERO
       ═══════════════════════════════════════ */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[80vh] sm:pt-24">
+      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden" data-header-theme="dark">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -115,20 +115,18 @@ export default function B2BPage() {
               "url('https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=1920&h=900&fit=crop&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
-        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
+        <div className="absolute inset-0 z-[2] bg-black/50" />
+        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
+          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
             Service 03 · B2B Business
-          </p>
-          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+          </span>
+          <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
             B2B Solution
             <br />
             <span className="text-primary">전문 공연 기획 및 컨설팅</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base">
-            기업·기관·지자체를 위한 클래식·뮤지컬 공연 기획
-            <br className="hidden sm:block" />
-            합창단 안무 컨설팅 및 전문 아티스트 섭외 서비스
+          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
+            기업·기관·지자체를 위한 클래식·뮤지컬 공연 기획 합창단 안무 컨설팅 및 전문 아티스트 섭외 서비스
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link

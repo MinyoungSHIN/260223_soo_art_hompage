@@ -131,7 +131,7 @@ export default function LessonPage() {
       {/* ═══════════════════════════════════════
           HERO
       ═══════════════════════════════════════ */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[80vh] sm:pt-24">
+      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden" data-header-theme="dark">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -139,20 +139,18 @@ export default function LessonPage() {
               "url('https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1920&h=900&fit=crop&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
-        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
+        <div className="absolute inset-0 z-[2] bg-black/50" />
+        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
+          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
             Service 02 · Premium Voice Lesson
-          </p>
-          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+          </span>
+          <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
             프리미엄 1:1 레슨
             <br />
             <span className="text-primary">맞춤형 보이스 트레이닝</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base">
-            입시·전문·취미 목표에 맞는 1:1 맞춤 레슨
-            <br className="hidden sm:block" />
-            이현정 대표의 전문 지도로 목표를 달성합니다
+          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
+            입시·전문·취미 목표에 맞는 1:1 맞춤 레슨 이현정 대표의 전문 지도로 목표를 달성합니다
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link

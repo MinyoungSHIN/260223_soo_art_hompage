@@ -79,7 +79,7 @@ export default function PortfolioPage() {
   return (
     <>
       {/* ── 페이지 히어로 ── */}
-      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-20 sm:min-h-[70vh] sm:pt-24">
+      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden" data-header-theme="dark">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -87,20 +87,16 @@ export default function PortfolioPage() {
               "url('https://images.unsplash.com/photo-1501612780327-45045538702b?w=1920&h=800&fit=crop&q=80')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60" />
-        <div className="relative z-10 mx-auto max-w-4xl px-8 text-center sm:px-6">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-primary sm:mb-5 sm:text-sm">
+        <div className="absolute inset-0 z-[2] bg-black/50" />
+        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
+          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
             Portfolio
-          </p>
-          <h1 className="text-3xl font-bold leading-relaxed tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-            함께 만든
-            <br className="hidden sm:block" />
-            <span className="text-primary"> 특별한 무대</span>
+          </span>
+          <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+            함께 만든 <span className="text-primary"> 특별한 무대</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-sm font-medium leading-relaxed text-white/80 sm:mt-8 sm:text-base md:text-lg">
-            연주회 실적부터 기업 행사까지,
-            <br className="hidden sm:block" />
-            수아트앤컴퍼니가 만들어온 레퍼런스
+          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
+            연주회 실적부터 기업 행사까지, 수아트앤컴퍼니가 만들어온 레퍼런스
           </p>
         </div>
       </section>
