@@ -39,7 +39,7 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
-      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden" data-header-theme="dark">
+      <section className="relative flex min-h-[50vh] sm:min-h-[60vh] items-center justify-center overflow-hidden pt-0" data-header-theme="dark">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -49,13 +49,13 @@ export default function ServicesPage() {
         />
         <div className="absolute inset-0 z-[2] bg-black/50" />
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
-          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
+          <span className="mb-2 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm">
             Our Services
           </span>
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+          <h1 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
             전문성과 열정으로 만드는 <span className="text-primary"> 프리미엄 솔루션</span>
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
+          <p className="mx-auto mt-2 max-w-2xl text-xs font-medium leading-relaxed tracking-wide text-white/90 sm:text-sm md:text-base">
             합창단 운영부터 입시 레슨, 공연 기획까지 예술의 모든 영역을 아우르는 통합 서비스
           </p>
         </div>

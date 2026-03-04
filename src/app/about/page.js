@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import HistorySection from "@/components/HistorySection";
 
 export const metadata = {
   title: "About | Soo Art & Company",
@@ -10,7 +11,7 @@ export default function AboutPage() {
   return (
     <>
       {/* ── 페이지 히어로 ── */}
-      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden" data-header-theme="dark">
+      <section className="relative flex min-h-[50vh] sm:min-h-[50vh] items-center justify-center overflow-hidden pt-0" data-header-theme="dark">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -20,84 +21,97 @@ export default function AboutPage() {
         />
         <div className="absolute inset-0 z-[2] bg-black/50" />
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
-          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
+          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm">
             About Us
           </span>
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            당신을 주인공으로 만듭니다 <br/><span className="text-primary"> 감동시키는 이야기</span>
-          </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
-            수아트앤컴퍼니는 성악 교육, 합창단 운영, 공연 기획을 통해 무대 위 모든 이들의 꿈을 현실로 만듭니다.
-          </p>
+          <h1 className="text-2xl font-bold leading-normal tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
+            수아트앤컴퍼니가 <br/> 
+            당신을 <span className="text-primary"> 주인공으로</span> 만듭니다
+          </h1>          
+          <div className="mx-auto mt-5 flex flex-wrap items-center justify-center gap-2 sm:mt-8 sm:gap-3">
+            {[
+              "# 공연 전문 단체",
+              "# 1:1 Voice 레슨",
+              "# 합창단체 지휘 / 안무",
+            ].map((service) => (
+              <span
+                key={service}
+                className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:text-white sm:text-sm"
+              >
+                {service}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── 대표 프로필 ── */}
-      <section className="bg-background py-20 sm:py-28 lg:py-36">
-        <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 sm:gap-16 lg:grid-cols-2">
-            {/* 프로필 이미지 */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-              <Image
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&h=1000&fit=crop&q=80"
-                alt="이현정 대표"
-                fill
-                className="object-cover"
-              />
-            </div>
+      <section className="bg-background">
+        <div className="mx-auto w-full">
+          <div className="bg-neutral-100 px-6 py-12 sm:px-10 sm:py-20 lg:px-20 lg:py-30">
+            <div className="mx-auto max-w-5xl">
+              <div className="flex flex-col gap-8 sm:grid sm:grid-cols-2 sm:items-center sm:gap-12 lg:gap-16">
 
-            {/* 프로필 텍스트 */}
-            <div>
-              <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
-                Representative
-              </p>
-              <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
-                이현정 대표
-              </h2>
-              <p className="mt-3 text-base font-semibold text-primary/80 sm:text-lg">
-                성악가 · 합창 지휘자 · 공연 기획자
-              </p>
-              <div className="mt-8 space-y-4 text-sm font-medium leading-relaxed text-secondary/70 sm:mt-10 sm:space-y-5 sm:text-base">
-                <p>
-                  이현정 대표는 예술의 힘으로 사람들의 삶에 감동을 전하고자
-                  수아트앤컴퍼니를 설립했습니다. 성악 전공 후 다수의 무대에
-                  서며 쌓은 실전 경험을 바탕으로, 합창 지휘와 성악 교육에
-                  탁월한 역량을 보유하고 있습니다.
-                </p>
-                <p>
-                  특히 합창단 안무 컨설팅 분야에서 독보적인 전문성을 갖추고
-                  있으며, 전국 단위 합창단의 무대를 격을 달리하는 퍼포먼스로
-                  변화시키고 있습니다.
-                </p>
-                <p>
-                  교육자이자 기획자로서 예중·예고·음대 입시생 지도, 기업 및
-                  정부 행사 공연 기획까지 예술의 전 영역을 아우르는 통합적
-                  솔루션을 제공합니다.
-                </p>
-              </div>
-
-              {/* 주요 경력 */}
-              <div className="mt-10 grid grid-cols-2 gap-6">
-                {[
-                  { number: "15+", label: "년 경력" },
-                  { number: "200+", label: "공연 기획" },
-                  { number: "50+", label: "합창단 컨설팅" },
-                  { number: "98%", label: "입시 합격률" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <p className="text-3xl font-bold tracking-tight text-primary">
-                      {stat.number}
-                    </p>
-                    <p className="mt-1 text-sm font-medium text-secondary/50">
-                      {stat.label}
-                    </p>
+                {/* 프로필 이미지 */}
+                <div className="w-full sm:w-full sm:mx-auto lg:mx-0">
+                  <div className="relative aspect-[6/6] w-full max-w-sm mx-auto sm:max-w-sm md:max-w-sm lg:max-w-sm overflow-hidden rounded-2xl">
+                    <Image
+                      src="/image/profile2.png"
+                      alt="이현정 대표"
+                      fill
+                      className="object-cover object-[center_10%]"
+                    />
                   </div>
-                ))}
+                </div>
+
+                {/* 프로필 텍스트 */}
+                <div className="flex flex-col px-10">
+                  <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold tracking-relaxed leading-tight text-secondary">
+                    이현정 대표
+                  </h2>
+                  <p className="mt-0 text-base font-semibold text-primary/80 sm:text-lg lg:text-xl">
+                    Soprano, Director, Educator
+                  </p>
+                  <div className="mt-6 space-y-1 text-lg font-medium leading-relaxed text-secondary/80 sm:text-lg lg:text-xl sm:mt-8">
+                    <p>• 선화예중 / 선화예고 졸업</p>
+                    <p>• 이화여자대학교 성악과 학사 졸업</p>
+                    <p>• 이화여자대학교 성악과 석사 졸업</p>
+                    <p>• 현) 하남시립합창단원</p>
+                    <p>• 현) 수페리오레 뮤지컬단 음악감독</p>
+                    <p>• 현) 하남시 신평중학교 뮤지컬단 강사</p>
+                    <p>• 현) 하남시청소년뮤지컬단 대표</p>
+                    <p>• 현) 수아트앤컴퍼니 대표</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* 주요 경력 */}
+            <div className="mx-auto max-w-5xl">
+              <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4 sm:mt-24">
+              {[
+                { number: "20+", label: "년 경력" },
+                { number: "50+", label: "합창/뮤지컬 지도"},              
+                { number: "100%", label: "입시 합격률" },                                
+                { number: "200+", label: "공연 실적" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
+                    {stat.number}
+                  </p>
+                  <p className="mt-1.5 text-sm font-medium text-secondary/60 sm:text-base">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* ── 활동 이력 ── */}
+      <HistorySection />
 
       {/* ── 브랜드 스토리 ── */}
       <section className="bg-background-subtle py-20 sm:py-28 lg:py-36">

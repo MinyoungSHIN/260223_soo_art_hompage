@@ -131,7 +131,7 @@ export default function LessonPage() {
       {/* ═══════════════════════════════════════
           HERO
       ═══════════════════════════════════════ */}
-      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden" data-header-theme="dark">
+      <section className="relative flex min-h-[50vh] sm:min-h-[60vh] items-center justify-center overflow-hidden pt-0" data-header-theme="dark">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -141,28 +141,28 @@ export default function LessonPage() {
         />
         <div className="absolute inset-0 z-[2] bg-black/50" />
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
-          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
+          <span className="mb-2 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm">
             Service 02 · Premium Voice Lesson
           </span>
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+          <h1 className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
             프리미엄 1:1 레슨
             <br />
             <span className="text-primary">맞춤형 보이스 트레이닝</span>
           </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
+          <p className="mx-auto mt-2 max-w-2xl text-xs font-medium leading-relaxed tracking-wide text-white/90 sm:text-sm md:text-base">
             입시·전문·취미 목표에 맞는 1:1 맞춤 레슨 이현정 대표의 전문 지도로 목표를 달성합니다
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Link
               href="/contact"
-              className="rounded-xl border-2 border-transparent bg-primary px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)]"
+              className="rounded-xl border-2 border-transparent bg-primary px-5 py-2.5 text-xs font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:px-6 sm:py-3 sm:text-sm"
               style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
             >
               레슨 상담 신청
             </Link>
             <a
               href="#programs"
-              className="rounded-xl border-2 border-white/30 px-8 py-4 text-base font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)]"
+              className="rounded-xl border-2 border-white/30 px-5 py-2.5 text-xs font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:px-6 sm:py-3 sm:text-sm"
               style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
             >
               프로그램 보기

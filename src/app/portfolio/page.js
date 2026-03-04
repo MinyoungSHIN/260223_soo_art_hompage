@@ -79,7 +79,7 @@ export default function PortfolioPage() {
   return (
     <>
       {/* ── 페이지 히어로 ── */}
-      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden" data-header-theme="dark">
+      <section className="relative flex min-h-[50vh] sm:min-h-[60vh] items-center justify-center overflow-hidden pt-0" data-header-theme="dark">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{

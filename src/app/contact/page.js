@@ -8,29 +8,6 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* ── 페이지 히어로 ── */}
-      <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden" data-header-theme="dark">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1920&h=800&fit=crop&q=80')",
-          }}
-        />
-        <div className="absolute inset-0 z-[2] bg-black/50" />
-        <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
-          <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm sm:text-sm md:text-base">
-            Contact Us
-          </span>
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            함께 시작할 <span className="text-primary"> 특별한 이야기</span>
-          </h1>
-          <p className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base md:text-lg lg:text-xl">
-            수강 신청, 공연 기획, 비즈니스 협업 등 어떤 문의든 환영합니다.
-          </p>
-        </div>
-      </section>
-
       {/* ── Contact Form ── */}
       <ContactSection />
 

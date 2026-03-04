@@ -51,6 +51,23 @@ export default function Header() {
 
     const darkSections = document.querySelectorAll("[data-header-theme='dark']");
     const darkMap = new Map();
+    
+    // 초기 상태 확인 함수
+    const checkInitialState = () => {
+      darkSections.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        if (isVisible) {
+          darkMap.set(el, true);
+        }
+      });
+      const isAnyDark = [...darkMap.values()].some(Boolean);
+      setOnDarkSection(isAnyDark);
+    };
+    
+    // 초기 상태 확인
+    checkInitialState();
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => darkMap.set(e.target, e.isIntersecting));
@@ -163,7 +180,7 @@ export default function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6 py-[14.4px] sm:py-[18px] lg:px-8">
         {/* ── 왼쪽: 로고 + 상호명 ── */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0 md:gap-3 flex-[1_0_0] justify-start" onClick={handleHomeClick}>
-          <div className="relative h-8 w-8 sm:h-9 sm:w-9">
+          <div className="relative h-9 w-9 sm:h-10 sm:w-10">
             <Image
               src="/image/logo1.png"
               alt="Soo Art & Company"
@@ -178,7 +195,7 @@ export default function Header() {
             />
           </div>
           <span
-            className={`text-base font-bold tracking-wider transition-colors duration-150 ${textColor}`}
+            className={`text-lg md:text-base lg:text-xl font-bold tracking-wider whitespace-nowrap transition-colors duration-150 ${textColor}`}
           >
             수아트앤컴퍼니
           </span>
@@ -196,7 +213,7 @@ export default function Header() {
                 onMouseLeave={handleMouseLeave}
               >
                 <button
-                  className={`text-base font-medium transition-colors duration-150 hover:text-primary ${textColor}`}
+                  className={`text-base md:text-sm lg:text-lg font-medium transition-colors duration-150 hover:text-primary ${textColor}`}
                 >
                   {link.label}
                 </button>
@@ -221,7 +238,7 @@ export default function Header() {
                         key={sub.href}
                         href={sub.href}
                         onClick={() => setServiceOpen(false)}
-                        className={`block px-4 py-2.5 text-sm font-medium transition-all duration-200 hover:text-primary ${
+                        className={`block px-4 py-2.5 text-sm md:text-xs lg:text-base font-medium transition-all duration-200 hover:text-primary ${
                           scrolled && !onDarkSection
                             ? "text-secondary/80 hover:bg-black/5"
                             : "text-white/80 hover:bg-white/10"
@@ -247,7 +264,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={link.href === "/" ? handleHomeClick : undefined}
-                className={`text-base font-medium transition-colors duration-150 hover:text-primary ${textColor}`}
+                className={`text-base md:text-sm lg:text-lg font-medium transition-colors duration-150 hover:text-primary ${textColor}`}
               >
                 {link.label}
               </Link>
@@ -259,7 +276,7 @@ export default function Header() {
         <div className="flex items-center gap-3 md:gap-4 shrink-0 flex-[1_0_0] justify-end">
           <Link
             href="/contact"
-            className="hidden rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-0.5 hover:[box-shadow:0_8px_24px_rgba(255,107,53,0.45)] md:inline-block md:px-5 md:text-base"
+            className="hidden rounded-xl bg-primary px-4 py-2 text-base md:text-sm lg:text-lg font-bold text-white transition-all duration-500 hover:-translate-y-0.5 hover:[box-shadow:0_8px_24px_rgba(255,107,53,0.45)] md:inline-block md:px-5"
             style={{ boxShadow: "0 2px 10px rgba(255,107,53,0.25)" }}
           >
             상담 신청
@@ -380,7 +397,7 @@ export default function Header() {
           <Link
             href="/contact"
             onClick={() => setMobileOpen(false)}
-            className="mt-2 rounded-xl bg-primary px-5 py-3 text-center text-base font-bold text-white shadow-md transition-all hover:shadow-lg"
+            className="mt-2 rounded-xl bg-primary px-5 py-3 text-center text-base md:text-sm lg:text-lg font-bold text-white shadow-md transition-all hover:shadow-lg"
           >
             상담 신청
           </Link>
