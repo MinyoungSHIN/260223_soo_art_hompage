@@ -234,6 +234,8 @@ export default function HeroSection() {
       setTimeout(() => {
         isScrolling.current = false;
         swipeCooldownRef.current = false;
+        // 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
+        window.dispatchEvent(new Event("scroll"));
       }, COOLDOWN);
     };
 
@@ -389,7 +391,11 @@ export default function HeroSection() {
             isScrolling.current = true;
             window.scrollTo({ top: sectionBottom, behavior: "instant" });
             lastScrollY = sectionBottom;
-            setTimeout(() => { isScrolling.current = false; }, 600);
+            setTimeout(() => { 
+              isScrolling.current = false;
+              // 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
+              window.dispatchEvent(new Event("scroll"));
+            }, 600);
             return;
           }
           // 2차: 히어로 마지막 이미지(image5)로 부드럽게 진입 후 topEntryBlockRef 리셋
@@ -412,6 +418,8 @@ export default function HeroSection() {
           setTimeout(() => {
             isScrolling.current = false;
             swipeCooldownRef.current = false;
+            // 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
+            window.dispatchEvent(new Event("scroll"));
           }, 510);
           return;
         }
@@ -423,7 +431,11 @@ export default function HeroSection() {
           lastScrollY = sectionTop;
           lastSlideRef.current = -1;
           setCurrentSlide(-1);
-          setTimeout(() => { isScrolling.current = false; }, 500);
+          setTimeout(() => { 
+            isScrolling.current = false;
+            // 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
+            window.dispatchEvent(new Event("scroll"));
+          }, 500);
           return;
         }
       }

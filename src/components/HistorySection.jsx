@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Music, Theater, Building2, GraduationCap, Mic, Sparkles, Radio } from "lucide-react";
 
@@ -104,9 +104,56 @@ const MusicPattern = () => (
 
 export default function HistorySection() {
   const [activeCategory, setActiveCategory] = useState("choral");
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const categoryContainerRef = useRef(null);
 
   const activeData = historyData[activeCategory] || [];
   const activeBgColor = categories.find((cat) => cat.id === activeCategory)?.bgColor || "bg-slate-50";
+
+  // 모바일에서 카테고리 스와이프 처리
+  useEffect(() => {
+    const container = categoryContainerRef.current;
+    if (!container) return;
+
+    const handleTouchStart = (e) => {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e) => {
+      if (!touchStartX.current || !touchStartY.current) return;
+
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchStartX.current - touchEndX;
+      const deltaY = touchStartY.current - touchEndY;
+
+      // 수평 스와이프가 수직 스와이프보다 크고, 최소 50px 이상 이동했을 때만 처리
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        const currentIndex = categories.findIndex((cat) => cat.id === activeCategory);
+        
+        if (deltaX > 0 && currentIndex < categories.length - 1) {
+          // 왼쪽으로 스와이프 (다음 카테고리)
+          setActiveCategory(categories[currentIndex + 1].id);
+        } else if (deltaX < 0 && currentIndex > 0) {
+          // 오른쪽으로 스와이프 (이전 카테고리)
+          setActiveCategory(categories[currentIndex - 1].id);
+        }
+      }
+
+      touchStartX.current = 0;
+      touchStartY.current = 0;
+    };
+
+    container.addEventListener("touchstart", handleTouchStart, { passive: true });
+    container.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+    return () => {
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [activeCategory]);
 
   return (
     <section className={`transition-colors duration-700 ${activeBgColor} py-15 sm:py-20 lg:py-25`}>
@@ -163,10 +210,10 @@ export default function HistorySection() {
                   >
                     <MusicPattern />
                     <div className="relative flex items-start justify-between gap-4">
-                      <p className="flex-1 text-lg font-medium leading-relaxed text-secondary">
+                      <p className="flex-1 text-base font-medium leading-relaxed text-secondary">
                         {item.content}
                       </p>
-                      <span className="shrink-0 text-base font-medium text-secondary/50">
+                      <span className="shrink-0 text-sm font-medium text-secondary/50">
                         {item.year}
                       </span>
                     </div>
@@ -180,7 +227,7 @@ export default function HistorySection() {
         {/* Mobile: 상단 칩 / 하단 카드 */}
         <div className="md:hidden">
           {/* 상단 가로 스크롤 카테고리 칩 */}
-          <div className="mb-8 flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+          <div ref={categoryContainerRef} className="mb-8 flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
               <button
                 key={category.id}
@@ -215,10 +262,10 @@ export default function HistorySection() {
                   >
                     <MusicPattern />
                     <div className="relative flex flex-col gap-0.5">
-                      <p className="text-base font-medium leading-relaxed text-secondary">
+                      <p className="text-sm font-medium leading-relaxed text-secondary">
                         {item.content}
                       </p>
-                      <span className="text-sm font-medium text-secondary/50">{item.year}</span>
+                      <span className="text-xs font-medium text-secondary/50">{item.year}</span>
                     </div>
                   </motion.div>
                 ))}

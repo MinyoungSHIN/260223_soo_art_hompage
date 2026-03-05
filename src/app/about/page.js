@@ -28,7 +28,7 @@ export default function AboutPage() {
             수아트앤컴퍼니가 <br/> 
             당신을 <span className="text-primary"> 주인공으로</span> 만듭니다
           </h1>          
-          <div className="mx-auto mt-5 flex flex-wrap items-center justify-center gap-2 sm:mt-8 sm:gap-3">
+          <div className="mx-auto mt-5 flex flex-nowrap items-center justify-center gap-2 overflow-x-auto sm:mt-8 sm:gap-3">
             {[
               "# 공연 전문 단체",
               "# 1:1 Voice 레슨",
@@ -36,7 +36,7 @@ export default function AboutPage() {
             ].map((service) => (
               <span
                 key={service}
-                className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:text-white sm:text-sm"
+                className="inline-flex shrink-0 items-center rounded-full border border-primary/20 bg-primary px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm transition-all duration-300 hover:bg-primary/90 sm:text-sm"
               >
                 {service}
               </span>
@@ -72,7 +72,7 @@ export default function AboutPage() {
                   <p className="mt-0 text-base font-semibold text-primary/80 sm:text-lg lg:text-xl">
                     Soprano, Director, Educator
                   </p>
-                  <div className="mt-6 space-y-1 text-lg font-medium leading-relaxed text-secondary/80 sm:text-lg lg:text-xl sm:mt-8">
+                  <div className="mt-6 space-y-1 text-base font-medium leading-relaxed text-secondary/80 sm:text-base lg:text-lg sm:mt-8">
                     <p>• 선화예중 / 선화예고 졸업</p>
                     <p>• 이화여자대학교 성악과 학사 졸업</p>
                     <p>• 이화여자대학교 성악과 석사 졸업</p>
