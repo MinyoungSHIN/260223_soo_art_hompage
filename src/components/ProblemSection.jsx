@@ -11,8 +11,8 @@ export default function ProblemSection() {
       title: "잊었던 17살의 꿈, 여전히 관객석에 계신가요?",
       desc: ( 
       <>
-      오디션 공고 앞에서 발길을 돌렸던 그 미련. <br/>
-      바쁜 일상에 잊었던 당신의 뜨거운 목소리. <br/>
+      오디션 공고 앞에서 발길을 돌렸던 그 미련. <br className="md:hidden lg:block" />
+      바쁜 일상에 잊었던 당신의 뜨거운 목소리. <br className="md:hidden lg:block" />
       <span className="tracking-tighter sm:tracking-normal">먼지 쌓인 마이크를 꺼내세요. 이제 당신이 주인공입니다.</span>
       </>
       ),
@@ -26,8 +26,8 @@ export default function ProblemSection() {
       title: "똑같은 입시 레슨으로 합격 할 수 있을까요?",
       desc: (
       <>
-      리틀엔젤스부터 예중·예고·음대 입시까지. <br/>
-      수많은 지원자 사이에서 내가 선택 받으려면, <br/>
+      리틀엔젤스부터 예중·예고·음대 입시까지. <br className="md:hidden lg:block" />
+      수많은 지원자 사이에서 내가 선택 받으려면, <br className="md:hidden lg:block" />
       한 번에 사로잡는 '전략적 보이스'가 필요합니다.
       </>
       ),
@@ -41,8 +41,8 @@ export default function ProblemSection() {
       title: "뻔한 행사/축가, 혹시 예산 낭비라 느끼셨나요?",
       desc: (
       <>
-      격식만 차린 공연은 품격을 높이지 못합니다. <br/>
-      현직 성악가의 공연으로 행사의 '급'을 바꾸세요.<br/>
+      격식만 차린 공연은 품격을 높이지 못합니다. <br className="md:hidden lg:block" />
+      현직 성악가의 공연으로 행사의 '급'을 바꾸세요.<br className="md:hidden lg:block" />
       검증된 실력파 아티스트들이 작품으로 만들어 드립니다.
       </>
       ),
@@ -56,8 +56,8 @@ export default function ProblemSection() {
       title: "노래만 하는 합창, 관객들이 지루해 하나요?",
       desc: (
       <>
-      합창단은 많지만, 눈을 뗄 수 없는 합창단은 드뭅니다. <br/>
-      합창 안무와 퍼포먼스로 '살아있는 무대'를 만듭니다. <br/>
+      합창단은 많지만, 눈을 뗄 수 없는 합창단은 드뭅니다. <br className="md:hidden lg:block" />
+      합창 안무와 퍼포먼스로 '살아있는 무대'를 만듭니다. <br className="md:hidden lg:block" />
       지루할 틈 없는 연출로 관객의 시선을 압도하세요.
       </>
       ),

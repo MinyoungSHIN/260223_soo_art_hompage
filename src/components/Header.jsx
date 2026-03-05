@@ -51,6 +51,7 @@ export default function Header() {
 
     const darkSections = document.querySelectorAll("[data-header-theme='dark']");
     const darkMap = new Map();
+    let heroSectionInside = false; // HeroSection 내부 여부 추적
     
     // 초기 상태 확인 함수
     const checkInitialState = () => {
@@ -61,17 +62,56 @@ export default function Header() {
           darkMap.set(el, true);
         }
       });
-      const isAnyDark = [...darkMap.values()].some(Boolean);
+      
+      // HeroSection 확인
+      const heroSection = document.querySelector("section[data-header-theme='dark']");
+      if (heroSection) {
+        const heroRect = heroSection.getBoundingClientRect();
+        const heroTop = heroSection.offsetTop;
+        const heroBottom = heroTop + heroSection.offsetHeight;
+        heroSectionInside = window.scrollY >= heroTop && window.scrollY < heroBottom;
+      }
+      
+      const isAnyDark = heroSectionInside || [...darkMap.values()].some(Boolean);
       setOnDarkSection(isAnyDark);
     };
     
     // 초기 상태 확인
     checkInitialState();
     
+    // HeroSection 스크롤 이벤트 리스너
+    const handleHeroSectionScroll = (e) => {
+      if (e.detail?.isInside) {
+        heroSectionInside = true;
+        setOnDarkSection(true);
+      }
+    };
+    window.addEventListener("heroSectionScroll", handleHeroSectionScroll);
+    
+    // 스크롤 이벤트에서 HeroSection 위치 확인
+    const handleScrollWithHeroCheck = () => {
+      handleScroll();
+      
+      // HeroSection 확인
+      const heroSection = document.querySelector("section[data-header-theme='dark']");
+      if (heroSection) {
+        const heroTop = heroSection.offsetTop;
+        const heroBottom = heroTop + heroSection.offsetHeight;
+        const currentInside = window.scrollY >= heroTop && window.scrollY < heroBottom;
+        
+        if (currentInside !== heroSectionInside) {
+          heroSectionInside = currentInside;
+          const isAnyDark = heroSectionInside || [...darkMap.values()].some(Boolean);
+          setOnDarkSection(isAnyDark);
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScrollWithHeroCheck, { passive: true });
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => darkMap.set(e.target, e.isIntersecting));
-        const isAnyDark = [...darkMap.values()].some(Boolean);
+        const isAnyDark = heroSectionInside || [...darkMap.values()].some(Boolean);
         setOnDarkSection(isAnyDark);
       },
       { rootMargin: "-0px 0px -90% 0px" }
@@ -80,6 +120,8 @@ export default function Header() {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScrollWithHeroCheck);
+      window.removeEventListener("heroSectionScroll", handleHeroSectionScroll);
       observer.disconnect();
     };
   }, []);

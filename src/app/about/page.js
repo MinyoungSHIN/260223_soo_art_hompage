@@ -28,7 +28,7 @@ export default function AboutPage() {
             수아트앤컴퍼니가 <br/> 
             당신을 <span className="text-primary"> 주인공으로</span> 만듭니다
           </h1>          
-          <div className="mx-auto mt-5 flex flex-nowrap items-center justify-center gap-2 overflow-x-auto sm:mt-8 sm:gap-3">
+          <div className="mx-auto mt-5 flex flex-wrap items-center justify-center gap-2 sm:mt-8 sm:gap-3">
             {[
               "# 공연 전문 단체",
               "# 1:1 Voice 레슨",
@@ -36,7 +36,7 @@ export default function AboutPage() {
             ].map((service) => (
               <span
                 key={service}
-                className="inline-flex shrink-0 items-center rounded-full border border-primary/20 bg-primary px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm transition-all duration-300 hover:bg-primary/90 sm:text-sm"
+                className="inline-flex items-center rounded-full border border-primary/30 bg-primary/20 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 hover:bg-primary/30 hover:border-primary/50 sm:text-sm"
               >
                 {service}
               </span>

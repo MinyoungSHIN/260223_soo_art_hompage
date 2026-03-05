@@ -43,6 +43,7 @@ export default function HeroSection() {
   const [coverVisible, setCoverVisible] = useState(true); // 로딩 커버
   const [ready, setReady] = useState(false); // 이미지 렌더링 허용
   const [videoPosition, setVideoPosition] = useState(0); // 비디오 현재 씬의 위치
+  const [isMobile, setIsMobile] = useState(false); // 모바일 여부 (768px 이하)
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   const lastSlideRef = useRef(-1); // 이전 슬라이드 추적 (한 장씩만 넘어가도록)
@@ -56,6 +57,22 @@ export default function HeroSection() {
   const topEntryBlockRef = useRef(false); // 상단 경계에서 한 번 멈춘 적 있는지
   const totalSlides = heroImages.length;
   const totalPages = totalSlides + 1;
+
+  // 0) 화면 크기 감지 (768px 기준)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
 
   // 1) 마운트 시: 스크롤 리셋 → 비디오 재생 확인 → 커버 제거
   useEffect(() => {
@@ -234,7 +251,10 @@ export default function HeroSection() {
       setTimeout(() => {
         isScrolling.current = false;
         swipeCooldownRef.current = false;
-        // 헤더 상태 업데이트를 위해 스크롤 이벤트 트리거
+        // 헤더 상태 업데이트: HeroSection 내부이므로 항상 흰색 유지
+        window.dispatchEvent(new CustomEvent('heroSectionScroll', { 
+          detail: { isInside: true } 
+        }));
         window.dispatchEvent(new Event("scroll"));
       }, COOLDOWN);
     };
@@ -373,6 +393,15 @@ export default function HeroSection() {
       const sectionHeight = sectionRef.current.offsetHeight;
       const sectionBottom = sectionTop + sectionHeight;
 
+      // ── 헤더 상태 업데이트: HeroSection 내부에 있으면 항상 흰색 유지 ──
+      const isInsideHeroSection = currentScrollY >= sectionTop && currentScrollY < sectionBottom;
+      if (isInsideHeroSection) {
+        // 커스텀 이벤트를 발생시켜 Header 컴포넌트에 HeroSection 내부임을 알림
+        window.dispatchEvent(new CustomEvent('heroSectionScroll', { 
+          detail: { isInside: true } 
+        }));
+      }
+
       // ── 모바일 경계 처리 ──
       if (isMobile) {
         const scrollingUp = currentScrollY < lastScrollY;
@@ -462,6 +491,17 @@ export default function HeroSection() {
       if (newSlide !== lastSlideRef.current) {
         setCurrentSlide(newSlide);
         lastSlideRef.current = newSlide;
+        // 슬라이드 변경 시 헤더 상태 업데이트
+        window.dispatchEvent(new CustomEvent('heroSectionScroll', { 
+          detail: { isInside: true } 
+        }));
+      }
+      
+      // HeroSection 내부에 있는지 지속적으로 확인하여 헤더 상태 유지
+      if (isInsideHeroSection) {
+        window.dispatchEvent(new CustomEvent('heroSectionScroll', { 
+          detail: { isInside: true } 
+        }));
       }
     };
 
@@ -518,6 +558,21 @@ export default function HeroSection() {
         {ready &&
           heroImages.map((src, idx) => {
             const isActive = !isVideo && currentSlide === idx;
+            
+            // 768px 이하: 가로 전환 (translateX), 768px 이상: 세로 전환 (translateY)
+            const getTransform = () => {
+              if (isActive) {
+                return isMobile ? "translateX(0)" : "translateY(0)";
+              } else {
+                if (isMobile) {
+                  // 모바일: 가로 전환
+                  return currentSlide < idx ? "translateX(100%)" : "translateX(-100%)";
+                } else {
+                  // 데스크톱: 세로 전환
+                  return currentSlide < idx ? "translateY(100%)" : "translateY(-100%)";
+                }
+              }
+            };
 
             return (
               <div
@@ -526,11 +581,7 @@ export default function HeroSection() {
                 style={{
                   zIndex: 0,
                   opacity: isActive ? 1 : 0,
-                  transform: isActive
-                    ? "translateX(0)"
-                    : currentSlide < idx
-                      ? "translateX(100%)"
-                      : "translateX(-100%)",
+                  transform: getTransform(),
                   transition: "opacity 0.3s ease, transform 0.3s ease-out",
                 }}
               >

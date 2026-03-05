@@ -107,14 +107,15 @@ export default function HistorySection() {
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
   const categoryContainerRef = useRef(null);
+  const sectionRef = useRef(null);
 
   const activeData = historyData[activeCategory] || [];
   const activeBgColor = categories.find((cat) => cat.id === activeCategory)?.bgColor || "bg-slate-50";
 
-  // 모바일에서 카테고리 스와이프 처리
+  // 모바일에서 카테고리 스와이프 처리 (전체 섹션에서 가능)
   useEffect(() => {
-    const container = categoryContainerRef.current;
-    if (!container) return;
+    const section = sectionRef.current;
+    if (!section) return;
 
     const handleTouchStart = (e) => {
       touchStartX.current = e.touches[0].clientX;
@@ -146,17 +147,17 @@ export default function HistorySection() {
       touchStartY.current = 0;
     };
 
-    container.addEventListener("touchstart", handleTouchStart, { passive: true });
-    container.addEventListener("touchend", handleTouchEnd, { passive: true });
+    section.addEventListener("touchstart", handleTouchStart, { passive: true });
+    section.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     return () => {
-      container.removeEventListener("touchstart", handleTouchStart);
-      container.removeEventListener("touchend", handleTouchEnd);
+      section.removeEventListener("touchstart", handleTouchStart);
+      section.removeEventListener("touchend", handleTouchEnd);
     };
   }, [activeCategory]);
 
   return (
-    <section className={`transition-colors duration-700 ${activeBgColor} py-15 sm:py-20 lg:py-25`}>
+    <section ref={sectionRef} className={`transition-colors duration-700 ${activeBgColor} py-15 sm:py-20 lg:py-25`}>
       <div className="mx-auto max-w-5xl px-6 sm:px-10 lg:px-20">
         <div className="mb-12 text-center">
           <p className="mb-1 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
