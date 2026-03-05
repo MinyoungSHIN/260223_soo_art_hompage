@@ -7,10 +7,10 @@ import { Music, Theater, Building2, GraduationCap, Mic, Sparkles, Radio } from "
 const categories = [
   { id: "choral", label: "합창 지도", color: "slate", bgColor: "bg-slate-50", icon: Music },
   { id: "musical", label: "뮤지컬 지도", color: "blue", bgColor: "bg-blue-50", icon: Theater },
-  { id: "affiliations", label: "대표 활동", color: "stone", bgColor: "bg-stone-50", icon: Building2 },
-  { id: "school", label: "출강 이력", color: "emerald", bgColor: "bg-emerald-50", icon: GraduationCap },
+  { id: "school", label: "학교 출강", color: "emerald", bgColor: "bg-emerald-50", icon: GraduationCap },
+  { id: "choreography", label: "안무/무대연출", color: "amber", bgColor: "bg-amber-50", icon: Sparkles },
+  { id: "affiliations", label: "주요 활동", color: "stone", bgColor: "bg-stone-50", icon: Building2 },
   { id: "performance", label: "공연 이력", color: "purple", bgColor: "bg-purple-50", icon: Mic },
-  { id: "choreography", label: "무대 연출 (안무)", color: "amber", bgColor: "bg-amber-50", icon: Sparkles },
   { id: "media", label: "방송 출연", color: "rose", bgColor: "bg-rose-50", icon: Radio },
 ];
 
@@ -34,7 +34,7 @@ const historyData = {
   ],
   affiliations: [
     { content: "이화챔버콰이어 단원", year: "2005 ~ 2025" },
-    { content: "정샘 콰이어 단원", year: "2025 ~ 현재" },
+    { content: "챔버콰이어 서울 단원", year: "2025 ~ 현재" },
     { content: "이화음악인협회 정회원", year: "2025 ~ 현재" },
     { content: "서울 바로크싱어즈 단원", year: "2014 ~ 2016" },
     { content: '교회예술기획 공간 "광" 단원', year: "2015 ~ 2016" },
@@ -49,7 +49,7 @@ const historyData = {
     { content: "의정부시 녹양초등학교 어린이합창단 강사", year: "2012 ~ 2013" },
   ],
   performance: [
-    { content: "팝페라팀 수페리오레 '하남시 버스킹' 및 스타필드 초청공연 외 다수", year: "현재" },
+    { content: "수페리오레 팝페라팀 버스킹 및 스타필드 초청공연", year: "현재" },
     { content: "국립합창단 주최 창작 오페라 '고집불통 옹' 처녀 역", year: "2013" },
     { content: '예술기획사 공간 주관 오페라 "사랑의 묘약" 출연', year: "2010" },
     { content: "하남시립합창단 창작뮤지컬 '유관순' 유관순 역", year: "2014" },
@@ -65,6 +65,7 @@ const historyData = {
   ],
   choreography: [
     { content: "하남시립합창단 안무 및 무대연출", year: "~ 현재" },
+    { content: "아가페 합창단 안무 및 무대연출", year: "~ 현재" },
     { content: "서울시 광진구립합창단 무대연출", year: "2018" },
     { content: "연세콰이어 무대연출", year: "2017" },
     { content: "바로크오라토리오 합창단 무대연출", year: "2013" },
@@ -108,9 +109,57 @@ export default function HistorySection() {
   const touchStartY = useRef(0);
   const categoryContainerRef = useRef(null);
   const sectionRef = useRef(null);
+  const categoryButtonRefs = useRef({});
 
   const activeData = historyData[activeCategory] || [];
-  const activeBgColor = categories.find((cat) => cat.id === activeCategory)?.bgColor || "bg-slate-50";
+  // 토스 스타일 그라데이션 배경 (카테고리별로 다른 색상, 흰색 비중 증가)
+  const getGradientBg = (categoryId) => {
+    const gradients = {
+      choral: "bg-gradient-to-br from-blue-50/60 via-blue-50/20 to-white",
+      musical: "bg-gradient-to-br from-purple-50/60 via-purple-50/20 to-white",
+      affiliations: "bg-gradient-to-br from-amber-50/60 via-amber-50/20 to-white",
+      school: "bg-gradient-to-br from-emerald-50/60 via-emerald-50/20 to-white",
+      performance: "bg-gradient-to-br from-pink-50/60 via-pink-50/20 to-white",
+      choreography: "bg-gradient-to-br from-orange-50/60 via-orange-50/20 to-white",
+      media: "bg-gradient-to-br from-rose-50/60 via-rose-50/20 to-white",
+    };
+    return gradients[categoryId] || "bg-gradient-to-br from-blue-50/60 via-blue-50/20 to-white";
+  };
+
+  // activeCategory 변경 시 모바일 카테고리 버튼 스크롤
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.innerWidth >= 768) return; // 데스크톱에서는 스크롤 불필요
+    
+    const container = categoryContainerRef.current;
+    const activeButton = categoryButtonRefs.current[activeCategory];
+    
+    if (container && activeButton) {
+      const containerRect = container.getBoundingClientRect();
+      const buttonRect = activeButton.getBoundingClientRect();
+      
+      // 버튼이 컨테이너 밖에 있으면 스크롤
+      const scrollLeft = container.scrollLeft;
+      const buttonLeft = activeButton.offsetLeft;
+      const buttonWidth = activeButton.offsetWidth;
+      const containerWidth = container.offsetWidth;
+      
+      // 버튼이 왼쪽 밖에 있으면
+      if (buttonLeft < scrollLeft) {
+        container.scrollTo({
+          left: buttonLeft - 12, // 약간의 여백
+          behavior: "smooth"
+        });
+      }
+      // 버튼이 오른쪽 밖에 있으면
+      else if (buttonLeft + buttonWidth > scrollLeft + containerWidth) {
+        container.scrollTo({
+          left: buttonLeft + buttonWidth - containerWidth + 12, // 약간의 여백
+          behavior: "smooth"
+        });
+      }
+    }
+  }, [activeCategory]);
 
   // 모바일에서 카테고리 스와이프 처리 (전체 섹션에서 가능)
   useEffect(() => {
@@ -157,7 +206,7 @@ export default function HistorySection() {
   }, [activeCategory]);
 
   return (
-    <section ref={sectionRef} className={`transition-colors duration-700 ${activeBgColor} py-15 sm:py-20 lg:py-25`}>
+    <section ref={sectionRef} className={`transition-all duration-700 ${getGradientBg(activeCategory)} py-15 sm:py-20 lg:py-25`}>
       <div className="mx-auto max-w-5xl px-6 sm:px-10 lg:px-20">
         <div className="mb-12 text-center">
           <p className="mb-1 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
@@ -232,6 +281,11 @@ export default function HistorySection() {
             {categories.map((category) => (
               <button
                 key={category.id}
+                ref={(el) => {
+                  if (el) {
+                    categoryButtonRefs.current[category.id] = el;
+                  }
+                }}
                 onClick={() => setActiveCategory(category.id)}
                 className={`shrink-0 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${activeCategory === category.id
                     ? "bg-white text-primary shadow-md"

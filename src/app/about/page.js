@@ -36,7 +36,7 @@ export default function AboutPage() {
             ].map((service) => (
               <span
                 key={service}
-                className="inline-flex items-center rounded-full border border-primary/30 bg-primary/20 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 hover:bg-primary/30 hover:border-primary/50 sm:text-sm"
+                className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:text-white sm:text-sm"
               >
                 {service}
               </span>
