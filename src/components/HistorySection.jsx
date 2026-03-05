@@ -182,13 +182,32 @@ export default function HistorySection() {
       // 수평 스와이프가 수직 스와이프보다 크고, 최소 50px 이상 이동했을 때만 처리
       if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
         const currentIndex = categories.findIndex((cat) => cat.id === activeCategory);
+        let newCategoryId = null;
         
         if (deltaX > 0 && currentIndex < categories.length - 1) {
           // 왼쪽으로 스와이프 (다음 카테고리)
-          setActiveCategory(categories[currentIndex + 1].id);
+          newCategoryId = categories[currentIndex + 1].id;
         } else if (deltaX < 0 && currentIndex > 0) {
           // 오른쪽으로 스와이프 (이전 카테고리)
-          setActiveCategory(categories[currentIndex - 1].id);
+          newCategoryId = categories[currentIndex - 1].id;
+        }
+        
+        if (newCategoryId) {
+          setActiveCategory(newCategoryId);
+          
+          // 카테고리 변경 시 섹션 상단으로 스크롤
+          if (section && typeof window !== "undefined") {
+            const header = document.querySelector("header");
+            const headerHeight = header ? header.offsetHeight : 80;
+            const sectionTop = section.offsetTop;
+            const targetY = sectionTop - headerHeight;
+            
+            // 부드러운 스크롤
+            window.scrollTo({
+              top: Math.max(0, targetY),
+              behavior: "smooth"
+            });
+          }
         }
       }
 
