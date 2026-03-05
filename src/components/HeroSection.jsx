@@ -640,13 +640,13 @@ export default function HeroSection() {
             >
               상담 신청
             </Link>
-            <a
-              href="#problem"
+            <Link
+              href="/services/choir"
               className="flex-1 whitespace-nowrap text-center rounded-xl border-2 border-white/30 px-2 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all duration-500 hover:border-none hover:bg-white hover:text-secondary hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:flex-none sm:min-w-[160px] sm:px-5 sm:text-lg"
               style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
             >
               서비스 알아보기
-            </a>
+            </Link>
           </div>
         </div>
 
