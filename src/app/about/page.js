@@ -16,11 +16,19 @@ export default function AboutPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=1920&h=800&fit=crop&q=80')",
+            backgroundImage: "url('/image/london1.jpg')",
           }}
         />
-        <div className="absolute inset-0 z-[2] bg-black/50" />
+        {/* 고급스러운 검정색 그라데이션 오버레이 */}
+        <div 
+          className="absolute inset-0 z-[2]"
+          style={{
+            background: `
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.7) 100%),
+              radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%)
+            `,
+          }}
+        />
         <div className="relative z-10 mx-auto max-w-5xl px-6 text-center sm:px-6">
           <span className="mb-3 inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm">
             About Us

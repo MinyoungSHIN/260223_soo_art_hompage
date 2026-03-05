@@ -51,7 +51,7 @@ const portfolioItems = [
 export default function PortfolioSection() {
   return (
     <section id="portfolio" className="relative bg-background-subtle pt-6 pb-16 sm:pt-10 sm:pb-20 lg:pt-6 lg:pb-24">
-      <div className="mx-auto max-w-5xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm tracking-wide text-secondary shadow-sm">

@@ -66,7 +66,7 @@ export default function ProblemSection() {
 
   return (
     <section id="problem" className="relative bg-background-subtle pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">  
-      <div className="mx-auto max-w-5xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* ── 섹션 헤더 ── */}
         <div className="mx-auto max-w-3xl text-center">
           <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm tracking-wide text-secondary shadow-sm">
