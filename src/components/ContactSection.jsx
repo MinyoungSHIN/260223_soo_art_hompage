@@ -50,7 +50,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" data-header-theme="dark" className="bg-secondary pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
+    <section id="contact" data-header-theme="dark" className="bg-secondary pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-55 lg:pb-28">
       <div className="mx-auto max-w-5xl px-8 lg:px-8">
         <div className="grid items-start gap-12 sm:gap-16 lg:grid-cols-2">
           {/* ── 왼쪽: 안내 텍스트 ── */}
@@ -88,7 +88,7 @@ export default function ContactSection() {
                 <div>
                   <p className="text-sm font-medium text-white/50">이메일</p>
                   <p className="font-semibold text-white">
-                    contact@sooart.co.kr
+                    sooart@gmail.com
                   </p>
                 </div>
               </div>
@@ -110,7 +110,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-white/50">전화</p>
-                  <p className="font-semibold text-white">02-1234-5678</p>
+                  <p className="font-semibold text-white">010-5492-9731</p>
                 </div>
               </div>
             </div>
