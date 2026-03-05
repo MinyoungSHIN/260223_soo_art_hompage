@@ -28,7 +28,7 @@ export default function AboutPage() {
           <h1 className="text-2xl font-bold leading-normal tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
             수아트앤컴퍼니가 <br/> 
             당신을 <span className="text-primary"> 주인공으로</span> 만듭니다
-          </h1>          
+          </h1>
           <div className="mx-auto mt-5 flex flex-wrap items-center justify-center gap-2 sm:mt-8 sm:gap-3">
             {[
               "# 공연 전문 단체",
@@ -53,26 +53,26 @@ export default function AboutPage() {
             <div className="mx-auto max-w-5xl">
               <div className="flex flex-col gap-8 sm:grid sm:grid-cols-2 sm:items-center sm:gap-12 lg:gap-16">
 
-                {/* 프로필 이미지 */}
+            {/* 프로필 이미지 */}
                 <div className="w-full sm:w-full sm:mx-auto lg:mx-0">
                   <div className="relative aspect-[6/6] w-full max-w-sm mx-auto sm:max-w-sm md:max-w-sm lg:max-w-sm overflow-hidden rounded-2xl">
-                    <Image
+              <Image
                       src="/image/profile2.png"
-                      alt="이현정 대표"
-                      fill
+                alt="이현정 대표"
+                fill
                       className="object-cover object-[center_10%]"
-                    />
+              />
                   </div>
-                </div>
+            </div>
 
-                {/* 프로필 텍스트 */}
+            {/* 프로필 텍스트 */}
                 <div className="flex flex-col px-10">
                   <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold tracking-relaxed leading-tight text-secondary">
-                    이현정 대표
-                  </h2>
+                이현정 대표
+              </h2>
                   <p className="mt-0 text-base font-semibold text-primary/80 sm:text-lg lg:text-xl">
                     Soprano, Director, Educator
-                  </p>
+              </p>
                   <div className="mt-6 space-y-1 text-base font-medium leading-relaxed text-secondary/80 sm:text-base lg:text-lg sm:mt-8">
                     <p>• 선화예중 / 선화예고 졸업</p>
                     <p>• 이화여자대학교 성악과 학사 졸업</p>
@@ -85,26 +85,26 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-            </div>
-            
-            {/* 주요 경력 */}
+              </div>
+
+              {/* 주요 경력 */}
             <div className="mx-auto max-w-5xl">
               <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4 sm:mt-24">
-              {[
+                {[
                 { number: "20+", label: "년 경력" },
                 { number: "50+", label: "합창/뮤지컬 지도"},              
                 { number: "100%", label: "입시 합격률" },                                
                 { number: "200+", label: "공연 실적" },
-              ].map((stat) => (
+                ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <p className="text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
-                    {stat.number}
-                  </p>
+                      {stat.number}
+                    </p>
                   <p className="mt-1.5 text-sm font-medium text-secondary/60 sm:text-base">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
