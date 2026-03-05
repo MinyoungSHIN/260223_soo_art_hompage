@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import HistorySection from "@/components/HistorySection";
+import BrandStorySection from "@/components/BrandStorySection";
 
 export const metadata = {
   title: "About | Soo Art & Company",
@@ -114,79 +115,7 @@ export default function AboutPage() {
       <HistorySection />
 
       {/* ── 브랜드 스토리 ── */}
-      <section className="bg-background-subtle py-20 sm:py-28 lg:py-36">
-        <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl text-center">
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
-              Brand Story
-            </p>
-            <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
-              예술을 통해 만드는
-              <br className="hidden md:block" />
-              <span className="text-primary"> 특별한 순간</span>
-            </h2>
-            <div className="mt-8 space-y-5 text-sm font-medium leading-relaxed text-secondary/70 sm:mt-10 sm:space-y-6 sm:text-base">
-              <p>
-                수아트앤컴퍼니는 &ldquo;예술로 세상을 감동시킨다&rdquo;는
-                비전 아래, 성악 교육·합창단 운영·공연 기획이라는 세 축을
-                중심으로 활동하고 있습니다.
-              </p>
-              <p>
-                일반인부터 전문 음악인까지, 무대 위에 서는 모든 이들이
-                자신만의 이야기를 노래할 수 있도록 돕는 것이 우리의
-                사명입니다. 수아트가 만드는 무대는 단순한 공연이 아닌,
-                참여하는 모든 이의 인생을 빛내는 경험입니다.
-              </p>
-            </div>
-          </div>
-
-          {/* 핵심 가치 */}
-          <div className="mt-12 grid gap-6 sm:mt-16 sm:gap-8 md:grid-cols-3">
-            {[
-              {
-                icon: (
-                  <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                  </svg>
-                ),
-                title: "예술적 열정",
-                desc: "음악과 무대에 대한 깊은 애정으로 모든 프로젝트에 진정성을 담습니다.",
-              },
-              {
-                icon: (
-                  <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                ),
-                title: "함께하는 성장",
-                desc: "단원, 학생, 파트너 모두가 함께 성장하는 상생의 가치를 추구합니다.",
-              },
-              {
-                icon: (
-                  <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                  </svg>
-                ),
-                title: "최고의 퀄리티",
-                desc: "프리미엄 교육과 압도적인 무대 연출로 최상의 결과를 보장합니다.",
-              },
-            ].map((value) => (
-              <div
-                key={value.title}
-                className="rounded-xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)] sm:p-8"
-              >
-                <div className="mb-3 text-primary sm:mb-4">{value.icon}</div>
-                <h3 className="mb-2 text-lg font-bold tracking-tight text-secondary sm:text-xl">
-                  {value.title}
-                </h3>
-                <p className="text-xs font-medium leading-relaxed text-secondary/60 sm:text-sm">
-                  {value.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <BrandStorySection />
 
       {/* ── CTA ── */}
       <section className="bg-primary py-20 sm:py-28">
