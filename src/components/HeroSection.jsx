@@ -261,6 +261,14 @@ export default function HeroSection() {
 
     // ── touchstart ──
     const handleTouchStart = (e) => {
+      // 버튼이나 링크를 터치한 경우 터치 이벤트 처리 건너뛰기
+      const target = e.target;
+      const isButtonOrLink = target.closest('a') || target.closest('button') || target.tagName === 'A' || target.tagName === 'BUTTON';
+      if (isButtonOrLink) {
+        isTouching.current = false;
+        return;
+      }
+      
       touchStartX = e.touches[0].clientX;
       touchStartY.current = e.touches[0].clientY;
       touchStartTime.current = Date.now();
@@ -272,6 +280,15 @@ export default function HeroSection() {
     // ── touchmove — HeroSection 내 브라우저 스크롤 차단 ──
     const handleTouchMove = (e) => {
       if (!isTouching.current) return;
+      
+      // 버튼이나 링크 영역에서는 preventDefault 하지 않음
+      const target = e.target;
+      const isButtonOrLink = target.closest('a') || target.closest('button') || target.tagName === 'A' || target.tagName === 'BUTTON';
+      if (isButtonOrLink) {
+        isTouching.current = false;
+        return;
+      }
+      
       touchMoveX = e.touches[0].clientX;
       touchMoveY = e.touches[0].clientY;
       e.preventDefault();
@@ -283,6 +300,15 @@ export default function HeroSection() {
         isTouching.current = false;
         return;
       }
+      
+      // 버튼이나 링크를 클릭한 경우 터치 이벤트 처리 건너뛰기
+      const target = e.target;
+      const isButtonOrLink = target.closest('a') || target.closest('button') || target.tagName === 'A' || target.tagName === 'BUTTON';
+      if (isButtonOrLink) {
+        isTouching.current = false;
+        return;
+      }
+      
       if (swipeCooldownRef.current) {
         isTouching.current = false;
         e.preventDefault();
