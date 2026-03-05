@@ -57,7 +57,7 @@ export default function AboutPage() {
                 <div className="w-full sm:w-full sm:mx-auto lg:mx-0">
                   <div className="relative aspect-[6/6] w-full max-w-sm mx-auto sm:max-w-sm md:max-w-sm lg:max-w-sm overflow-hidden rounded-2xl">
               <Image
-                      src="/image/profile2.png"
+                      src="/image/profile3.png"
                 alt="이현정 대표"
                 fill
                       className="object-cover object-[center_10%]"

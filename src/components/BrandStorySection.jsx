@@ -65,8 +65,8 @@ export default function BrandStorySection() {
                             이라는 뜻이에요.
                         </p>
                         <p className="sm:block">
-                            우리는 한 사람의 목소리가<br className="sm:hidden" />
-                            무대에서 <mark className="bg-primary/20 px-1 py-0.5 rounded text-xl sm:text-2xl font-bold italic text-secondary">빛나는</mark> 순간을 만들어요.<span className="sm:hidden"><br /><br /></span>
+                            우리는 한 사람의 목소리가<br className="sm:hidden" /> 무대에서
+                            <mark className="bg-primary/20 px-1 py-0.5 rounded text-xl sm:text-2xl font-bold italic text-secondary">빛나는</mark> 순간을 만들어요.<span className="sm:hidden"><br /><br /></span>
                         </p>
                         <p>
                             그 순간의 <mark className="bg-primary/20 px-1 py-0.5 rounded text-xl sm:text-2xl font-bold italic text-secondary">주인공</mark>은 바로 당신이에요!
@@ -87,7 +87,7 @@ export default function BrandStorySection() {
                             key={i}
                             className="w-2 sm:w-3 rounded-full"
                             style={{
-                                background: 'rgba(255, 107, 53, 0.1)',
+                                background: 'rgba(255, 107, 53, 0.8)',
                                 boxShadow: 'inset 2px 2px 4px rgba(255,255,255,0.6), inset -2px -2px 4px rgba(0,0,0,0.1), 2px 2px 6px rgba(0,0,0,0.08)',
                             }}
                             animate={{
