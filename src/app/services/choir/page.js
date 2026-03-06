@@ -58,7 +58,7 @@ const curriculum = [
   },
   {
     step: "02",
-    title: "합창 하모니 트레이닝",
+    title: "보컬 & 합창 트레이닝",
     desc: "파트별 연습과 전체 합창을 병행하며, 여러 성부가 어우러지는 화음을 완성합니다.",
   },
   {
@@ -77,17 +77,17 @@ const curriculum = [
 const rewards = [
   {
     icon: Mic,
-    title: "정기 연주",
+    title: "정기 연주 기회",
     desc: "정기 연주회에서 당신의 무대를 선보입니다. 가족, 친구, 동료들이 함께하는 특별한 순간.",
   },
   {
     icon: Calendar,
-    title: "상시 공연",
-    desc: "지역 축제, 행사, 초청 공연 등 다양한 무대에서 활동할 기회가 주어집니다.",
+    title: "보컬 트레이닝 기회",
+    desc: "고음이 두렵지 않게! 발성부터 호흡, 음정까지 전문가의 지도로 어떤 노래든 자신있게 부릅니다.",
   },
   {
     icon: Users,
-    title: "함께하는 추억",
+    title: "전문가급 공연 사진과 영상 제공",
     desc: "같은 꿈을 가진 30-40대 동료들과 함께 성장하고, 평생의 추억을 만들어갑니다.",
   },
 ];
@@ -141,19 +141,21 @@ export default function ChoirPage() {
           HERO — Full-width 비주얼 + 카피
       ═══════════════════════════════════════ */}
       <section className="relative flex h-screen items-center justify-center overflow-hidden pt-0" data-header-theme="dark">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('/image/choire.png')",
-          }}
-        />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/video/choir_hero.mp4" type="video/mp4" />
+        </video>
         {/* 고급스러운 검정색 그라데이션 오버레이 */}
         <div
           className="absolute inset-0 z-[2]"
           style={{
             background: `
-              linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.7) 100%),
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.9) 100%),
               radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%)
             `,
           }}
@@ -171,7 +173,7 @@ export default function ChoirPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
+            className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
           >
             수아트 콰이어 in <span className="italic">하남</span>
             <br />
@@ -181,7 +183,7 @@ export default function ChoirPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mt-3 max-w-2xl text-xs font-medium leading-relaxed tracking-wide text-white/90 sm:text-sm md:text-base"
+            className="mx-auto mt-3 max-w-2xl text-sm font-medium leading-relaxed tracking-wide text-white/90 sm:text-base"
           >
             하남 지역 30~40대 일반인을 위한 전문 합창단입니다. 
           </motion.p>
@@ -193,14 +195,14 @@ export default function ChoirPage() {
           >
             <Link
               href="/contact"
-              className="w-full rounded-xl border-2 border-transparent bg-primary px-5 py-2.5 text-xs font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:w-auto sm:px-6 sm:py-3 sm:text-sm"
+              className="w-full rounded-xl border-2 border-transparent bg-primary px-5 py-2.5 text-sm font-bold text-white transition-all duration-500 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,107,53,0.5)] sm:w-auto sm:px-6 sm:py-3 sm:text-base"
               style={{ boxShadow: "0 4px 14px rgba(255,107,53,0.3)" }}
             >
               단원 신청하기
             </Link>
             <a
               href="#curriculum"
-              className="w-full rounded-xl border-2 border-white/30 px-5 py-2.5 text-xs font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:w-auto sm:px-6 sm:py-3 sm:text-sm"
+              className="w-full rounded-xl border-2 border-white/30 px-5 py-2.5 text-sm font-bold text-white transition-all duration-500 hover:border-white hover:bg-white/10 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.2)] sm:w-auto sm:px-6 sm:py-3 sm:text-base"
               style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.1)" }}
             >
               커리큘럼 보기
@@ -262,10 +264,10 @@ export default function ChoirPage() {
                 className="rounded-xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
               >
                 <div className="text-4xl mb-3">{point.icon}</div>
-                <h3 className="mb-2 text-lg font-bold tracking-tight text-secondary">
+                <h3 className="mb-2 text-lg font-bold tracking-tight text-secondary sm:text-xl">
                   {point.title}
                 </h3>
-                <p className="text-sm font-medium leading-relaxed text-secondary/60">
+                <p className="text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
                   {point.desc}
                 </p>
               </motion.div>
@@ -335,18 +337,16 @@ export default function ChoirPage() {
       </section>
 
       {/* ═══════════════════════════════════════
-          PLAN + CURRICULUM + REWARD — 통합 섹션
+          CURRICULUM — 교육 과정
       ═══════════════════════════════════════ */}
-      <section className="bg-background-subtle py-16 sm:py-20 lg:py-24">
+      <section className="bg-background-subtle py-16 sm:py-20 lg:py-24" id="curriculum">
         <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
-          {/* 두 번째 섹션: 교육 과정 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mx-auto max-w-7xl mb-16"
-            id="curriculum"
+            className="mx-auto max-w-7xl"
           >
             <div className="text-center mb-12">
               <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
@@ -359,20 +359,28 @@ export default function ChoirPage() {
                 기초부터 무대까지, 단계별로 배워갑니다.
               </p>
             </div>
-            <div className="grid items-stretch gap-12 lg:grid-cols-2 mb-12">
+            <div className="grid items-stretch gap-12 lg:grid-cols-2">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="relative h-full min-h-[400px] overflow-hidden rounded-2xl"
+                className="relative h-full min-h-[400px] overflow-hidden rounded-2xl bg-black"
               >
-                <Image
-                  src="/image/lesson1.png"
-                  alt="교육 과정"
-                  fill
-                  className="object-cover"
-                />
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 h-full w-full object-contain"
+                  style={{ 
+                    transform: 'scale(1.5)', 
+                    transformOrigin: 'center',
+                    objectPosition: 'center center'
+                  }}
+                >
+                  <source src="/video/choir3.mp4" type="video/mp4" />
+                </video>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -392,10 +400,10 @@ export default function ChoirPage() {
                   className="rounded-xl bg-white p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]"
                 >
                   <span className="text-xs font-bold text-primary/60">{item.step}</span>
-                  <h3 className="mt-3 mb-2 text-base font-bold tracking-tight text-secondary">
+                  <h3 className="mt-3 mb-2 text-base font-bold tracking-tight text-secondary sm:text-lg">
                     {item.title}
                   </h3>
-                  <p className="text-sm font-medium leading-relaxed text-secondary/60">
+                  <p className="text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
                     {item.desc}
                   </p>
                 </motion.div>
@@ -403,15 +411,14 @@ export default function ChoirPage() {
               </motion.div>
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          {/* 구분자 */}
-          <div className="flex items-center justify-center my-16">
-            <div className="h-px w-24 bg-secondary/20"></div>
-            <div className="mx-4 w-1 h-1 rounded-full bg-primary"></div>
-            <div className="h-px w-24 bg-secondary/20"></div>
-          </div>
-
-          {/* 세 번째 섹션: 언제까지 관객석에만 계실건가요? */}
+      {/* ═══════════════════════════════════════
+          REWARD — 보상
+      ═══════════════════════════════════════ */}
+      <section className="bg-background py-16 sm:py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -421,13 +428,13 @@ export default function ChoirPage() {
           >
             <div className="text-center mb-12">
               <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">
-                Your Reward
+                Reward
               </p>
               <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
-                언제까지 관객석에만 계실건가요?
+              이제 당신이 무대의 주인공입니다.
               </h2>
               <p className="mt-1 text-sm font-medium leading-relaxed text-secondary/70 sm:text-base">
-                이제 당신이 무대의 주인공입니다.
+              언제까지 관객석에만 계실건가요?
               </p>
             </div>
             <div className="grid items-stretch gap-12 lg:grid-cols-2">
@@ -464,12 +471,15 @@ export default function ChoirPage() {
                 transition={{ duration: 0.6 }}
                 className="relative h-full min-h-[400px] overflow-hidden rounded-2xl order-1 lg:order-2"
               >
-                <Image
-                  src="/image/theater.jpg"
-                  alt="무대 공연"
-                  fill
-                  className="object-cover"
-                />
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 h-full w-full object-cover"
+                >
+                  <source src="/video/choir2.mp4" type="video/mp4" />
+                </video>
               </motion.div>
             </div>
           </motion.div>
@@ -505,7 +515,7 @@ export default function ChoirPage() {
                 className="rounded-xl bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
               >
                 <h3 className="text-sm font-bold text-secondary sm:text-base">{faq.q}</h3>
-                <p className="mt-2 text-sm font-medium leading-relaxed text-secondary/60">
+                <p className="mt-2 text-sm font-medium leading-relaxed text-secondary/60 sm:text-base">
                   {faq.a}
                 </p>
               </motion.div>
@@ -533,7 +543,7 @@ export default function ChoirPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-3 mx-auto max-w-2xl text-base font-medium leading-relaxed text-white/90 sm:text-base"
+            className="mt-3 mx-auto max-w-2xl text-sm font-medium leading-relaxed text-white/90 sm:text-base"
           >
             지금 바로 시작하면 11월 정기 연주회에서 당신의 목소리를 들려줄 수 있습니다.
           </motion.p>
@@ -563,7 +573,7 @@ export default function ChoirPage() {
                   className={`bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 text-center ${item.span || ""}`}
                 >
                   <p className="text-xs font-bold uppercase tracking-wider text-white/80 mb-2">{item.label}</p>
-                  <p className="text-base font-semibold text-white">{item.value}</p>
+                  <p className="text-sm font-semibold text-white sm:text-base">{item.value}</p>
                 </motion.div>
               ))}
             </div>

@@ -376,7 +376,7 @@ export default function B2BPage() {
                       <p className="text-base font-semibold text-secondary">{item.value}</p>
                     </motion.div>
                   ))}
-                </div>
+              </div>
               </motion.div>
             </motion.div>
           </div>
@@ -427,7 +427,7 @@ export default function B2BPage() {
               </motion.div>
             ))}
           </div>
-        </div>
+              </div>
       </section>
 
       {/* ═══════════════════════════════════════
@@ -491,7 +491,7 @@ export default function B2BPage() {
             <p className="mb-3 text-xs font-bold uppercase tracking-widest text-primary sm:text-sm">FAQ</p>
             <h2 className="text-2xl font-bold tracking-tight text-secondary sm:text-3xl md:text-4xl">
               자주 묻는 질문
-            </h2>
+          </h2>
           </motion.div>
           <div className="mt-10 space-y-4">
             {faqs.map((faq, idx) => (
@@ -565,13 +565,13 @@ export default function B2BPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mt-8 flex items-center justify-center"
           >
-            <Link
-              href="/contact"
+          <Link
+            href="/contact"
               className="w-full rounded-xl bg-white px-8 py-4 text-base font-bold text-primary transition-all duration-500 hover:bg-white/90 hover:-translate-y-1 hover:[box-shadow:0_12px_32px_rgba(255,255,255,0.45)] sm:w-auto sm:px-10 sm:py-5 sm:text-lg"
-              style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
-            >
+            style={{ boxShadow: "0 4px 14px rgba(255,255,255,0.25)" }}
+          >
               지금 바로 공연 문의하기
-            </Link>
+          </Link>
           </motion.div>
         </div>
       </section>
